@@ -1,0 +1,1 @@
+2018.12.30  Initial commit of the AHK Lexicon
