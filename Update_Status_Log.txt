@@ -5,38 +5,38 @@ SciTE runs normally and basic styles are working.
 Currently working on:
 Converter to get Keywords built from lexicon
 
-Files/Folders					|Status		|Notes
+Files/Folders                   |Status     |Notes
 --------------------------------+-----------+------------------------------------------------------------------------
-Master Lexicon					|99.9@%		|Will never truly be 100% done :P
-Lexicon converter script		|80% 		|Need to finish all GUI functions
-								|			|Need to verify it works as an #Include as well as a standalone
-								|			|API Builder complete. Keyword builder almost complete.
-								|			|
-AHK.properties					|65% 		|Still have a lot of tweaks to make
-								|			|Have yet to rewrite the calltip and autocomplete section
-								|			|Need to finish the keywords file so I can finish the custom AHK styling
-								|			|All base settings are done
-								|			|
-AHK.keywords.properties			|75%		|Need to finish the orginzation
-AHK.api							|100%		|Pretty much done (yay!)
-								|			|
-Master Cheat Sheet				|50%		|Still have quite a few sheets to add and a handful to finish
-								|			|
-Installer						|75%		|Still have some GUI work to do (and artwork)
-								|			|Still need to finish parts of the installer
-								|			|
-Updater							|66%		|Rewrite of the updater is close to being done
-								|			|Need to update some stuff
-								|			|
-ahk.commands.properties			|100% ?		|Not a lot to change in this. Need to recheck but otherwise 100%
-								|			|
-								|			|
-								|			|
-Toolbar.ahk						|25%		|Have barely touched this yet.
-								|			|
-TillaGoTo.properties			|100%		|
-TillaGoTo.ahk					|100% / 50%	|100% working but only 50% because I have a lot I want to add
-								|			|
-User Files						|Default	|These haven't been touched yet and will be one of the last things.
-								|			|
+Master Lexicon                  |99.9@%     |Will never truly be 100% done :P
+Lexicon converter script        |80%        |Need to finish all GUI functions
+                                |           |Need to verify it works as an #Include as well as a standalone
+                                |           |API Builder complete. Keyword builder almost complete.
+                                |           |
+AHK.properties                  |65%        |Still have a lot of tweaks to make
+                                |           |Have yet to rewrite the calltip and autocomplete section
+                                |           |Need to finish the keywords file so I can finish the custom AHK styling
+                                |           |All base settings are done
+                                |           |
+AHK.keywords.properties         |75%        |Need to finish the orginzation
+AHK.api                         |100%       |Pretty much done (yay!)
+                                |           |
+Master Cheat Sheet              |50%        |Still have quite a few sheets to add and a handful to finish
+                                |           |
+Installer                       |75%        |Still have some GUI work to do (and artwork)
+                                |           |Still need to finish parts of the installer
+                                |           |
+Updater                         |66%        |Rewrite of the updater is close to being done
+                                |           |Need to update some stuff
+                                |           |
+ahk.commands.properties         |100% ?     |Not a lot to change in this. Need to recheck but otherwise 100%
+                                |           |
+                                |           |
+                                |           |
+Toolbar.ahk                     |25%        |Have barely touched this yet.
+                                |           |
+TillaGoTo.properties            |100%       |
+TillaGoTo.ahk                   |100% / 50% |100% working but only 50% because I have a lot I want to add
+                                |           |
+User Files                      |Default    |These haven't been touched yet and will be one of the last things.
+                                |           |
 ________________________________|___________|________________________________________________________________________
