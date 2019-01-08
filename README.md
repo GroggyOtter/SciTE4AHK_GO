@@ -7,3 +7,5 @@ When it becomes Beta, I will change this message.
 Until then, please do not download this and try to use it.
 
 Thank you!
+
+(Still working it...soon, people. Soon. Posted:Jan2019)
