@@ -1,1 +1,2 @@
 2018.12.30  Initial commit of the AHK Lexicon
+2019.01.08  Huge update. Tons of error corrections. Reorganized some data and changed some layout/format stuff.
