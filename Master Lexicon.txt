@@ -5,11 +5,11 @@
         A_BuiltInVariable
     
     NOTES: Item refers to any command, built-in function/variable, or keyword.
-        Items sepearated by pipes mean choose|only|one.
-        Items inside brackets are considered [optional|not optioal].
+        Items separated by pipes mean choose|only|one.
+        Items inside brackets are considered [optional|not optional].
         BLANK means empty string. Same as: var := ""
     
-    The following TAGS are listed in order they appear on a card.
+    The following TAGS are listed in the order they appear on a card.
     TAGS:
         USE: What the item does and how it's used.
         SUBCOMMAND: List of subcommands for the current command.
@@ -25,21 +25,22 @@
             REPLACEMENT: Use SubStr() instead.
         RETURN: Type.  Possible values. Optional value meanings.
             RETURN: String|Number|Mix. On|Off|Toggle. -1 .. N
-                -1 = Diabled. 0 = Off. 1 = On.
-        ERRORLEVEL+EXO: ErrorLevel values. EX: 0 = Failure. 1 = Success.
+                -1 = Disabled. 0 = Off. 1 = On.
+        ErrorLevel+EXO: ErrorLevel values. EX: 0 = Failure. 1 = Success.
             +EO = On failure, this command can throw an Exception Object.
         REMARK: Additional or beneficial information or suggestions about an item.
             REMARK: Omitting WinTitle will default to LastFoundWindow.
         CHEAT: This item has additional data/info on a Cheat_ card.
-            These are used for quick referncing useful charts, data tables, lists
+            These are used for quick referencing useful charts, data tables, lists
             and other various forms of information.
         EX: Small example of the item in use. Most items have these.
-            If EX: code contains a MsgBox, the example can be ran as a script.
-            Also shows return values and/or how the new data looks.
-            R=> Return value of command/function.
-            V=> Variable's contents after a command/function operates on it.
+            Can usually be used with a message box.
+            Also shows return values/gives extra info
+            R/V=> Return/value of command/function.
             EX: arr =: [1, 2, 3]
                 Arr.RemoveAt(2) ; R=> 2   ; V=> [1, 3]
+
+
 
 ### =============== DIRECTIVES ===============
 
@@ -68,7 +69,7 @@ DEPRECATED: This directive is not recommended for use in
 REMARK: Removed in v2.
 
 #ErrorStdOut 
-USE: Syntax errors that prevent a script from launching are sent to stderr
+USE: Syntax errors that prevent a script from launching are sent to StdErr
     rather than displaying a dialog.
 
 #EscapeChar Str [DEPRECATED!] 
@@ -89,7 +90,7 @@ NUM: -1 .. N
      N = Any time in ms to wait
 EX: #HotkeyModifierTimeout 50
 
-#Hotstring NoMouse | EndChars Str | Options
+#Hotstring NoMouse | EndChars Str | Options 
 USE: Sets default options | end characters for all following hotstrings.
 NOMOUSE: Mouse clicks do not reset the hotstring recognizer.
 ENDCHARS: Characters in Str will activate end of hotstring.
@@ -97,7 +98,7 @@ OPTIONS: Set the default options of future hotstrings. Space separated.
     * = Fires on match      ? = Each keystroke starts a new hotkey check
     C = Case sensitive      B = Backspaces hotstring text before sending
     R = Use {Raw} Send      O = End character is not sent
-    T = Use {Text} Send     C1 = Hotstring does not confrom to typed case
+    T = Use {Text} Send     C1 = Hotstring does not conform to typed case
     Pn = Priority P1 to P5  SI|SP|SE = Send method Input | Play | Event
     Kn = N key delay|N key duration in ms for SE|SP
     X = Inline hotstring will treat text after it as a command
@@ -203,9 +204,9 @@ USE: Set the maximum number of simultaneous threads per hotkey | hotstring.
 NUM: 1 .. 255
 EX: #MaxThreadsPerHotkey 100
 
-#MenuMaskKey Str
-USE: Change which key is used to mask Win or Alt keyup events.
-STR: A keyname, virtual key, or scan code.
+#MenuMaskKey Str 
+USE: Change which key is used to mask Win or Alt key-up events.
+STR: A key name, virtual key, or scan code.
 REMARK: vk07 and vkFF are good candidates as they do nothing.
 EX: #MenuMaskKey vkFF
 
@@ -215,7 +216,7 @@ REMARK: Increases performance. Recommended for new scripts. This is a default in
 
 #NoTrayIcon 
 USE: Disables showing of the tray icon.
-REMARK: Reenable tray icon with the command:
+REMARK: Re-enable tray icon with the command:
     Menu, Tray, Icon
 
 #Persistent 
@@ -225,31 +226,31 @@ REMARK: This is inferred if the script contains any of the following:
 
 #SingleInstance Value 
 USE: Controls whether multiple instances of a script can run simultaneously.
-VALUE: Off = Deafult. Allows multiple instances of a script to run.
-    Force  = Force closes old script and opens a new instance.
-    Ignore = Script will not launch if an instanc of it is running.
+VALUE: Off = Default. Allows multiple instances of a script to run
+    Force  = Force closes old script and opens a new instance
+    Ignore = Script will not launch if an instance of it is running
 EX: #SingleInstance Force
 
 #UseHook Value 
 USE: Forces the use of the hook to implement all | some keyboard hotkeys.
-VALUE: On = Forces hook use    Off = Hook is not used
+VALUE: On = Force hook use    Off = Hook is not used
 EX: #UseHook On
 
-#Warn [Type, Mode]
-USE: Control if warnings are shown for spedific errors.
+#Warn [Type, Mode] 
+USE: Control if warnings are shown for specific errors.
 TYPE: If left BLANK, it defaults to All.
-    UseUnsetLocal = Warn if a local variable is read before being declared.
-    UseUnsetGlobal = Warn if a global variable is read before being declared.
-    UseEnv = Warn if a blank variable inherits an environmental var.
-    LocalSameAsGlobal = Warn if a global and local variable share a name.
-    ClassOverwrite = Warn if a variable replaces a class.
-    All = Include all warnings.
+    UseUnsetLocal = Warn if a local variable is read before being declared
+    UseUnsetGlobal = Warn if a global variable is read before being declared
+    UseEnv = Warn if a blank variable inherits an environmental var
+    LocalSameAsGlobal = Warn if a global & local variable share a name
+    ClassOverwrite = Warn if a variable replaces a class
+    All = Include all warnings
 MODE: Warning notification method. BLANK uses MsgBox.
     MsgBox = Warning is sent to a message box.
     StdOut = Warning, filename and line number are sent to StdOut.
     OutputDebug = Warning is sent to the debugger for display.
     Off = Disable warnings of the given Type.
-#EX: #Warn All MsgBox
+EX: #Warn All MsgBox
 
 #WinActivateForce 
 USE: Window activation uses a more forceful method.
@@ -260,103 +261,103 @@ REMARK: Affects: WinActivate|WinActivateBottom|GroupActivate
 
 A_AhkPath 
 USE: Contains the path and name of the exe running the current script.
-CONTAINS: String. Format: Path
-    Uncompiled = Path is from current running process.
+RETURN: String. Format: Path
+    Uncompiled = Path is from the current running process.
     Compiled = Path is from registry key: HKLM\SOFTWARE\AutoHotkey\InstallDir
 REMARK: If script is compiled and registry key does not exist, variable is BLANK.
 EX: MsgBox, % A_AhkPath ; D=> C:\Program Files\AutoHotkey\AutoHotkey.exe
 
 A_AhkVersion 
 USE: Contains version number of the current running script's AHK interpreter.
-CONTAINS: Number. Fomat: 0.0.0.0
+RETURN: Number. Format: 0.0.0.0
 REMARK: Before v1.0.22.0, this variable is BLANK
 EX: MsgBox, % A_AhkVersion         ; V=> 1.30.0.1
 
 A_AppData 
 USE: Contains full path and name of the user's AppData folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_AppData ; V=> C:\Users\GroggyOtter\AppData\Roaming
 
 A_AppDataCommon 
 USE: Contains full path and name of the common AppData folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_AppData ; V=> C:\ProgramData
 
 A_Args 
 USE: Contains an array of parameters (if any) passed to the script at launch.
-CONTAINS: Object. Numbered array.
+RETURN: Object. Numbered array.
 REMARK: Use a for-loop to easily enumerate the array.
 EX: for key, data in A_Args
         MsgBox, % "key: " key "`ndata: " data
 
 A_AutoTrim 
 USE: Contains the current setting for AutoTrim.
-CONTAINS: String. On|Off
+RETURN: String. On|Off
 EX: MsgBox, % A_AutoTrim ; V=> On
 
 A_BatchLines 
 USE: Contains the Lines|Time for SetBatchLines.
-CONTAINS: String if time. Number if lines.
-REMARK: If variable ends in ms, it's time. Otherwise it's Lines.
+RETURN: String if time. Number of lines.
+REMARK: If variable ends in ms, it's time. Otherwise, it's Lines.
     Synonymous with A_NumBatchLines.
 EX: MsgBox, % A_BatchLines ; V=> 10ms
 
 A_CaretX 
 USE: Contains the current X coord of the caret.
-CONTAINS: Number. BLANK if no active window.
+RETURN: Number. BLANK if no active window.
 REMARK: Coordinate is based on A_CoordModeCaret.
 EX: MsgBox, % A_CaretX ; V=> 100
 
 A_CaretY 
 USE: Contains the current Y coord of the caret.
-CONTAINS: Number. BLANK if no active window.
+RETURN: Number. BLANK if no active window.
 REMARK: Coordinate is based on A_CoordModeCaret.
 EX: MsgBox, % A_CaretY ; V=> 100
 
 A_ComputerName 
 USE: This computer's name as seen on the network.
-CONTAINS: String.
+RETURN: String.
 EX: MsgBox, % A_ComputerName ; V=> SYNACKPC
 
 A_ComSpec 
 USE: Contains the path to the system's Command Prompt.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: Synonymous with the variable ComSpec
 EX: MsgBox, % A_ComSpec ; V=> C:\Windows\system32\cmd.exe
 
 A_ControlDelay 
 USE: Contains the current delay setting for SetControlDelay.
-CONTAINS: Number. -1 .. N. In ms. 
+RETURN: Number. -1 .. N. In ms. 
 EX: MsgBox, % A_ControlDelay ; V=> 20
 
 A_CoordModeCaret 
 USE: Contains the current CoordMode setting for caret.
-CONTAINS: String. Screen|Window|Client
+RETURN: String. Screen|Window|Client
 EX: MsgBox, % A_CoordModeCaret ; V=> Screen
 
 A_CoordModeMenu 
 USE: Contains the current CoordMode setting for menu.
-CONTAINS: String. Screen|Window|Client
+RETURN: String. Screen|Window|Client
 EX: MsgBox, % A_CoordModeMenu ; V=> Screen
 
 A_CoordModeMouse 
 USE: Contains the current CoordMode setting for mouse.
-CONTAINS: String. Screen|Window|Client
+RETURN: String. Screen|Window|Client
 EX: MsgBox, % A_CoordModeMouse ; V=> Screen
 
 A_CoordModePixel 
 USE: Contains the current CoordMode setting for pixel.
-CONTAINS: String. Screen|Window|Client
+RETURN: String. Screen|Window|Client
 EX: MsgBox, % A_CoordModePixel ; V=> Screen
 
 A_CoordModeToolTip 
 USE: Contains the current CoordMode setting for ToolTip.
-CONTAINS: String. Screen|Window|Client
+RETURN: String. Screen|Window|Client
 EX: MsgBox, % A_CoordModeToolTip ; V=> Screen
 
 A_Cursor 
 USE: Contains the current type of mouse cursor being displayed.
-CONTAINS: String. Note: NWSE = NorthWest to SouthEast.
+RETURN: String. Note: NWSE = NorthWest to SouthEast.
     No      Icon     SizeWE     UpArrow
     Wait    Cross    SizeNS     SizeNWSE
     Size    IBeam    Unknown    SizeNESW
@@ -366,74 +367,74 @@ EX: MsgBox, % A_Cursor ; V=> IBeam
 
 A_DD 
 USE: Contains the current 2-digit day.
-CONTAINS: Number. 01 .. 31
+RETURN: Number. 01 .. 31
 REMARK: Synonymous with A_MDay.
 EX: MsgBox, % A_DD ; V=> 05
 
 A_DDD 
 USE: Contains the abbreviated day of the week.
-CONTAINS: String. Sun|Mon|Tue|Wed|Thu|Fri|Sat
+RETURN: String. Sun|Mon|Tue|Wed|Thu|Fri|Sat
 EX: MsgBox, % A_DDD ; V=> Sun
 
 A_DDDD 
 USE: Contains the current day of the week.
-CONTAINS: String. Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday
+RETURN: String. Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday
 EX: MsgBox, % A_DDDD ; V=> Sunday
 
 A_DefaultGui 
 USE: Contains the name|number of the current thread's default GUI.
-CONTAINS: String.
+RETURN: String.
 EX: MsgBox, % A_DefaultGui ; V=> MyGui
 
 A_DefaultListView 
 USE: Contains the variable name or HWND of the current default ListView control. 
-CONTAINS: String.
+RETURN: String.
 REMARK: If the default GUI lacks a ListView, this variable is BLANK.
 EX: MsgBox, % A_DefaultListView ; V=> 0x152014e
 
 A_DefaultMouseSpeed 
 USE: Contains the current speed for SetDefaultMouseSpeed.
-CONTAINS: Number. 0 .. 100. Default is 2.
+RETURN: Number. 0 .. 100. Default is 2.
 REMARK: This number is always decimal.
 EX: MsgBox, % A_DefaultMouseSpeed ; V=> 2
 
 A_DefaultTreeView 
 USE: Contains the variable name or HWND of the current default TreeView control. 
-CONTAINS: String.
+RETURN: String.
 REMARK: If the default GUI lacks a TreeView, this variable is BLANK.
 EX: MsgBox, % A_DefaultTreeView ; V=> 0x152014e
 
 A_Desktop 
 USE: Contains the full path to user's desktop folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_Desktop ; V=> C:\Users\GroggyOtter\Desktop
 
 A_DesktopCommon 
 USE: Contains the full path to the common desktop folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_DesktopCommon ; V=> C:\Users\Public\Desktop
 
 A_DetectHiddenText 
 USE: Contains the current setting for DetectHiddenText.
-CONTAINS: String. On|Off
+RETURN: String. On|Off
 EX: MsgBox, % A_DetectHiddenText ; V=> On
 
 A_DetectHiddenWindows 
 USE: Contains the current setting for DetectHiddenWindows.
-CONTAINS: String. On|Off
+RETURN: String. On|Off
 EX: MsgBox, % A_DetectHiddenWindows ; V=> Off
 
 A_EndChar 
 USE: Contains the trigger character for the most recent hotstring.
-CONTAINS: String. BLANK if * (wildcard) option is in use.
+RETURN: String. BLANK if * (wildcard) option is in use.
 EX: MsgBox, % A_EndChar ; V=> -()[]{}':;"/\,.?!`n `t
 
 A_EventInfo 
 USE: Contains additional information about different events.
-CONTAINS: Event info can contain the following
+RETURN: Event info can contain the following
     OnClipboardChange label: Deprecated. Use: OnClipboardChange()
     MouseWheel Down|Up|Left|Right Hotkeys: Wheel click amount
-    OnMessage(): 0 = SemdMessage else Number = PostMessage tickcount
+    OnMessage(): 0 = SemdMessage else Number = PostMessage tick count
     RegisterCallback(): Identifying Integer
     RegEx Callouts: pcre_callout_block information
     GUI Events: Message varies between events. 0 for no information.
@@ -449,37 +450,37 @@ USE: Contains the most recent script termination reason.
 A_FileEncoding 
 USE: Contains the default encoding for:
     FileRead, FileReadLine, Loop-Read, FileAppend and FileOpen
-CONTAINS: String. UTF-8    UTF-8-RAW    UTF-16    UTF-16-RAW    CPnnn
+RETURN: String. UTF-8    UTF-8-RAW    UTF-16    UTF-16-RAW    CPnnn
 EX: MsgBox, % A_FileEncoding ; V=> UTF-8
 
 A_Gui 
-USE: Contains the name|number of the gui that launched the current thread. 
-CONTAINS: String|Number. Blank if not launched by Gui control|event|menu bar.
+USE: Contains the name|number of the GUI that launched the current thread. 
+RETURN: String|Number. Blank if not launched by GUI control|event|menu bar.
 EX: MsgBox, % A_Gui ; V=> MyGui
 
 A_GuiControl 
-USE: Contains info about the gui control that launched the current thread.
-CONTAINS: String. Returns variable name or, if no name, the control text
+USE: Contains info about the GUI control that launched the current thread.
+RETURN: String. Returns variable name or, if no name, the control text
 REMARK: BLANK if: 
-    A_Gui is BLANK              Thread launched by menu bar/gui event
+    A_Gui is BLANK              Thread launched by menu bar/Gui event
     Control no longer exists    Control has no variable or text
 EX: MsgBox % A_GuiControl ; V=> GuiBtnName
 
 A_GuiControlEvent 
-USE: Contains the type of gui event that launched the current thread.
-CONTAINS: String. Normal|DoubleClick|RightClick|Context-sensitive|BLANK
+USE: Contains the type of GUI event that launched the current thread.
+RETURN: String. Normal|DoubleClick|RightClick|Context-sensitive|BLANK
 REMARK: Synonymous with  A_GuiEvent
 EX: MsgBox % A_GuiControlEvent ; V=> Normal
 
 A_GuiEvent 
-USE: Contains the type of gui event that launched the current thread.
-CONTAINS: String. Normal|DoubleClick|RightClick|Context-sensitive|BLANK
+USE: Contains the type of GUI event that launched the current thread.
+RETURN: String. Normal|DoubleClick|RightClick|Context-sensitive|BLANK
 REMARK: Synonymous with  A_GuiControlEvent
 EX: MsgBox % A_GuiEvent ; V=> Normal
 
 A_GuiHeight 
 USE: Contains the height of a GUI. Only active inside a GuiSize subroutine.
-CONTAINS: Number. 0 .. N
+RETURN: Number. 0 .. N
 REMARK: Height is client size. Use WinGetPos for window height.
     Consider using the GuiSize() function instead of a GuiSize: label.
 EX: GuiSize:
@@ -487,7 +488,7 @@ EX: GuiSize:
 
 A_GuiWidth 
 USE: Contains the width of a GUI. Only active inside a GuiSize subroutine.
-CONTAINS: Number. 0 .. N
+RETURN: Number. 0 .. N
 REMARK: Width is client size. Use WinGetPos for window width.
     Consider using the GuiSize() function instead of a GuiSize: label.
 EX: GuiSize:
@@ -495,7 +496,7 @@ EX: GuiSize:
 
 A_GuiX 
 USE: Contains X coordinates for GuiContextMenu: and GuiDropFiles: labels.
-CONTAINS: Number.
+RETURN: Number.
 REMARK: Coordinates are relative to the upper-left corner of the window.
     Consider using the GuiSize() function instead of a GuiSize: label.
 EX: GuiContextMenu:
@@ -503,7 +504,7 @@ EX: GuiContextMenu:
 
 A_GuiY 
 USE: Contains Y coordinates for GuiContextMenu: and GuiDropFiles: labels.
-CONTAINS: Number.
+RETURN: Number.
 REMARK: Coordinates are relative to the upper-left corner of the window.
     Consider using the GuiSize() function instead of a GuiSize: label.
 EX: GuiContextMenu:
@@ -511,167 +512,167 @@ EX: GuiContextMenu:
 
 A_Hour 
 USE: Current 2-digit hour in 24-hour format.
-CONTAINS: Number. 00 .. 23
+RETURN: Number. 00 .. 23
 REMARK: For a 12 hour AM|PM variant, use this expression:
     (A_Hour>12?A_Hour-12 " PM":A_Hour " AM")
 EX: MsgBox, % A_Hour ; V=> 09
 
 A_IconFile 
 USE: Contains the path to the current custom tray icon file.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: Variable is BLANK if no custom tray icon is set.
 Ex: MsgBox, % A_IconFile ; V=> D:\Scripts\otter.ico
 
 A_IconHidden 
 USE: Contains the visibility state for the current scripts tray icon.
-CONTAINS: Number. 1 = Hidden. 0 = Visible.
+RETURN: Number. 1 = Hidden. 0 = Visible.
 REMARK: Tray icon can be hidden via #NoTrayIcon or the Menu command.
 Ex: MsgBox, % A_IconHidden ; V=> 0
 
 A_IconNumber 
 USE: Contains the icon number being used by A_IconFile. Typically 1.
-CONTAINS: Number.
+RETURN: Number.
 REMARK: If A_IconFile is BLANK, this variable is BLANK.
 Ex: MsgBox, % A_IconNumber ; V=> 1
 
 A_IconTip 
 USE: Contains the text of the current custom tray's tooltip text.
-CONTAINS: String.
+RETURN: String.
 REMARK: If no custom tooltip is set, this variable is BLANK.
 Ex: MsgBox, % A_IconTip ; V=> My SciTE AHK Script
 
 A_Index 
 USE: Contains a variable that tells you the current running loop's iteration.
-CONTAINS: Number. 1 .. N
+RETURN: Number. 1 .. N
 REMARK: To track previous indexes, store them to a variable.
 EX: Loop, 3
-        index1 := A_Index ; Save's this loop's current index
+        index1 := A_Index ; Saves this loop's current index
 
 A_IPAddress1 
-USE: Contains IP Adress of 1st network adapter.
-CONTAINS: Number. Format: 0.0.0.0
+USE: Contains IP Address of 1st network adapter.
+RETURN: Number. Format: 0.0.0.0
 EX: MsgBox, % A_IPAddress1 ; R=> 192.168.0.0
 
 A_IPAddress2 
-USE: Contains IP Adress of 2nd network adapter.
-CONTAINS: Number. Format: 0.0.0.0
+USE: Contains IP Address of 2nd network adapter.
+RETURN: Number. Format: 0.0.0.0
 EX: MsgBox, % A_IPAddress2 ; R=> 169.254.0.0
 
 A_IPAddress3 
-USE: Contains IP Adress of 3rd network adapter.
-CONTAINS: Number. Format: 0.0.0.0
+USE: Contains IP Address of 3rd network adapter.
+RETURN: Number. Format: 0.0.0.0
 EX: MsgBox, % A_IPAddress3 ; R=> 198.18.0.0
 
 A_IPAddress4 
-USE: Contains IP Adress of 4th network adapter.
-CONTAINS: Number. Format: Format: 0.0.0.0
+USE: Contains IP Address of 4th network adapter.
+RETURN: Number. Format: Format: 0.0.0.0
 EX: MsgBox, % A_IPAddress4 ; R=> 127.0.0.0
 
 A_Is64bitOS 
 USE: Contains number indicating 32 or 64 bit system architecture.
-CONTAINS: Number. 1 = 64 bit    0 = 32 bit
+RETURN: Number. 1 = 64 bit    0 = 32 bit
 EX: MsgBox, % A_Is64bitOS ; R=> 1
 
 A_IsAdmin 
 USE: Contains privilege level for user.
-CONTAINS: Number. 1 = Admin rights    0 = No admin rights
+RETURN: Number. 1 = Admin rights    0 = No admin rights
 EX: MsgBox, % A_IsAdmin ; R=> 1
 
 A_IsCompiled 
 USE: Contains variable indicating if script is running as an exe.
-CONTAINS: Number. 1 = Compiled EXE    BLANK = Uncompiled script
+RETURN: Number. 1 = Compiled EXE    BLANK = Uncompiled script
 EX: MsgBox, % A_IsCompiled ; R=> 1
 
 A_IsCritical 
 USE: Contains frequency Time that critical checks the message queue.
-CONTAINS: Number. 0 .. N. In ms. Default is 0.
+RETURN: Number. 0 .. N. In ms. Default is 0.
     0 = Critical off    N = Frequency that queue is checked.
 EX: MsgBox, % A_IsCritical ; R=> 16
 
 A_IsPaused 
 USE: Contains pause state of thread immediately underneath the current one.
-CONTAINS: Number. 1 = Paused    0 = Not paused
+RETURN: Number. 1 = Paused    0 = Not paused
 EX: MsgBox, % A_IsPaused ; R=> 0
 
 A_IsSuspended 
 USE: Contains suspend status of the current script.
-CONTAINS: Number. 1 = Suspended    0 = Not suspended
+RETURN: Number. 1 = Suspended    0 = Not suspended
 EX: MsgBox, % A_IsSuspended ; R=> 0
 
 A_IsUnicode 
 USE: Contains current string type.
-CONTAINS: Number. 1 = Unicode    BLANK = ANSI
+RETURN: Number. 1 = Unicode    BLANK = ANSI
 REMARK: .ahk = Is set by AutoHotkey.exe
         .exe = Is set by the bin file used to compile it
 EX: MsgBox, % A_IsUnicode ; R=> 1
 
 A_KeyDelay 
 USE: Contains the current delay setting for SetKeyDelay.
-CONTAINS: Number. -1 .. N
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+RETURN: Number. -1 .. N
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 REMARK: Always decimal.
 EX: MsgBox, % A_KeyDelay ; R=> -1
 
 A_KeyDelayPlay 
 USE: Contains the current delay setting for SetKeyDelay's Play mode.
-CONTAINS: Number. -1 .. N
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+RETURN: Number. -1 .. N
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 REMARK: Always decimal.
 EX: MsgBox, % A_KeyDelayPlay ; R=> -1
 
 A_KeyDuration 
 USE: Contains the current duration setting for SetKeyDelay.
-CONTAINS: Number. -1 .. N
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+RETURN: Number. -1 .. N
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 REMARK: Always decimal.
 EX: MsgBox, % A_KeyDuration ; R=> -1
 
 A_KeyDurationPlay 
 USE: Contains the current duration setting for SetKeyDelay's Play mode.
-CONTAINS: Number. -1 .. N
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+RETURN: Number. -1 .. N
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 REMARK: Always decimal.
 EX: MsgBox, % A_KeyDurationPlay ; R=> -1
 
 A_Language 
 USE: Contains the system's current language.
-CONTAINS: Number. 0000 .. 9999
+RETURN: Number. 0000 .. 9999
 CHEAT: See Cheat_Language_Codes
 EX: MsgBox, % A_Language ; R=> 0409
 
 A_LastError 
 USE: Contains result of the operating system's last GetLastError().
-CONTAINS: Number. 1 .. 4294967295.
+RETURN: Number. 1 .. 4294967295.
     0 = Success    >1 = Failure.
 REMARK: Can also be the last COM object invocation. Docs have more info.
 EX: MsgBox, % A_LastError ; R=> 0
 
 A_LineFile 
 USE: Contains the path and file name of the current executing line.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: Use with A_LineNumber to help troubleshoot #Include files.
 EX: MsgBox, % A_LineFile ; R=> D:\Scripts\SciTE_GOTestInclude.ahk
 
 A_LineNumber 
 USE: Contains the line number of the current executing line.
-CONTAINS: Number. 1 .. N
+RETURN: Number. 1 .. N
 REMARK: Line number can vary in compiled files with #Include files.
 EX: MsgBox, % A_LineNumber ; R=> 42
 
 A_ListLines 
 USE: Contains the current state of ListLines.
-CONTAINS: Number. 1 = Enabled    0 = Disabled
+RETURN: Number. 1 = Enabled    0 = Disabled
 EX: MsgBox, % A_ListLines ; R=> 0
 
 A_LoopField 
 USE: Contains the data from the parse loop's current item.
-CONTAINS: String.
+RETURN: String.
 EX: Loop, Parse, % "ABC"      ; Parse through each letter
         MsgBox, % A_LoopField ; Show letters one at a time
 
 A_LoopFileAttrib 
 USE: Used by Loop-Files. Contains the attributes of the current item.
-CONTAINS: String. D|O|N|T|C|R|A|S|H|X|BLANK
+RETURN: String. D|O|N|T|C|R|A|S|H|X|BLANK
     D = Directory     O = Offline     N = Normal     T = Temporary
     C = Compressed    R = ReadOnly    A = Archive    S = System
     H = Hidden        X = No Attr     BLANK = No file found
@@ -680,21 +681,21 @@ EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileAttrib in use
 
 A_LoopFileDir 
 USE: Used by Loop-Files. Contains the directory of the current item.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: If a relative path is used, this path will also be relative.
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileDir in use
         MsgBox, % "File name & dir`n" A_LoopFileDir "\" A_LoopFileName
 
 A_LoopFileExt 
-USE: Used by Loop-Files. Contains the extenstion of the current item.
-CONTAINS: String. ahk|exe|txt|doc|ini|etc...
+USE: Used by Loop-Files. Contains the extension of the current item.
+RETURN: String. ahk|exe|txt|doc|ini|etc...
 REMARK: Extension's dot is not included.
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileExt in use
         MsgBox, % "Name: " A_LoopFileName "`nExt:`t" A_LoopFileExt
 
 A_LoopFileFullPath 
 USE: Used by Loop-Files. Contains the full path of the current item.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: If the loop uses a relative path is used, this path will be relative.
     Consider using A_LoopFilePath. Same variable but more accurately named.
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileFullPath in use
@@ -702,85 +703,85 @@ EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileFullPath in use
 
 A_LoopFileLongPath 
 USE: Used by Loop-Files. Contains the absolute path of the current item.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileLongPath in use
         MsgBox, % "File long path: " A_LoopFileLongPath
 
 A_LoopFileName 
 USE: Used by Loop-Files. Contains the name of the current item.
-CONTAINS: String.
+RETURN: String.
 REMARK: Extensions are included.
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileName in use
         MsgBox, % "File name: " A_LoopFileName
 
 A_LoopFilePath 
 USE: Used by Loop-Files. Contains the path of the current item.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: If the files loop uses a relative path, this variable will be relative.
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFilePath in use
         MsgBox, % "File path: " A_LoopFilePath
 
 A_LoopFileShortName 
 USE: Used by Loop-Files. Contains the short file name of the current item.
-CONTAINS: String. Format: 8.3
+RETURN: String. Format: 8.3
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileShortName in use
-        MsgBox, % "Shrot file name: " A_LoopFileShortName
+        MsgBox, % "Short file name: " A_LoopFileShortName
 
 A_LoopFileShortPath 
 USE: Used by Loop-Files. Contains the short folder path of the current item.
-CONTAINS: String. Path. Format: 8.3
+RETURN: String. Path. Format: 8.3
 REMARK: If the files loop uses a relative path, this variable will be relative.
 EX: Loop, Files, % A_ProgramFiles "\*.*" ; Show A_LoopFileShortPath in use
         MsgBox, % "Short file path: " A_LoopFileShortPath
 
 A_LoopFileSize 
 USE: Used by Loop-Files. Contains the file size of the current item.
-CONTAINS: Number. In bytes.
+RETURN: Number. In bytes.
 REMARK: Files larger than 4 gigabytes are supported.
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileSize in use
         MsgBox, % "File: " A_LoopFileName " is " A_LoopFileSizeKB " bytes."
 
 A_LoopFileSizeKB 
 USE: Used by Loop-Files. Contains the file size of the current item.
-CONTAINS: Number. In kilobytes.
+RETURN: Number. In kilobytes.
 REMARK: Files larger than 4 gigabytes are supported.
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileSizeKB in use
         MsgBox, % "File: " A_LoopFileName " is " A_LoopFileSizeKB " KB."
 
 A_LoopFileSizeMB 
 USE: Used by Loop-Files. Contains the file size of the current item.
-CONTAINS: Number. In megabytes.
+RETURN: Number. In megabytes.
 REMARK: Files larger than 4 gigabytes are supported.
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileSizeMB in use
         MsgBox, % "File: " A_LoopFileName " is " A_LoopFileSizeMB " MB."
 
 A_LoopFileTimeAccessed 
 USE: Used by Loop-Files. Contains the last access time of the current item.
-CONTAINS: Number. Format: YYYYMMDDHH24MISS
+RETURN: Number. Format: YYYYMMDDHH24MISS
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileTimeAccessed in use
         MsgBox, % A_LoopFileName "`nLast Accessed: " A_LoopFileTimeAccessed
 
 A_LoopFileTimeCreated 
 USE: Used by Loop-Files. Contains the creation time of the current item.
-CONTAINS: Number. Format: YYYYMMDDHH24MISS
+RETURN: Number. Format: YYYYMMDDHH24MISS
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileTimeCreated in use
         MsgBox, % A_LoopFileName "`nLast Accessed: " A_LoopFileTimeCreated
 
 A_LoopFileTimeModified 
 USE: Used by Loop-Files. Contains the last modified time of the current item.
-CONTAINS: Number. Format: YYYYMMDDHH24MISS
+RETURN: Number. Format: YYYYMMDDHH24MISS
 EX: Loop, Files, % A_ScriptDir "\*.*" ; Show A_LoopFileTimeModified in use
         MsgBox, % A_LoopFileName "`nLast Accessed: " A_LoopFileTimeModified
 
 A_LoopReadLine 
 USE: Used by Loop-Read. Contains the data of the current line iteration.
-CONTAINS: String.
+RETURN: String.
 EX: Loop, Read, % A_ScriptFullPath ; Displays each line of the
         MsgBox, % A_LoopReadLine   ; current running script
 
 A_LoopRegKey 
 USE: Used by Loop-Reg. Contains the root key of the current registry item.
-CONTAINS: String.
+RETURN: String.
     HKEY_CLASSES_ROOT    HKEY_CURRENT_CONFIG    HKEY_LOCAL_MACHINE
     HKEY_USERS           HKEY_CURRENT_USER
 REMARK: For remote registry access, the computer name is not returned.
@@ -789,61 +790,61 @@ EX: Loop, Reg, HKLM, KR ; Loop through HKLM
 
 A_LoopRegName 
 USE: Used by Loop-Reg. Contains the name of the current registry item.
-CONTAINS: String.
+RETURN: String.
 REMARK: This can be a value or a key.
 EX: Loop, Reg, HKLM, KR ; Loop through HKLM
         MsgBox, % "Key Name:`t" A_LoopRegName
 
 A_LoopRegSubKey 
 USE: Used by Loop-Reg. Contains the subkey of the current registry item.
-CONTAINS: String.
+RETURN: String.
 REMARK: If recurse is being used return the full path except the root key.
 EX: Loop, Reg, HKLM, VKR ; Loop through HKLM
         MsgBox, % "Current Subkey:`t" A_LoopRegSubKey
 
 A_LoopRegTimeModified 
 USE: Used by Loop-Reg. Contains last modification time of the current registry item.
-CONTAINS: Number. Format YYYYMMDDHH24MISS.
+RETURN: Number. Format YYYYMMDDHH24MISS.
 EX: Loop, Reg, HKLM, VKR ; Loop through HKLM
         MsgBox, % "File:`t " A_LoopRegName "`nModified:`t" A_LoopRegTimeModified
 
 A_LoopRegType 
 USE: Used by Loop-Reg. Contains the type of the current registry item.
-CONTAINS: String.
+RETURN: String.
     REG_SZ       REG_MULTI_SZ         REG_EXPAND_SZ
     REG_LINK     REG_RESOURCE_LIST    REG_DWORD_BIG_ENDIAN
     REG_DWORD    REG_QWORD            REG_BINARY
     REG_FULL_RESOURCE_DESCRIPTOR      REG_RESOURCE_REQUIREMENTS_LIST
+REMARK: This variable is BLANK if the retrieved type is unknown.
 EX: Loop, Reg, HKLM, VKR ; Loop through HKLM
         MsgBox, % "File:`t " A_LoopRegName "`nType:`t" A_LoopRegType
-REMARK: This variable is BLANK if the retrieved type is unknown.
 
 A_MDay 
 USE: Contains the current 2-digit day.
-CONTAINS: Number. 01 .. 31
+RETURN: Number. 01 .. 31
 REMARK: Synonymous with A_DD.
 EX: MsgBox, % A_MDay ; V=> 03
 
 A_Min 
 USE: Contains the current 2-digit minute.
-CONTAINS: Number. 00 .. 59
+RETURN: Number. 00 .. 59
 EX: MsgBox, % A_Min ; V=> 08
 
 A_MM 
 USE: Contains the current 2-digit month.
-CONTAINS: Number. 01 .. 12
+RETURN: Number. 01 .. 12
 REMARK: Synonymous with A_Mon.
 EX: MsgBox, % A_MM ; V=> 01
 
 A_MMM 
 USE: Contains the current abbreviated month.
-CONTAINS: String. Jan|Feb|Mar|Apr|May|Jun|Jul|Aut|Sep|Oct|Nov|Dec
+RETURN: String. Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec
 REMARK: Based on locale.
 EX: MsgBox, % A_MMM ; V=> Dec
 
 A_MMMM 
 USE: Contains the current month.
-CONTAINS: String.
+RETURN: String.
     January|February|March|April|May|June|July|
     August|September|October|November|December
 REMARK: Based on locale.
@@ -851,160 +852,160 @@ EX: MsgBox, % A_MMMM ; V=> October
 
 A_Mon 
 USE: Contains the current 2-digit month.
-CONTAINS: Number. 01 .. 12
+RETURN: Number. 01 .. 12
 REMARK: Synonymous with A_MM.
 EX: MsgBox, % A_Mon ; V=> 09
 
 A_MouseDelay 
 USE: Contains the current delay for SetMouseDelay.
-CONTAINS: Number. -1 .. N
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+RETURN: Number. -1 .. N
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 REMARK: Always decimal.
 EX: MsgBox, % A_MouseDelay ; V=> 10
 
 A_MouseDelayPlay 
 USE: Contains the current delay for SetMouseDelay Play mode.
-CONTAINS: Number. -1 .. N
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+RETURN: Number. -1 .. N
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 REMARK: Always decimal.
 EX: MsgBox, % A_MouseDelayPlay ; V=> -1
 
 A_MSec 
 USE: Contains the current 3 digit millisecond.
-CONTAINS: Number.  000 .. 999
+RETURN: Number.  000 .. 999
 REMARK: To remove leading zeros, use: (A_MSec+0)
 EX: MsgBox, % A_MSec ; V=> 094
 
 A_MyDocuments 
 USE: Contains the path to user's "My Documents" folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: A folder that's also a root drive still returns no backslash.
 EX: MsgBox, % A_MyDocuments ; V=> C:\Users\GroggyOtter\Documents
 
 A_Now 
 USE: Contains the current local time.
-CONTAINS: Number. Format: YYYYMMDDHH24MISS
+RETURN: Number. Format: YYYYMMDDHH24MISS
 REMARK: For UTC (universal time coordinated), use A_NowUTC.
 EX: MsgBox, % A_Now ; V=> 19490608123000
 
 A_NowUTC 
 USE: Contains the current UTC (universal time coordinated) time.
-CONTAINS: Number. YYYYMMDDHH24MISS format.
+RETURN: Number. YYYYMMDDHH24MISS format.
 REMARK: For local time, use A_Now.
 EX: MsgBox, % A_Now ; V=> 19851018000000
 
 A_NumBatchLines  
 USE: Contains the Lines|Time for SetBatchLines.
-CONTAINS: String if time. Number if lines.
+RETURN: String if time. Number if lines.
 REMARK: If variable ends in ms, it's time. Otherwise it's Lines.
     Synonymous with A_BatchLines.
 EX: MsgBox, % A_NumBatchLines ; V=> 10ms
 
 A_OSType 
 USE: Contains the current operating system type.
-CONTAINS: String. WIN32_NT|WIN32_WINDOWS
+RETURN: String. WIN32_NT|WIN32_WINDOWS
 REMARK: Win 95/98/ME are no longer supported but would return WIN32_WINDOWS.
 EX: MsgBox, % A_OSType ; V=> WIN32_NT
 
 A_OSVersion 
 USE: Contains the current operating system version.
-CONTAINS: String. WIN_7|WIN_8|WIN_8.1|WIN_VISTA|WIN_2003|WIN_XP|WIN_2000
+RETURN: String. WIN_7|WIN_8|WIN_8.1|WIN_VISTA|WIN_2003|WIN_XP|WIN_2000
 REMARK: If OS version unknown, return versionMajor.versionMinor.build string.
 EX: MsgBox, % A_OSVersion ; V=> 10.0.14393
 
 A_PriorHotkey 
 USE: Contains the name of the last activated hotkey or hotstring.
-CONTAINS: String. Includes modifiers.
+RETURN: String. Includes modifiers.
 REMARK: BLANK until two hotkeys have fired.
 EX: MsgBox, % A_PriorHotkey ; V=> $*^s
 
 A_PriorKey 
 USE: Contains the last pressed key.
-CONTAINS: String. BLANK if no hotkey has been pressed.
+RETURN: String. BLANK if no hotkey has been pressed.
 REMARK: A hook must be used for this to work.
 EX: MsgBox, % A_PriorKey ; V=> Enter
 
 A_ProgramFiles 
 USE: Contains the path to the systems Program Files folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: On 64-bit systems, 32-bit AHK returns Program Files(x86)
     The ProgramW6432 environmental variable has the 64 bit path.
 EX: MsgBox, % A_ProgramFiles ; V=> C:\Program Files
 
 A_Programs 
 USE: Contains the path to the user's start menu "Programs" folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: Synonymous with the ProgramFiles variable.
 EX: MsgBox, % A_Programs ; V=> C:\Users\GroggyOtter\AppData\...\Start Menu\Programs
 
 A_ProgramsCommon 
 USE: Contains the path to the common start menu "Programs" folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_ProgramsCommon ; V=> C:\ProgramData\...\Start Menu\Programs
 
 A_PtrSize 
 USE: Contains the exe's pointer size
-CONTAINS: Number. 4 = 32-bit    8 = 64-bit
-REMARK: This variable is dependant on the exe running the current script.
+RETURN: Number. 4 = 32-bit    8 = 64-bit
+REMARK: This variable is dependent on the exe running the current script.
 EX: MsgBox, % A_PtrSize ; V=> 8
 
 A_RegView 
 USE: Contains the current setting of SetRegView.
-CONTAINS: String. Default|32|64
+RETURN: String. Default|32|64
 REMARK: This is inapplicable to 32-bit systems.
 EX: MsgBox, % A_RegView ; V=> 32
 
 A_ScreenDPI 
 USE: Contains the number of pixels per logical inch of screen width.
-CONTAINS: Number. Default is 96.
+RETURN: Number. Default is 96.
 EX: MsgBox, % A_ScreenDPI ; V=> 96
 
 A_ScreenHeight 
 USE: Contains the height of the primary monitor.
-CONTAINS: Number. In pixels.
+RETURN: Number. In pixels.
 REMARK: Use SysGet for non-primary monitors or to get full desktop height.
 EX: MsgBox, % A_ScreenHeight ; V=> 1080
 
 A_ScreenWidth 
 USE: Contains the width of the primary monitor.
-CONTAINS: Number. In pixels.
+RETURN: Number. In pixels.
 REMARK: Use SysGet for non-primary monitors or to get full desktop width.
 EX: MsgBox, % A_ScreenWidth ; V=> 1920
 
 A_ScriptDir 
 USE: Contains the path of the current running script's directory.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: The final backslash is omitted even if it's a root directory.
 EX: MsgBox, % A_ScriptDir ; V=> D:\Scripts
 
 A_ScriptFullPath 
 USE: Contains the full path and name of the current running script.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_ScriptDir ; V=> D:\Scripts\SciTE_GOTest.ahk
 
-A_ScriptHwnd 
+A_ScriptHWND 
 USE: Contains the unique ID/HWND of the current script's main hidden window.
-CONTAINS: Number. Handle.
-EX: MsgBox, % A_ScriptHwnd ; V=> 0x110646
+RETURN: Number. Handle.
+EX: MsgBox, % A_ScriptHWND ; V=> 0x110646
 
 A_ScriptName 
 USE: Contains the name and extension of the current running script.
-CONTAINS: String.
+RETURN: String.
 EX: MsgBox, % A_ScriptName ; V=> SciTE_GOTest.ahk
 
 A_Sec 
 USE: Contains the current 2-digit second.
-CONTAINS: Number. 00 .. 59
+RETURN: Number. 00 .. 59
 EX: MsgBox, % A_Sec ; V=> 07
 
 A_SendLevel 
 USE: Contains the current level set by SendLevel.
-CONTAINS: Number. 0 .. 100
+RETURN: Number. 0 .. 100
 EX: MsgBox, % A_SendLevel ; V=> 0
 
 A_SendMode 
 USE: Contains the current mode set by SendMode.
-CONTAINS: String. Event|Input|Play|InputThenPlay
+RETURN: String. Event|Input|Play|InputThenPlay
 EX: MsgBox, % A_SendMode ; V=> Input
 
 A_Space 
@@ -1014,32 +1015,32 @@ EX: MsgBox, % "SP" A_Space "C" Chr(32) "E" ; V=> SP A CE
 
 A_StartMenu 
 USE: Contains the path to the user's start menu folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_StartMenu ; V=> C:\Users\GroggyOtter\AppData\...\Windows\Start Menu
 
 A_StartMenuCommon 
 USE: Contains the path to the common start menu folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_StartMenuCommon ; V=> C:\ProgramData\Microsoft\Windows\Start Menu
 
 A_Startup 
 USE: Contains the path to the user's start menu "Startup" folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_Startup ; V=> C:\Users\GroggyOtter\AppData\...\Programs\Startup
 
 A_StartupCommon 
 USE: Contains the path to the common start menu "Startup" folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_StartMenuCommon ; V=> C:\ProgramData\Microsoft\...\Programs\Startup
 
 A_StoreCapsLockMode 
 USE: Contains the current mode set by SetStoreCapsLockMode.
-CONTAINS: String. On|Off
+RETURN: String. On|Off
 EX: MsgBox, % A_StoreCapsLockMode ; V=> On
 
 A_StringCaseSense 
 USE: Contains the current mode set by StringCaseSense.
-CONTAINS: String. On|Off|Locale
+RETURN: String. On|Off|Locale
 EX: MsgBox, % A_StringCaseSense ; V=> Off
 
 A_Tab 
@@ -1055,152 +1056,152 @@ EX: MsgBox, % A_Temp ; V=> C:\Users\User\AppData\Local\Temp
 
 A_ThisFunc 
 USE: Contains the name of the currently executing function.
-CONTAINS: String. BLANK = Call was not made inside a function.
+RETURN: String. BLANK = Call was not made inside a function.
 EX: GroggyFunc(){
         MsgBox, % A_ThisFunc ; V=> GroggyFunc
     }
 
 A_ThisHotkey 
 USE: Contains the name of the current hotkey or hotstring.
-CONTAINS: String. BLANK = No hotkey has been pressed
+RETURN: String. BLANK = No hotkey has been pressed
 EX: MsgBox, % A_PriorHotkey ; V=> $*^s
 
 A_ThisLabel 
 USE: Contains the name of current executing label|subroutine.
-CONTAINS: String. BLANK = A label is not executing
+RETURN: String. BLANK = A label is not executing
 REMARK: Updated when the script executes a GoSub|Return|Goto.
 EX: GroggyLabel:
         MsgBox, % A_ThisLabel ; V=> GroggyLabel
 
 A_ThisMenu 
 USE: Contains the menu name of the most recently selected custom menu item.
-CONTAINS: String. BLANK if none.
+RETURN: String. BLANK if none.
 EX: MsgBox, % A_ThisMenu ; V=> MyMenu
 
 A_ThisMenuItem 
 USE: Contains the name of the most recently selected custom menu item.
-CONTAINS: String. BLANK = None
+RETURN: String. BLANK = None
 REMARK: For the menu number, use A_ThisMenuItemPos.
 EX: MsgBox, % A_ThisMenuItem ; V=> MenuItem1
 
 A_ThisMenuItemPos 
 USE: Contains the number of the most recently selected custom menu item.
-CONTAINS: Number. 1 .. N. BLANK = none.
+RETURN: Number. 1 .. N. BLANK = none.
 REMARK: For the menu name, use A_ThisMenuItem.
 EX: MsgBox, % A_ThisMenuItem ; V=> 1
 
 A_TickCount 
 USE: Contains the amount of time since the computer was started.
-CONTAINS: Number. In ms. 1 .. N
+RETURN: Number. In ms. 1 .. N
 REMARK: If precision is an issue, use QueryPerformanceCounter()
 EX: MsgBox, % A_TickCount ; V=> 876531740
 
 A_TimeIdle 
 USE: Contains the time since the system last detected input.
-CONTAINS: Number. In ms. 0 .. N
+RETURN: Number. In ms. 0 .. N
 REMARK: Includes mouse, keyboard, and other input types.
 EX: If (A_TimeIdle > 60000) ; If true, no user input in over 60 sec.
         MsgBox, User has been gone more than a minute!
 
 A_TimeIdleKeyboard 
 USE: Contains the time since the computer last detected keyboard input.
-CONTAINS: Number. In ms. 0 .. N
+RETURN: Number. In ms. 0 .. N
 REMARK: This defaults to A_TimeIdle if a keyboard hook is not installed.
 EX: If (A_TimeIdleKeyboard > 60000) ; If true, no keyboard input in over 60 sec.
-        MsgBox, User has not typed anyting in over a minute!
+        MsgBox, User has not typed anything in over a minute!
 
 A_TimeIdleMouse 
 USE: Contains the time since the computer last detected mouse input.
-CONTAINS: Number. In ms. 0 .. N
+RETURN: Number. In ms. 0 .. N
 REMARK: This defaults to A_TimeIdle if a mouse hook is not installed.
 EX: If (A_TimeIdleMouse > 60000) ; If true, no mouse input in over 60 sec.
-        MsgBox, User has not typed anyting in over a minute!
+        MsgBox, User has not typed anything in over a minute!
 
 A_TimeIdlePhysical 
 USE: Contains the time since the system last detected physical input.
-CONTAINS: Number. In ms. 0 .. N
+RETURN: Number. In ms. 0 .. N
 REMARK: A hook is required to track mouse and|or keyboard input.
     This variable defaults to A_TimeIdle if no hook is used.
 EX: If (A_TimeIdlePhysical > 60000) ; If true, no physical input in over 60 sec.
-        MsgBox, User has not typed anyting in over a minute!
+        MsgBox, User has not typed anything in over a minute!
 
 A_TimeSincePriorHotkey 
 USE: Contains time since A_PriorHotkey was pressed.
-CONTAINS: Number. -1 .. N. -1 = A_PriorHotkey is BLANK.
+RETURN: Number. -1 .. N. -1 = A_PriorHotkey is BLANK.
 EX: MsgBox, % A_TimeSincePriorHotkey ; V=> 999983
 
 A_TimeSinceThisHotkey 
 USE: Contains time since A_ThisHotkey was pressed.
-CONTAINS: Number. -1 .. N. -1 = A_ThisHotkey is BLANK.
+RETURN: Number. -1 .. N. -1 = A_ThisHotkey is BLANK.
 EX: MsgBox, % A_TimeSinceThisHotkey ; V=> 3333360
 
 A_TitleMatchMode 
 USE: Contains the current MatchMode set by SetTitleMatchMode.
-CONTAINS: 1|2|3|RegEx
+RETURN: 1|2|3|RegEx
     1 = Title must start with    3 = Title must exactly match
     2 = Title must contain       RegEx = Title must match RegEx Pattern
 EX: MsgBox, % A_TitleMatchMode ; V=> Fast
 
 A_TitleMatchModeSpeed 
 USE: Contains the current speed set by SetTitleMatchMode.
-CONTAINS: String. Fast|Slow
+RETURN: String. Fast|Slow
 EX: MsgBox, % A_TitleMatchModeSpeed ; V=> Fast
 
 A_UserName 
 USE: Contains the name of the user account that launched the script.
-CONTAINS: String.
+RETURN: String.
 EX: MsgBox, % A_UserName ; V=> GroggyOtter
 
 A_WDay 
 USE: Contains the current day of the week.
-CONTAINS: Number. 1 .. 7. 1 = Sunday
+RETURN: Number. 1 .. 7. 1 = Sunday
 EX: MsgBox, % A_WDay ; V=> 2
 
 A_WinDelay 
 USE: Contains the current delay set by SetWinDelay.
-CONTAINS: Number. -1 .. N
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+RETURN: Number. -1 .. N
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 REMARK: Always decimal.
 EX: MsgBox, % A_WinDelay ; V=> -1
 
 A_WinDir 
 USE: Contains the path to the current machines Window's directory.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 EX: MsgBox, % A_WinDir ; V=> C:\Windows
 
 A_WorkingDir 
 USE: Contains the path to the current working directory.
-CONTAINS: String. Format: Path. A_ScriptDir is default.
+RETURN: String. Format: Path. A_ScriptDir is default.
 REMARK: Working dir is used when a path isn't provided.
 EX: MsgBox, % A_WinDelay ; V=> -1
 
 A_YDay 
 USE: Contains the current 3-digit day of the year.
-CONTAINS: Number. 1 .. 366
+RETURN: Number. 1 .. 366
 REMARK: If the number needs to be padded, use: Format("{:03}",A_YDay)
 EX: MsgBox, % A_YDay ; V=> 274
 
 A_Year 
 USE: Contains the current 4-digit year.
-CONTAINS: Number. Format: 0000 .. 9999
+RETURN: Number. Format: 0000 .. 9999
 REMARK: Synonymous with A_YYYY
 EX: MsgBox, % A_Year ; V=> 2018
 
 A_YWeek 
 USE: Contains the current 4-digit year and 2 digit week of the year.
-CONTAINS: Number. Format: YYYYWW. For weeks use: SubStr(A_YWeek,5) 
+RETURN: Number. Format: YYYYWW. For weeks use: SubStr(A_YWeek,5) 
 REMARK: If the 1st week in Jan has more than 3 days, it counts as week 1.
 EX: MsgBox, % A_YWeek ; V=> 201840
 
 A_YYYY 
 USE: Contains the current 4-digit year.
-CONTAINS: Number. Format: 0000 .. 9999
+RETURN: Number. Format: 0000 .. 9999
 REMARK: Synonymous with A_Year
 EX: MsgBox, % A_YYYY ; V=> 2018
 
 Clipboard 
 USE: Stores the text data of the clipboard if it contains text.
-CONTAINS: String.
+RETURN: String.
 REMARK: You can read/write to the Clipboard like any other variable.
     To paste text from the clipboard, use: Send, ^v
 EX: MsgBox, % Clipboard
@@ -1212,32 +1213,32 @@ EX: MsgBox, % ClipboardAll
 
 ComSpec 
 USE: Contains the path to the system's Command Prompt.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: Synonymous with A_ComSpec.
 EX: MsgBox, % ComSpec ; V=> C:\Windows\system32\cmd.exe
 
 ErrorLevel 
 USE: Used by multiple commands to indicate success|failure|other info. 
-CONTAINS: There is no set return types. 0 is generally used for success.
+RETURN: There is no set return types. 0 is generally used for success.
 REMARK: Users can write to this like any other variable.
-EX: If (Errorlevel > 0)
+EX: If (ErrorLevel > 0)
         MsgBox, An error occurred! ; Detects when an error occurs
 
 False 
 USE: Contains the number 0. 0 is synonymous with False.
-CONTAINS: Number. 0
+RETURN: Number. 0
 REMARK: Most evaluations treat 0 and BLANK the same as False
 EX: MsgBox, % "True:" True " False:" False ; V=> True:1 False:0
 
 ProgramFiles 
 USE: Contains the path to the user's start menu "Programs" folder.
-CONTAINS: String. Format: Path
+RETURN: String. Format: Path
 REMARK: Synonymous with A_Programs.
 EX: MsgBox, % A_Programs ; V=> C:\Users\GroggyOtter\...\Start Menu\Programs
 
 True 
 USE: Contains the number. 1 is synonymous with True.
-CONTAINS: Number. 1
+RETURN: Number. 1
 REMARK: Most evaluations treat any value greater than 0 as true.
 EX: MsgBox, % "True:" True " False:" False ; V=> True:1 False:0
 
@@ -1246,7 +1247,7 @@ EX: MsgBox, % "True:" True " False:" False ; V=> True:1 False:0
 
 Abs(Num) 
 USE: Math func. the converts Num to an absolute value.
-RETURN: Number. Integer|Float is dependant on input Number.
+RETURN: Number. Integer|Float is dependent on input Number.
 EX: Abs(-12.0) ; R=> 12.0
 
 ACos(Num) 
@@ -1325,7 +1326,7 @@ EX: ie := ComObjCreate("InternetExplorer.Application") ; Create an IE COM
 ComObject(Type, Int|Pointer, [Flag:=""]) 
 USE: Creates an object to be used as a parameter or return value.
     This object represents a COM variant type.
-TYPE: Com Object varation type. For a list, see: Cheat_Variant_Type
+TYPE: Com Object variation type. For a list, see: Cheat_Variant_Type
 FLAGS: Affects interface reference counting. See docs.
     0 = AddRef is called    1 = AddRef is not called
 RETURN: Object.
@@ -1346,7 +1347,7 @@ RETURN: String. Settings before Value was applied.
 EX: comObjErrorSetting := ComObjError() ; Stores current setting
 
 ComObjFlags(ComObject, [Flag:="", Mask:=""]) 
-USE: Set|get the flags which control a COM wrapper object's behaviour.
+USE: Set|get the flags which control a COM wrapper object's behavior.
 FLAG: F_OWNVALUE = SafeArray is destroyed when wrapper object is freed.
 MASK: Bitmask of flags. If omitted, flags are toggled.
 RETURN: String. Current flag settings of COM object.
@@ -1401,11 +1402,11 @@ TYPE: Name & byte values. Ptr value is 32|64 bit. Str is ANSI|Unicode
     Int  4    UInt  4    Int64 8    UInt64 8    Double 8
     Char 1    UChar 1    Short 2    UShort 2    Float  4
     WStr 2    Str 1|2    AStr  1    Ptr  4|8
-ERRORLEVEL:
+ErrorLevel:
     0 = Success                       -1 = DllFile\Function error
-    -2 = Return|Arg invalid           -3 = DLL inaccessible or privelege too low
+    -2 = Return|Arg invalid           -3 = DLL inaccessible or privilege too low
     -4 = Function not found in DLL    1+ = Function called with fatal exception
-    A+n = Too many aruments           A-n = Too few aruments
+    A+n = Too many arguments          A-n = Too few arguments
 EX: DllCall("IsWindowVisible", "Ptr", WinActive("A")) ; Check if active window is visible.
 
 Exception(Message, [What:="", Extra:=""]) 
@@ -1413,7 +1414,7 @@ USE: Creates an object with properties for use with exceptions.
 MESSAGE: An error message or ErrorLevel.
 WHAT: Name of the function|label|command that was running.
 EXTRA: Any extra information that should be included.
-RETURN: Object. Properites: MESSAGE|EXEC|EXTRA|FILE|LINE
+RETURN: Object. Properties: MESSAGE|EXEC|EXTRA|FILE|LINE
 REMARK: The FILE and LINE properties are generated automatically.
     FILE    = Path to the script|file running at error time.
     LINE    = Line number that was running at error time.
@@ -1422,7 +1423,7 @@ EX: ExObj := Exception("Failed write", "FileAppend") ; Error writing exception
 Exp(Num) 
 USE: Returns e to the Num power.
 NUM: A positive or negative number.
-REMARK: e (Euler's number) is a mathmatical constant. 2.71828...
+REMARK: e (Euler's number) is a mathematical constant. 2.71828...
 EX: Exp(1.2) ; R=> 3.320117
     
 FileExist(Pattern) 
@@ -1499,7 +1500,7 @@ MODE: BLANK = Logical state    P = Physical state    T = Toggle state
 RETURN: Number. 1 = Down|toggle on    0 = Up|toggle off
 EX: GetKeyState("LButton", "P") ; R=> 1
 
-GuiClose(Hwnd) 
+GuiClose(HWND) 
 USE: Launched when a GUI is closed. (GUI is hidden).
 RETURN: If a number > 0 is returned, GUI window is not hidden.
 REMARK: Prefixing the function with a GUI's name makes it exclusive to that GUI.
@@ -1507,48 +1508,48 @@ EX: GuiClose(mainHWND){
         ExitApp
     }
 
-GuiEscape(GuiHwnd) 
+GuiEscape(GuiHWND) 
 USE: Launches when Escape is pressed in a GUI.
 REMARK: Prefixing the function with a GUI's name makes it exclusive to that GUI.
-EX: GuiEscape(GuiHwnd){
+EX: GuiEscape(GuiHWND){
         MsgBox, % "You pressed the escape key!" 
     }
 
-GuiSize(GuiHwnd, EventInfo, Width, Height) 
+GuiSize(GuiHWND, EventInfo, Width, Height) 
 USE: Launches when a GUI is resized|minimized|maximized|restored.
 WIDTH|HEIGHT: Stores the window's client width|height.
 REMARK: Prefixing the function with a GUI's name makes it exclusive to that GUI.
-ERRORLEVEL|A_EVENTINFO: Both recieve one of the following:
+ErrorLevel|A_EVENTINFO: Both receive one of the following:
     0=Restore|resize    1=Minimize    2=Maximize
-EX: GuiNamGuiSize(GuiHwnd, EventInfo, Width, Height){
+EX: GuiNamGuiSize(GuiHWND, EventInfo, Width, Height){
         MsgBox, % "GUI Resized! Client area is now " height "x" width "."
     }
 
-GuiContextMenu(GuiHwnd, CtrlHwnd, EventInfo, RightClick, X, Y) 
-USE: Lanches when a context menu (like the right click menu) is detected.
-CTRLHWND: HWND of the control that recieved the event. BLANK if none.
+GuiContextMenu(GuiHWND, CtrlHWND, EventInfo, RightClick, X, Y) 
+USE: Launches when a context menu (like the right click menu) is detected.
+CTRLHWND: HWND of the control that received the event. BLANK if none.
 WIDTH|HEIGHT: Window's current client width|height.
 A_EVENTINFO: Contains additional info for ListBox|ListView|TreeView.
 X|Y: Coordinates of the event. Relative to window.
 RIGHTCLICK: True if right click launched the script.
 REMARK: Prefixing the function with a GUI's name makes it exclusive to that GUI.
-EX: GuiContextMenu(GuiHwnd, CtrlHwnd, EventInfo, RightClick, X, Y){
+EX: GuiContextMenu(GuiHWND, CtrlHWND, EventInfo, RightClick, X, Y){
         MsgBox, % "You right clicked at x" X "y:" Y
     }
 
-GuiDropFiles(GuiHwnd, FileArray, CtrlHwnd, X, Y) 
+GuiDropFiles(GuiHWND, FileArray, CtrlHWND, X, Y) 
 USE: Launches when a file is dragged & dropped onto a GUI.
 FILEARRAY: An numbered array of filenames.
-CTRLHWND: HWND of the control that recieved the event. BLANK if dropped on GUI.
+CTRLHWND: HWND of the control that received the event. BLANK if dropped on GUI.
 X|Y: Contains the drop location X and Y coordinates. Relative to the window.
 REMARK: Prefixing the function with a GUI's name makes it exclusive to that GUI.
     To disable drag and drop, remove the GUI's WS_EX_ACCEPTFILES style.
-ERRORLEVEL|A_EVENTINFO: Both recieve the total number of files dropped.
-EX: GuiDropFiles(GuiHwnd, FileArray, CtrlHwnd, X, Y){
+ErrorLevel|A_EVENTINFO: Both receive the total number of files dropped.
+EX: GuiDropFiles(GuiHWND, FileArray, CtrlHWND, X, Y){
         MsgBox, % "You provided " FileArray.Length() " files."
     }
 
-Hotstring( )
+Hotstring( ) 
 USE: Create|modify|enables|disable a hotstring.
 VARIANTS:
     Hotstring(Trigger, [Action, State]) = Make/Change hotstring
@@ -1564,7 +1565,7 @@ OPTIONS: Space separated list of options.
     * = Fires on match      ? = Each keystroke starts a new hotkey check
     C = Case sensitive      B = Backspaces hotstring text before sending
     R = Use {Raw} Send      O = End character is not sent
-    T = Use {Text} Send     C1 = Hotstring does not confrom to typed case
+    T = Use {Text} Send     C1 = Hotstring does not conform to typed case
     Pn = Priority P1 to P5  SI|SP|SE = Send method Input | Play | Event
     Kn = N key delay|N key duration in ms for SE|SP
     X = Inline hotstring will treat text after it as a command
@@ -1580,7 +1581,7 @@ OPTIONS: Space separated list of options.
     * = Fires on match      ? = Each keystroke starts a new hotkey check
     C = Case sensitive      B = Backspaces hotstring text before sending
     R = Use {Raw} Send      O = End character is not sent
-    T = Use {Text} Send     C1 = Hotstring does not confrom to typed case
+    T = Use {Text} Send     C1 = Hotstring does not conform to typed case
     Pn = Priority P1 to P5  SI|SP|SE = Send method Input | Play | Event
     Kn = N key delay|N key duration in ms for SE|SP
     X = Inline hotstring will treat text after it as a command
@@ -1589,10 +1590,10 @@ OPTIONS: Space separated list of options.
 EX: Hotstring("*?TCB0")
 
 Hotstring("EndChars", [Value:="-()[]{}':;""/\,.?!`n `t"]) 
-USE: Characters in Valuew will activate end of hotstring.
+USE: Characters in Value will activate end of hotstring.
 VALUE: String of new characters.
 RETURN: String. Prior characters before Value was applied.
-REMARK: EndChars are irrelevent with the * option.
+REMARK: EndChars are irrelevant with the * option.
 EX: Hotstring("EndChars", "`t(") ; Only uses tab and open parentheses
 
 Hotstring("MouseReset", [Value:=""]) 
@@ -1691,7 +1692,7 @@ USE: Adds a new row to the bottom of the list.
 RETURN: Number. 0 = Failure    1+ = New row's number
 OPTIONS: Zero or more options. Use space or tab for separation.
     Select = Selects row            ColN = Begin at column number N 
-    FocusN = Sets focus to row N    Check = Show checkmark if available
+    FocusN = Sets focus to row N    Check = Show check mark if available
     Vis = Ensures row is visible    IconN = Nth Icon from imagelist
 EX: LV_Add("Check", "RowName")
 
@@ -1733,7 +1734,7 @@ USE: Insert a new row before the specified row.
 COL: Contents to put in each column.
 OPTIONS: Zero or more options. Use space or tab for separation.
     Select = Selects row            ColN = Begin at column number N 
-    FocusN = Sets focus to row N    Check = Show checkmark if available
+    FocusN = Sets focus to row N    Check = Show check mark if available
     Vis = Ensures row is visible    IconN = Nth Icon from imagelist
 REMARK: Like LV_Add() except newly inserted row uses the first parameter.
 EX: LV_Insert(2,, "A", "B", "C") ; Insert row at row 2. Set col 1,2,3 to A,B,C
@@ -1743,7 +1744,7 @@ USE: Inserts a new column to the left of the specified column.
 OPTIONS: 
     Center = Center text         Text = SORT-Mark col is text
     Uni = One-way sorting        IconRight = Icon goes on right
-    N = Col width in N pixels    Case = Sortin is case-sensitive
+    N = Col width in N pixels    Case = Sort is case-sensitive
     Left = Left-justify text     Auto = Adjust col to fit contents
     NoSort = Disables sorting    Desc = Start col in descending order
     Right = Right-justify text   Sort = Sorts column in ascending order
@@ -1759,7 +1760,7 @@ LV_Modify(RowNumber, [Options:="", NewCol1, ..., NewColN])
 USE: Modifies the text|attributes of a row.
 ROWNUMBER: 0 = All rows are modified.
 OPTIONS: Zero or more options. Use space or tab for separation.
-    Check   = Show checkmark if ListView has checkboxes
+    Check   = Show check mark if ListView has check boxes
     ColN    = Col followed by number to begin applying Col1 parameters and beyond
     FocusN  = Sets focus to row N
     IconN   = Nth Icon from imagelist. Icon number > number of Icons    = Blank Icon
@@ -1774,7 +1775,7 @@ REMARK: Providing no parameters will auto-adjust each row to fit the contents.
 OPTIONS: 
     Center = Center text         Text = SORT-Mark col is text
     Uni = One-way sorting        IconRight = Icon goes on right
-    N = Col width in N pixels    Case = Sortin is case-sensitive
+    N = Col width in N pixels    Case = Sort is case-sensitive
     Left = Left-justify text     Auto = Adjust col to fit contents
     NoSort = Disables sorting    Desc = Start col in descending order
     Right = Right-justify text   Sort = Sorts column in ascending order
@@ -1897,7 +1898,7 @@ EX: OnClipboardChange("ClipBackup", -1)
 
 OnError(Func, [AddRemove:=1]) 
 USE: Specifies a function to run automatically when an unhandled error occurs.
-FUNC: Function|FuncObj. First parameter is an exception object or thorwn value.
+FUNC: Function|FuncObj. First parameter is an exception object or thrown value.
 ADDREMOVE: Call function:
     1 = After previously registered functions
     -1 = Before previously registered functions
@@ -1940,14 +1941,14 @@ OPTIONS: RegEx prefix options. A ) should separate options from needle.
     P = Position mode       C = Auto-callout mode   `a = Use all newline forms
     `n = Use `n as default new line    J = Allow duplicate named subpatterns
     `r = Use `r as default new line    (*ANYCRLF) = Newlines restricted to `r
-OUTPUTVAR: Variable content dependant on:
+OUTPUTVAR: Variable content dependent on:
     Normal Match = Store the full pattern match.
     P Option = Store the length of pattern match. 
     O Option = Stores a Match Object.
 POS: Char to start at. 0 starts at end. Negative starts left of end.
     1 = 1st    2 = 2nd    0 = Last    -1 = 2nd from last
 RETURN: Number. N = Position of first occurrence    0 = Not found
-ERRORLEVEL: 0 = No Errors    -Number = RegEx Execution error
+ErrorLevel: 0 = No Errors    -Number = RegEx Execution error
     "Compile error N at offset M". N = PCRE error number. M = error position.
 EX: RegExMatch(email, "\S+?@\S*\.\w{2,}") ; Basic email verification. R=> 1
 
@@ -1967,7 +1968,7 @@ POS: Char to start at. 0 starts at end. Negative starts left of end.
     1 = 1st    2 = 2nd    0 = Last    -1 = 2nd from last
 RETURN: String. Modified haystack.
 REMARK: StrReplace() is faster. Use when possible.
-ERRORLEVEL: 0 = No Errors    -Number = Regex Execution error    M = Error pos
+ErrorLevel: 0 = No Errors    -Number = RegEx Execution error    M = Error pos
     String = "Compile error N at offset M"     N = PCRE error num
 EX: RegExReplace("Appple", "pp", "p") ; R=> Apple
 
@@ -2008,7 +2009,7 @@ EX:    SB_SetParts(50,50) ; Creates 3 parts. Two 50-pixel parts. 3rd = remaining
 SB_SetText(Text, [PartNum:=1, Style:=0]) 
 USE: Change the text in a status bar.
 TEXT: Justify text with Tabs: 0 = Left    1 = Center    2 = right
-PARTNUM: Section of statusbar to change.
+PARTNUM: Section of status bar to change.
 STYLE: Status bar border: 0 = Traditional    1 = None    2 = Raised
 RETURN: 0 = Failure    1 = Success
 EX: SB_SetText("txt", 2, 1]) ; Removed status bar part 2 border and added txt
@@ -2038,7 +2039,7 @@ EX: StrLen("The quick brown fox...") ; R=> 22
 
 StrPut(String, Address, [Length:="", Encoding:=SameAsEXE]) 
 USE: Write a string to a memory address.
-ADDRESS: Memory addrss to write to.
+ADDRESS: Memory address to write to.
 LENGTH: Number of bytes to write.
 ENCODING: Defaults is exe type.  
     UTF-8 | UTF-8-RAW | UTF-16 | UTF-16-RAW | CPnnn
@@ -2061,7 +2062,7 @@ MAXPARTS: Max array elements. Any remaining data is put in last element.
     -1 = No array size limit
     1+ = Max number of array elements
 RETURN: Object. Array.
-EX: StrSplit(var,"`n"," `t",6) ; Split var into 6 elementys by line
+EX: StrSplit(var,"`n"," `t",6) ; Split var into 6 elements by line
 
 SubStr(Str, Pos, [Length:=StrLen(Str)]) 
 USE: Get substring from Str starting at Pos and ending at Length.
@@ -2221,8 +2222,7 @@ USE: Specifies the command(s) to run if the matching if-statement is False.
 REMARK: An else must follow|belong to an if-statement.
 EX: if (x = True)
         MsgBox, X is true
-    Else 
-        MsgBox, X is false
+    Else MsgBox, X is false
 
 Exit, [ExitCode] 
 USE: Stops current thread or calls ExitApp if script is not persistent.
@@ -2231,10 +2231,9 @@ EXITCODE: Number -2147483648 .. 2147483647
 Finally 
 USE: Commands in a Finally block must execute after a Try-statement.
 REMARK: Finally must belong a Try-statement.
-EX: Try            ; Try's a function and then logs the event.
+EX: Try            ; Tries a function and then logs the event.
         ThisFunc()
-    Finally
-        LogEvent()
+    Finally LogEvent()
 
 For Key, [Value] in Expression 
 USE: Loop through an object. Execute the following commands for each element.
@@ -2257,7 +2256,7 @@ REMARK: Unlike GoSub, the return command stops the thread like Exit.
 EX: MyLabel:          ; Creates an infinite loop
         GoTo, MyLabel
 
-If
+If 
 USE: Used to make a decision by evaluating something.
 REMARK: 0|False|BLANK = False    True|+Number = True.
     !|Not checks for a False statement. Blocking {} allows running multiple commands.
@@ -2273,13 +2272,13 @@ VARIATIONS:
     If Var is [not] Type
         If var is of the specified type
 
-if [!](Expression) 
+If [!](Expression) 
 USE: If Expression evaluates true, run the next line|block.
 REMARK: If ! is present, check for false evaluation instead of true.
     Omitting parenthesis is a traditional-if. They're deprecated.
 EX: if (2 > 1) ; => True
 
-If-Between
+IfBetween 
 If Var [not] between Lower and Upper 
 USE: Run the next line|block if Var is between Lower and Upper bounds.
 LOWER|UPPER: Lowest and highest value that Var can fall between (inclusive).
@@ -2287,7 +2286,7 @@ REMARK: If "not" is included, check for false evaluation instead of true.
     Numbers and strings can be evaluated.
 EX: If var between papaya and plum ; var := "Pear" => True
 
-If-In MatchList
+IfIn 
 If Var [not] in MatchList 
 USE: Checks if Var has an exact matches to an element in MatchList.
 VAR: Can be a number or string.
@@ -2296,7 +2295,7 @@ MATCHLIST: A comma separated list. Spacing is not ignored.
 REMARK: If you need a blank element, start the matchlist with a comma.
 EX: If var in peach,pear,plum ; var := "pear" => True
 
-If-Contains
+IfContains 
 If Var [not] contains MatchList 
 USE: Checks if any element from MatchList matches any part of Var.
 MATCHLIST: A comma separated list. Spaces are not ignored.
@@ -2304,22 +2303,22 @@ MATCHLIST: A comma separated list. Spaces are not ignored.
 REMARK: If you need a blank element, start the matchlist with a comma.
 EX: If var contains word,word2,TE4 ; var := "SciTE4AHK" => True
 
-If-Is Type
+IfIs 
 If Var is [not] Type 
 USE: Checks if Var conforms to the the specified type.
 TYPE: Name          Define
-      integer       Whole numbers only.
-      float         Integer + decimals allowed.
-      number        Integer + float.
-      digit         Digits 0123456789 are allowed.
-      xdigit        Hex digits 0123456789ABCDEF + 0x prefix allowed.
-      alpha         UPPER and lower alphabetic chars. A-Z + a-z
-      upper         ONLY UPPERCASE ALPHA.
-      lower         only lowercase alpha.
-      alnum         Allows alpha or digit chars.
-      space         Only whitespace allowed. Space|Tab|Linefeed|(etc...)
-      time|date     Only date-time stamps allowed. YYYYMMDDHH24MISS
-EX: If var is alnum ; var := "SciTE4AHK" => True
+      Integer       Whole numbers only.
+      Float         Integer + decimals allowed.
+      Number        Integer + float.
+      Digit         Digits 0123456789 are allowed.
+      XDigit        Hex digits 0123456789ABCDEF + 0x prefix allowed.
+      Alpha         UPPER and lower alphabetic chars. A-Z + a-z
+      Upper         ONLY UPPERCASE ALPHA.
+      Lower         only lowercase alpha.
+      AlNum         Allows alpha or digit chars.
+      Space         Only whitespace allowed. Space|Tab|Linefeed|(etc...)
+      Time|Date     Only date-time stamps allowed. YYYYMMDDHH24MISS
+EX: If var is AlNum ; var := "SciTE4AHK" => True
 
 IfEqual, Var, Value [DEPRECATED!] 
 DEPRECATED: This command is not recommended for use in new scripts. 
@@ -2387,7 +2386,7 @@ DEPRECATED: This command is not recommended for use in new scripts.
 REPLACEMENT: Consider using: if WinExist()
 USE: Check if WinTitle criteria matches any window.
 
-IfWinNotActive, [WinTitle, WinText, ExcludeTitle, ExcludeText] [DEPRECATED!]
+IfWinNotActive, [WinTitle, WinText, ExcludeTitle, ExcludeText] [DEPRECATED!] 
 DEPRECATED: This command is not recommended for use in new scripts. 
 REPLACEMENT: Consider using: if !WinActive()
 USE: Check if WinTitle criteria does not match the active window.
@@ -2435,7 +2434,7 @@ REMARK: The following built-in variables can be used inside a Files-Loop
     A_LoopFileDir   A_LoopFileAttrib    A_LoopFileTimeCreated
     A_LoopFileSize  A_LoopFileLongPath  A_LoopFileTimeModified
     A_LoopFilePath  A_LoopFileFullPath  A_LoopFileTimeAccessed
-EX: Loop, Files, % A_ScriptDir "\*.ah?"  ; Show .ah* files in scrpt's dir
+EX: Loop, Files, % A_ScriptDir "\*.ah?"  ; Show .ah* files in script dir
         MsgBox, A_LoopFileName
 
 Loop-FilePattern [DEPRECATED!] 
@@ -2480,7 +2479,7 @@ REMARK: The following built-in variables can be used inside a Reg-Loop
 EX: Loop, Reg, HKCR\AutoHotkeyScript, KVR
         MsgBox, % "Path: " A_LoopRegKey "\" A_LoopRegSubKey
 
-Loop-Rootkey [DEPRECATED!] 
+Loop-RootKey [DEPRECATED!] 
 Loop, RootKey, [Key, IncludeSubkeys, Recurse]
 DEPRECATED:This command is not recommended for use in new scripts. 
 REPLACEMENT: Consider using: Loop, Reg, KeyName
@@ -2523,123 +2522,139 @@ EX: While (A_Index <= 5)
 
 ### =============== OPERATORS ===============
 
-- 
-USE: Subtract
-EX: x:=9-2 ; x => 7
+## ======== General ========
 
--- 
-USE: Decrement 1
-EX: x:=8, x-- ; x => 7
+, 
+USE: Multiple Expressions, Separate Fields/Params
+EX: x:=Mod(8,3), y:=2, z:=x+y ; Multiple expressions
 
--=
-USE: Subtract then assign 
-EX: x:=9, x-=2 ; x => 7
 
-: 
-USE: Ternary Else, Pair Seperator
-Ex: (10>1 ? True : False) ; Ternary
-    {key : value}         ; Object Pair
+## ======== Assignment ========
 
-:=
+:= 
 USE: Assign to
 EX: x:=7 ; x => 7
 
-! 
-USE: Not
-EX: y:=True, x:=!y ; x => False
++= 
+USE: Add then assign
+EX: x:=5, x+=2 ; x => 7
 
-!=
-USE: Not equal
-EX: if (2 !=0) ; True
+-= 
+USE: Subtract then assign 
+EX: x:=9, x-=2 ; x => 7
 
-? 
-USE: Ternary if
-Ex: (10>1 ? True: False) ; Ternary
+*= 
+USE: Multiply then assign
+EX: x:=2, x*=4 ; x => 8
 
-.=
+/= 
+USE: Divide then assign
+EX: x:=5, x//=2 ; x => 2.5
+
+//= 
+USE: Floor divide then assign
+EX: x:=5, x//=2 ; x => 2
+
+.= 
 USE: Append to
 EX: x:="A", x.="Z" ; x => AZ
 
+|= 
+USE: Bitwise OR then assign
+EX: x:=y:=1, x^=y ; x => True
+
+&= 
+USE: Bitwise AND then assign
+EX: x:=y:=1, x&=y ; x => True
+
+^= 
+USE: Bitwise XOR then assign
+EX: x:=y:=1, x^=y ; x => False
+
+>>= 
+USE: Bit shift right then assign
+EX: x:=4, x>>=1 ; x => 2
+
+<<= 
+USE: Bit shift left then assign
+EX: x:=4, x<<=1 ; x => 8
+
+
+## ======== Math ========
+
++ 
+USE: Add
+EX: x:=2+3 ; x => 5
+
+- 
+USE: Subtract, Negative Number
+EX: x:=9-2 ; x => 7
+
 * 
-USE: Multiply
+USE: Multiply, Variadic Func, Deref
 EX: x:=3*4 ; x => 6
 
 ** 
-USE: Exponetial
+USE: Exponential
 EX: x:=2**4 ; x => 16
-
-*=
-USE: Multiply then assign
-EX: x:=2, x*=4 ; x => 8
 
 / 
 USE: Divide
 EX: x:=5/2 ; x => 2.5
 
 // 
-USE: Floor divide
+USE: Floor Divide
 EX: x:=5/2 ; x => 2
 
-//=
-USE: Floor divide then assign
-EX: x:=5, x//=2 ; x => 2
+++ 
+USE: Increment Number by 1
+EX: x:=8, ++x ; x => 9
 
-/=
-USE: Divide then assign
-EX: x:=5, x//=2 ; x => 2.5
+-- 
+USE: Decrement Number by 1
+EX: x:=8, --x ; x => 7
+
+
+## ======== Bitwise ========
 
 & 
-USE: Bitwise AND, Address prefix
+USE: Bitwise AND, Address Ref, 
 EX: (1 & 1) ;=> 1 (True)
     NumGet(&var,0,"Int") ; Address    
-
-&& 
-USE: Logical AND
-EX: If (2>1) && (3<8) ;=> True
-
-&=
-USE: Bitwise AND then assign
-EX: x:=y:=1, x&=y ; x => True
 
 ^ 
 USE: Bitwise XOR
 EX: (0 ^ 1) ;=> 1 (True)
 
-^=
-USE: Bitwise XOR then assign
-EX: x:=y:=1, x^=y ; x => False
+| 
+USE: Bitwise OR
+EX: x:=1, x:=x|1 ; x => True
 
-+ 
-USE: Add
-EX: x:=2+3 ; x => 5
-
-++ 
-USE: Increment 1
-EX: x:=8, x++ ; x => 9
-
-+=
-USE: Add then assign
-EX: x:=5, x+=2 ; x => 7
-
-< 
-USE: Less than
-EX: if (1 < 3) ; True
+~ 
+USE: Bitwise NOT
+EX: ~0xFFFF0000 ; x => 65535
 
 << 
 USE: Bit shift left
 EX: x:=4, y:=x<<1 ; x => 8
 
-<<= 
-USE: Bit shift left then assign
-EX: x:=4, x<<=1 ; x => 8
+>> 
+USE: Bit shift right
+EX: x:=4, x:=x>>1 ; x => 2
 
-<= 
-USE: Less than or equal
-EX: if (2 <= 2) ; True
 
-<> 
-USE: Not equal
-EX: if (2 <> 0) ; True
+## ======== Variable ========
+
+ByRef 
+USE: Access variable by address
+EX: Func(ByRef x) ; Changes to var are permanent
+
+New 
+USE: New item|object
+EX: x := new Class ; Creates a new class object
+
+
+## ======== Comparison ========
 
 = 
 USE: Equal
@@ -2649,6 +2664,22 @@ EX: if (7 = 7) ; True
 USE: Case sensitive equal
 EX: if ("Dog" == "dog") ; False
 
+!= 
+USE: Not equal
+EX: if (2 !=0) ; True
+
+<> 
+DEPRECATED: Use !=
+USE: Not equal
+
+< 
+USE: Less than
+EX: if (1 < 3) ; True
+
+<= 
+USE: Less than or equal
+EX: if (2 <= 2) ; True
+
 > 
 USE: Greater than
 EX: if (2 > 0) ; True
@@ -2656,30 +2687,6 @@ EX: if (2 > 0) ; True
 >= 
 USE: Greater than or equal
 EX: if (2 >= 2) ; True
-
->> 
-USE: Bit shift right
-EX: x:=4, x:=x>>1 ; x => 2
-
->>= 
-USE: Bit shift right then assign
-EX: x:=4, x>>=1 ; x => 2
-
-| 
-USE: Bitwise OR
-EX: x:=1, x:=x|1 ; x => True
-
-|= 
-USE: Bitwise OR then assign
-EX: x:=y:=1, x^=y ; x => True
-
-|| 
-USE: Logical OR
-EX: if (7 = 7) || (7 = 8) ; True
-
-~ 
-USE: Bitwise NOT
-EX: ~0xFFFF0000 ; x => 65535
 
 ~= 
 USE: RegEx Match
@@ -2689,21 +2696,39 @@ AND
 USE: Logical AND
 EX: if (7 = 7) AND (1 != 0) ; True
 
-NOT 
-USE: Logical NOT
-EX: if NOT (False) ; True
+&& 
+USE: Logical AND
+EX: If (2>1) && (3<8) ;=> True
 
 OR 
 USE: Logical OR
 EX: if (7 = 7) OR (7 = 8) ; True
 
-ByRef 
-USE: Access variable by address
-EX: Func(ByRef x) ; Changes to var are permanent
+|| 
+USE: Logical OR
+EX: if (7 = 7) || (7 = 8) ; True
 
-New 
-USE: New item|object
-EX: x := new Class ; Creates a new class object
+NOT 
+USE: Logical NOT
+EX: if NOT (False) ; True
+
+! 
+USE: Not
+EX: y:=True, x:=!y ; x => False
+
+
+## ======== Ternary ========
+
+? 
+USE: Ternary if
+Ex: (10>1 ? True: False) ; Ternary
+
+: 
+USE: Ternary Else, Pair Separator
+Ex: (10>1 ? True : False) ; Ternary
+    {key : value}         ; Object Pair
+
+
 
 ### =============== DECLARATIONS ===============
 
@@ -2716,7 +2741,7 @@ USE: Inherit Base Class
 EX: Class myClass Extends baseClass
 
 Global 
-USE: Permanant public variable
+USE: Permanent public variable
 EX: Global Var := 0
 
 Local 
@@ -2724,7 +2749,7 @@ USE: Temporary private function variable
 EX: Local Var := 0
 
 Static 
-USE: Permanant private function variable
+USE: Permanent private function variable
 EX: Static Var := 0
 
 
@@ -2732,7 +2757,7 @@ EX: Static Var := 0
 
 AutoTrim, On|Off 
 USE: Controls if whitespace is trimmed from the beginning|end of traditional variables.
-ONOFF: On|1 = Trim whitespace    Off|0 = Don't trime whitespace
+ONOFF: On|1 = Trim whitespace    Off|0 = Don't trim whitespace
 REMARK: A_AutoTrim contains this commands current setting.
 
 BlockInput, Mode 
@@ -2744,7 +2769,7 @@ MODE2: During send and|or mouse events.
     SendAndMouse = Send mode + mouse mode.
     Default = Disable all other modes.
 MODE3: Mouse movement.    MouseMove = Disable    MouseMoveOff = Enable
-REMARK: Each mode operates independantly of the others.
+REMARK: Each mode operates independently of the others.
 
 Click, [Button:=Left, X, Y, Count:=1, State, Relative|Rel] 
 USE: Send different mouse button events.
@@ -2761,53 +2786,53 @@ USE: Waits until the clipboard contains data.
 SECTOWAIT: Seconds to wait for the clipboard.
     0 = .5 seconds    1+ = Seconds
 DATATYPE: 0 = Wait for text    1 = Wait for any binary data
-ERRORLEVEL: 0 = Success. 1 = SecToWait expired.
+ErrorLevel: 0 = Success. 1 = SecToWait expired.
 
 Control 
 Control, SubCommand, [Value, Control, WinTitle, WinText, NotTitle, NotText] 
-USE: Used to manipualte controls.
+USE: Used to manipulate controls.
 SUBCOMMANDS: 
     Check = Check radio button|checkbox     Uncheck = Uncheck radio button|checkbox
     Enable = Enable control                 Disable = Disable control
     Show = Make control visible             Hide = Hide control
     Style = Apply style to control          ExStyle = Apply ex style to control
-    ShowDropDown = Show ComboBox DDL        HideDropDown = Hide Combobox DDL
+    ShowDropDown = Show ComboBox DDL        HideDropDown = Hide ComboBox DDL
     TabLeft = Go left X tabs                TabRight = Go right X tabs
     Add = Add to bottom of ListBox|ComboBox Delete = Remove Nth ListBox|ComboBox entry
     Choose = Select Nth ListBox|ComboBox    EditPaste = Paste at edit box caret
     ChooseString = Select first ListBox|ComboBox entry to match String
 CONTROL: Name or text of control. HWND control is done through WinTitle.
 WINTITLE: Standard WinTitle matching. For a handle, use: ahk_id %HWND%
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 
 Control, Check, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Turns on|checks a radio button or checkbox.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, Check, , GuiCheck1, ahk_exe MyProg.exe
 
 Control, Uncheck, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Turns off a radio button or checkbox.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, Uncheck, , GuiCheck1, ahk_exe MyProg.exe
 
 Control, Enable, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Enables a disabled control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, Enable, , GuiBtn1, ahk_exe MyProg.exe
 
 Control, Disable, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Disables|grays out an enabled control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, Disable, , GuiBtn1, ahk_exe MyProg.exe
 
 Control, Show, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Shows a previously hidden control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, Show, , GuiBtn1, ahk_exe MyProg.exe
 
 Control, Hide, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Hides a control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, Hide, , GuiBtn1, ahk_exe MyProg.exe
 
 Control, Style, Hex, [Control, WinTitle, WinText, NotTitle, NotText] 
@@ -2817,7 +2842,7 @@ HEX: A style hex Num.
     ^Num: Toggle control's style        +Num: Add style Num to control
 REMARK: Some style changes require a redraw. See: WinSet, Redraw
 CHEAT: See Cheat_Styles
-ERRORLEVEL+EXO: 0 = Success. 1 = Window not found or style can't be applied.
+ErrorLevel+EXO: 0 = Success. 1 = Window not found or style can't be applied.
 EX: Control, Style, 0x200, GuiBtn1, ahk_exe MyProg.exe
 
 Control, ExStyle, Hex, [Control, WinTitle, WinText, NotTitle, NotText] 
@@ -2827,59 +2852,59 @@ HEX: A extended style hex Num.
     ^Num: Toggle control's style        +Num: Add style Num to control
 REMARK: Some style changes require a redraw. See: WinSet, Redraw.
 CHEAT: See Cheat_Styles
-ERRORLEVEL+EXO: 0 = Success. 1 = Window not found or style can't be applied.
+ErrorLevel+EXO: 0 = Success. 1 = Window not found or style can't be applied.
 EX: Control, ExStyle, 0x200, GuiBtn1, ahk_exe MyProg.exe
 
 Control, ShowDropDown, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Shows the drop-down list of a ComboBox control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, ShowDropDown, , Combo1, ahk_exe MyProg.exe
 
 Control, HideDropDown, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Hides the drop-down list of a ComboBox control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, HideDropDown, , Combo1, ahk_exe MyProg.exe
 
 Control, TabLeft, [Count, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Moves a SysTabControl32 tab to the left.
 COUNT: Number of tabs to move left.
 REMARK: To select a tab by number, see: SendMessage with 0x1330 and 0x130C
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, TabLeft, 3, GuiTabs, ahk_exe MyProg.exe
 
 Control, TabRight, [Count, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Moves a SysTabControl32 tab to the right.
 COUNT: Number of tabs to move right.
 REMARK: To select a tab by number, see: SendMessage with 0x1330 and 0x130C
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, TabRight, 3, GuiTabs, ahk_exe MyProg.exe
 
 Control, Add, String, [Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Add a new entry to the bottom of a ListBox|ComboBox
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, Add, String, ComboBox2, ahk_exe MyProg.exe
 
 Control, Delete, N, [Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Deletes the Nth entry from a ListBox|ComboBox
 N: Number of control to delete. 1=First    2=Second   etc...
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, Delete, 10, ComboBox2, ahk_exe MyProg.exe
 
 Control, Choose, N, [Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Sets the selection in a ListBox|ComboBox to be the Nth entry.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, Choose, 2, ListBox1, ahk_exe MyProg.exe
 
 Control, ChooseString, String, [Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Searches a ListBox|ComboBox and selects the first matching entry.
 STRING: The string to search for inside the ListBox|ComboBox.
 REMARK: This is not case sensitive.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, ChooseString, ListBox1, ahk_exe MyProg.exe
 
 Control, EditPaste, String, [Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Inserts String into an Edit control at the caret.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Control, EditPaste, String, Edit1, ahk_exe MyProg.exe
 
 ControlClick, [Control|Pos, WinTitle, WinText, Button, Count, Options, NotTitle, NotText] 
@@ -2890,22 +2915,22 @@ POS: Use xNum yNum for coord position. Uses: CoordMode, Mouse
 OPTIONS: A space separated string of the following:
     D|U = Set button to down|up state       Pos = Prioritize POS over Control
     NA = Can improve reliability
-    Xn|Yn = Sets x|y coordinate to click. Relative to control's upperleft corner.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+    Xn|Yn = Sets x|y coordinate to click. Relative to control's upper-left corner.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlClick, x10 y10, ahk_exe MyProg.exe, , Left, 2, NA Pos
 
 ControlFocus, [Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Sets focus to the specified control.
 CONTROL: Name|Text of control. Uses SetTitleMatchMode.
 REMARK: If Control is blank, the window's top most control is used.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlFocus, Btn1, ahk_exe MyProg.exe
 
 ControlGet 
 ControlGet, OutputVar, SubCommand, [Value, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Retrieves various types of information about a control.
 SUBCOMMAND:
-    Hwnd = Get control handle.                  Checked = 1=Checked    0=Not checked
+    HWND = Get control handle.                  Checked = 1=Checked    0=Not checked
     Choice = Get selected ListBox|ComboBox      Visible = 1=Visible    0=Not visible
     Tab = Get SysTabControl32 tab number        Enabled = 1=Enabled    0=Not enabled
     Line = Get text of Edit control line        Selected = Get Edit control selected text
@@ -2914,7 +2939,7 @@ SUBCOMMAND:
     List = Get list from: ListView|ListBox|ComboBox|DropDownList
     Style|ExStyle = Get 8-digit hex number for the control's Style|ExStyle
     FindString = Get number of ListBox|ComboBox that exactly matches string Value
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 
 ControlGet,List 
 ControlGet, OutputVar, List, [Options, Control, WinTitle, WinText, NotTitle, NotText] 
@@ -2928,28 +2953,28 @@ OPTIONS: BLANK = All text. Lines are Linefeed separated. Fields are tab separate
     Count Selected = Get number of selected rows in control
     Count Focused = Get number of focused row. 0 if none
     Count Col = Get number of columns in control. -1 = Undetermined
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure and OutputVar is BLANK.
+ErrorLevel+EXO: 0 = Success. 1 = Failure and OutputVar is BLANK.
 EX: ControlGet, LVList, List,, LV1, ahk_exe MyProg.exe
 
 ControlGet,Checked 
 ControlGet, OutputVar, Checked, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Check to see if a radio button|checkbox is checked.
 OUTPUTVAR: 1 = Checked    0 = Not checked
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlGet, radio2_2, Checked,, Radio22, ahk_exe MyProg.exe
 
 ControlGet,Enabled 
 ControlGet, OutputVar, Enabled, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Check if a control is enabled.
 OUTPUTVAR: 1 = Enabled    0 = Disabled
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlGet, BtnStatus, Enabled,, Btn1, ahk_exe MyProg.exe
 
 ControlGet,Visible 
 ControlGet, OutputVar, Visible , [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Check if a control is visible.
 OUTPUTVAR: 1 = Visible    0 = Hidden
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlGet, btnVisState, Visible,, Btn1, ahk_exe MyProg.exe
 
 ControlGet,Tab 
@@ -2957,115 +2982,115 @@ ControlGet, OutputVar, Tab, [, Control, WinTitle, WinText, NotTitle, NotText]
 USE: Get the tab number of a control.
 OUTPUTVAR: 1 = Tab 1    2 = Tab 2    Etc...
 REMARK: To get total tabs, see: SendMessage, 0x1304
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlGet, thisTab, Tab,, Btn1, ahk_exe MyProg.exe
 
 ControlGet,FindString 
 ControlGet, OutputVar, FindString, String [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get entry number of ListBox|ComboBox that matches String.
 OUTPUTVAR: Number of matching entry.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure and OutputVar is BLANK.
+ErrorLevel+EXO: 0 = Success. 1 = Failure and OutputVar is BLANK.
 EX: ControlGet, lbNum, FindString, AutoHotkey, LB1, ahk_exe MyProg.exe
 
 ControlGet,Choice 
 ControlGet, OutputVar, Choice, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get the name of the selected ListBox|ComboBox entry.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlGet, cbActiveItem, Choice ,, CB1, ahk_exe MyProg.exe
 
 ControlGet,LineCount 
 ControlGet, OutputVar, LineCount, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get number of lines in an Edit control.
-REMARK: An emtpy control still has 1 line.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+REMARK: An empty control still has 1 line.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlGet, editLineNum, LineCount, , Edit2, ahk_exe MyProg.exe
 
 ControlGet,CurrentLine 
 ControlGet, OutputVar, CurrentLine, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get the line number of the caret in an Edit control.
 REMARK: If text is highlighted, line of highlight start is used.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlGet, edit1Caret, CurrentLine, , Edit2, ahk_exe MyProg.exe
 
 ControlGet,CurrentCol 
 ControlGet, OutputVar, CurrentCol, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get the col number of the caret in an Edit control.
 REMARK: If text is highlighted, col of highlight start is used.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlGet, edit1Caret, CurrentCol, , Edit2, ahk_exe MyProg.exe
 
 ControlGet,Line 
 ControlGet, OutputVar, Line, N [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get Nth line of text from an Edit control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure|line not exist. OutputVar = BLANK.
+ErrorLevel+EXO: 0 = Success. 1 = Failure|line not exist. OutputVar = BLANK.
 EX: ControlGet, editLineInfo, Line, 5, Edit2, ahk_exe MyProg.exe
 
 ControlGet,Selected 
 ControlGet, OutputVar, Selected, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get selected text from an Edit control.
 REMARK: If no text is selected, ErrorLevel = 0 and OutputVar = BLANK
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure|no text selected.
+ErrorLevel+EXO: 0 = Success. 1 = Failure|no text selected.
 EX: ControlGet, editSelected, Selected, , Edit2, ahk_exe MyProg.exe
 
 ControlGet,Style 
 ControlGet, OutputVar, Style, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get the 8-digit hex number of the control's style.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 CHEAT: See Cheat_Styles
 EX: ControlGet, btnStyle, Style, , btn2, ahk_exe MyProg.exe
 
 ControlGet,ExStyle 
 ControlGet, OutputVar, ExStyle, [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get the 8-digit hex number of the control's extended style.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 CHEAT: See Cheat_Styles
 EX: ControlGet, btnExStyle, ExStyle, , btn2, ahk_exe MyProg.exe
 
-ControlGet,Hwnd 
-ControlGet, OutputVar, Hwnd , [, Control, WinTitle, WinText, NotTitle, NotText] 
+ControlGet,HWND 
+ControlGet, OutputVar, HWND , [, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get the handle (HWND) of the control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
-EX: ControlGet, gui2Btn2HWND, Hwnd, , btn2, ahk_exe MyProg.exe
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
+EX: ControlGet, gui2Btn2HWND, HWND, , btn2, ahk_exe MyProg.exe
 
 ControlGetFocus, OutputVar [, WinTitle, WinText, NotTitle, NotText] 
 USE: Get the identifier of the control that currently has focus. If any.
-ERRORLEVEL+EXO: 0 = Focused control found. 1 = Failure.
+ErrorLevel+EXO: 0 = Focused control found. 1 = Failure.
 EX: ControlGetFocus, conFocusName, ahk_exe MyProg.exe
 
 ControlGetPos, [outX, outY, outW, outH, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get the X|Y coordinates, height, and width of a control.
-OUT: Output varaibles for XY coords and width|height.
+OUT: Output variables for XY coords and width|height.
 REMARK: Output will be BLANK if no window or control is found.
 EX: ControlGetPos, x, y, w, h, btn1, ahk_exe MyProg.exe
 
 ControlGetText, OutputVar, [Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Get text from a control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlGetText, ddlTxt, DDL1, ahk_exe MyProg.exe
 
 ControlMove, Control, X, Y, Width, Height, [WinTitle, WinText, NotTitle, NotText] 
 USE: Moves or resizes a control.
 X|Y|Width|Height: Set the X|Y coords and the Width|Height of the control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlMove, Btn1, 10, 10, 50, 25, ahk_exe MyProg.exe
 
 ControlSend, [Control, Keys, WinTitle, WinText, NotTitle, NotText] 
 USE: Sends simulated keystrokes directly to a window or control.
 KEYS: Keys to send. Use same syntax as a Send field.
 REMARK: ahk_parent sends keys directly to the window instead of a control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlSend,, SciTE, ahk_exe MyProg.exe
 
 ControlSendRaw, [Control, Keys, WinTitle, WinText, NotTitle, NotText] 
 USE: Sends simulated keystrokes directly to a window or control.
 KEYS: Keys to send. Text is sent as typed. Same as: Send, {Raw}
 REMARK: ahk_parent sends keys directly to the window instead of a control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlSend, Edit1, Some Text, ahk_exe MyProg.exe
 
 ControlSetText, [Control, NewText, WinTitle, WinText, NotTitle, NotText] 
 USE: Update a control's text to NewText.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: ControlSetText, Edit1, SciTE, ahk_exe MyProg.exe
 
 CoordMode, Type, [Area := Screen] 
@@ -3078,12 +3103,12 @@ TYPE: What each type affects:
     Mouse   = MouseGetPos|Click|MouseClick|MouseDrag|MouseMove
 AREA:
     Screen = Entire screen/desktop.
-    Window = Whole window including OS Menu|Titlebar|Borders
-    Client = Program area. Does not include OS Menu|Titlebar|Borders
+    Window = Whole window including OS Menu|TitleBar|Borders
+    Client = Program area. Does not include OS Menu|TitleBar|Borders
 EX: CoordMode, Mouse, Relative
 
 Critical, [State] 
-USE: Prevents or enables interruptiong of the current thread.
+USE: Prevents or enables interruption of the current thread.
 STATE:
     ON  = Thread is critical and cannot be interrupted.
     OFF = Thread is not critical and can be interrupted.
@@ -3103,28 +3128,28 @@ USE: Optical drive commands.
 SUBCOMMANDS:
     Eject = Ejects drive                Label = Rename drive label
     Lock = Disables drive eject         Unlock = Enables drive eject
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 
 Drive, Label, DriveLetter, [NewLabel] 
 USE: Changes the Label of DriveLetter.
 DRIVELETTER: Drive's letter followed by a colon.
 NEWLABEL: If BLANK, drive will have no label.
 REMARK: To get current label, use: DriveGet, OutputVar, Label, DriveLetter
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: Drive, Label, C:, GroggyDrive
 
 Drive, Lock, DriveLetter 
 USE: Disable a drive's ability to eject.
 DRIVELETTER: Drive's letter followed by a colon.
 REMARK: Has no effect on drives that do not support locking
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure|Drive not Exist|Drive not lockable
+ErrorLevel+EXO: 0 = Success. 1 = Failure|Drive not Exist|Drive not lockable
 
 Drive, Unlock, DriveLetter 
 USE: Enable a drive's ability to eject.
 DRIVELETTER: Drive's letter followed by a colon.
 REMARK: Has no effect on drives that do not support locking
     Some drives may need multiple unlocks if multiple locks were issued.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 
 Drive, Eject, [DriveLetter, Open] 
 USE: Eject|retracts the tray of an optical drive.
@@ -3141,20 +3166,20 @@ SUBCOMMANDS:
     Label = Get drive's volume label    StatusCD = Get optical drive status
     FileSystem = Get file system type of drive
     Serial = Get drive's volume serial number
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 
 DriveGet, OutputVar, List, [Type] 
 USE: Returns a string of system drive letters.
 TYPE: If omitted, all drives are retrieved. Otherwise:
     CDROM|REMOVABLE|FIXED|NETWORK|RAMDISK|UNKNOWN
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: DriveGet, driveLetters, List, [Type] ; V=> CDEFXYZ
 
 DriveGet, OutputVar, Cap|Capacity, Path 
 USE: Get the total capacity of Path in megabytes.
 PATH: Drive path.
 REMARK: If you need to get free space, use: DriveSpaceFree
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: DriveGet, driveCap, Cap, C:\ ; V=> 228740
 
 DriveGet, OutputVar, FS|FileSystem, Drive 
@@ -3162,7 +3187,7 @@ USE: Get the type of file system used by Drive.
 DRIVE: Drive letter or UNC
     C:      Z:\     \\Server1\Share
 OUTPUTVAR: File system types: FAT|FAT32|NTFS|CDFS|UDF
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure. BLANK = Drive has no formatted media.
+ErrorLevel+EXO: 0 = Success. 1 = Failure. BLANK = Drive has no formatted media.
 EX: DriveGet, driveFsType, FS, C: ; V=> NTFS
 
 DriveGet, OutputVar, Label, Drive 
@@ -3170,33 +3195,33 @@ USE: Get volume label of Drive.
 DRIVE: Drive letter or UNC
     C:      Z:\     \\Server1\Share
 REMARK: To change the drive's label, see: Drive, Label
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: DriveGet, driveLabel, Label, c:\ ; V=> GroggyDrive
 
 DriveGet, OutputVar, Serial, Drive 
 USE: Get the volume serial number for Drive.
 OUTPUTVAR: Output is a decimal integer.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: DriveGet, driveSerial, Serial, Drive ; V=> 2151283365
 
 DriveGet, OutputVar, Type, Path 
 USE: Get the drive type of Path.
 OUTPUTVAR: Removable|Fixed|Network|CDROM|RAMDisk|Unknown
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: DriveGet, driveType, Type, C:\ ; V=> Fixed
 
 DriveGet, OutputVar, Status, Path 
 USE: Retrieves Path's status.
 OUTPUTVAR: Status types: Unknown(Possibly RAW)|Ready|NotReady|Invalid
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: DriveGet, driveStatus, Status, C: ; V=> Ready
 
 DriveGet, OutputVar, StatusCD, [DriveLetter] 
 USE: Get the status of an optical drive.
 OUTPUTVAR: Not Ready|Open|Playing|Paused|Seeking|Stopped
-    BLANK = Status undeterminable
+    BLANK = Status indeterminable
 DRIVELETTER: Drive's letter followed by a colon. If omitted, use default drive.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: DriveGet, dvdStatus, StatusCD, E: ; V=> Stopped
 
 DriveSpaceFree, OutputVar, Path 
@@ -3236,20 +3261,20 @@ REPLACMENET: Use a regular expression: Var := Var * Value OR Var2 *= Value
 EnvSet, EnvVar, Value 
 USE: Writes a value to a variable contained in the environment.
 REMARK: Windows limits environment variables to 32 KB of text.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 
 EnvSub, Var, Value, [TimeUnit] 
 USE: Subtract Value from Var. Stores result in Var.
 TIMEUNIT: When present, Var & Value are both treated as YYYYMMDDHH24MISS
     If either are blank, A_Now is used.
-REMARK: If Var returns BLANK, it's becaues:
+REMARK: If Var returns BLANK, it's because:
     Invalid timestamp.  Year is before 1601.  Value not a number.
 EX: utc := A_NowUTC, loc := A_Now ; Set local and UTC times
     EnvSub, loc, % utc, H         ; Get the difference between the two
 
 EnvUpdate 
 USE: Notify OS and all running apps an environment variable has changed.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 
 ExitApp, [ExitCode] 
 USE: Shuts down and closes script.
@@ -3263,7 +3288,7 @@ FILENAME: Name of the file to write to.
     * : Using just * sends text to StdOut
 ENCODING: UTF-8    UTF-8-RAW    UTF-16    UTF-16-RAW    CPnnn
 REMARK: For continuous writing, consider FileOpen()
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileAppend, % "Hello World!", C:\Text.txt, UTF-16
 
 FileCopy, Source, Destination, [Overwrite:=0] 
@@ -3272,7 +3297,7 @@ SOURCE: The path of a file or folder. Wildcards are allowed.
 DESTINATION: The path of a file or folder to copy to.
 OVERWRITE: 1 = Overwrite    0 = Do not overwrite
 REMARK: This is for files only. For whole directors, see: FileCopyDir
-ERRORLEVEL+EXO: 0 = Success. 1+ = Number of files that failed to copy.
+ErrorLevel+EXO: 0 = Success. 1+ = Number of files that failed to copy.
 EX: FileCopy, D:\Scripts\*.ahk, E:\Backup, 1 ; Backup all AHK scripts
 
 FileCopyDir, Source, Destination, [Overwrite:=0] 
@@ -3281,28 +3306,28 @@ SOURCE: Path to source directory. No trailing backslash.
 DESTINATION: Path to destination directory. No trailing backslash.
 OVERWRITE: 1 = Overwrite. 0 = Do not overwrite.
 REMARK: If the folder structure doesn't exist, it will be created.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileCopyDir, D:\Scripts, E:\Backup, 1 ; Backup Scripts folder
 
 FileCreateDir, DirName 
 USE: Creates a directory/folder .
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileCreateDir, C:\TestFolder
 
 FileCreateShortcut, Target, Link, [Dir, Args, Desc, Icon, Shortcut, IconNum, State] 
 USE: Creates a shortcut (.lnk) file to Target with.
 TARGET: File to make shortcut for       LINK: Path and name of shortcut
 DIR: Provide an working directory       ARGS: Space separated args for Target
-DESC: Shotcut description               SHORTCUT: Single letter hotkey
+DESC: Shortcut description              SHORTCUT: Single letter hotkey
 ICON: Path to shortcut's icon           ICONNUM: Icon number if icon file
-STATE: 1 = Normal  3 = Maximized  7 = Minimzed
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+STATE: 1 = Normal  3 = Maximized  7 = Minimized
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileCreateShortcut, C:\Windows\Explorer, % A_Desktop "\Explorer.lnk"
 
 FileDelete, FilePattern 
 USE: Deletes one or more files.
 FILEPATTERN: Path to a file. Wildcards allowed.
-ERRORLEVEL+EXO: 0 = Success. 1+ = Number of files failed to be deleted.
+ErrorLevel+EXO: 0 = Success. 1+ = Number of files failed to be deleted.
 EX: FileDelete, % A_Desktop "\TestFile.txt"
 
 FileEncoding, [Encoding] 
@@ -3319,7 +3344,7 @@ OUTPUTVAR: String. D|O|N|T|C|R|A|S|H|X|BLANK
     H = Hidden        X = No Attr     BLANK = No file found
 FILENAME: Path and file to get attributes from.
 REMARK: Remember: DONT CRASH X
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileGetAttrib, fileAttribs, % A_ScriptFullPath ; Get current scripts attributes
 
 FileGetShortcut, Link, [OutTarget, OutDir, OutArgs, OutDesc, OutIcon, OutIconNum, OutState] 
@@ -3327,29 +3352,29 @@ USE: Retrieves information about a shortcut (.lnk) file.
 LINK: Path to the shortcut
 OUT: Variables to store all the data from the shortcut
     OutTarget = Target's path           OutArgs = Shortcut's arguments
-    OutDesc = Shotcut's description     OutDir = Target working directory
-    OutIcon = Path to shortcut's icon   OutIconNum = Shotcut's 
-    OutState = 1 = Normal  3 = Maximized  7 = Minimzed
+    OutDesc = Shortcut's description    OutDir = Target working directory
+    OutIcon = Path to shortcut's icon   OutIconNum = Shortcut's 
+    OutState = 1 = Normal  3 = Maximized  7 = Minimized
 REMARK: Any Out variable can be omitted.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure and all Out files = BLANK.
+ErrorLevel+EXO: 0 = Success. 1 = Failure and all Out files = BLANK.
 EX: FileGetShortcut, C:\test.lnk, outTar, outDir, , , OutIcon
 
 FileGetSize, OutputVar, [Filename, Units] 
 USE: Get the size of a file. 
 UNITS: BLANK = Bytes. K = Kilobytes. M = Megabytes.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileGetSize, scriptSize, % A_ScriptFullPath, K ; V=> 2
 
 FileGetTime, OutputVar, [Filename, TimeType:=M] 
-USE: Get the datetime stamp of a file or folder in YYYYMMDDHH24MISS format.
+USE: Get the date timestamp of a file or folder in YYYYMMDDHH24MISS format.
 TIMETYPE: Type of timestamp to retrieve:
     M = Modification time    C = Creation time    A = Last access time
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileGetTime, fileModTime, C:\Test.txt, M ; Get modification time of test.txt
 
 FileGetVersion, OutputVar, [Filename] 
 USE: Retrieves the version of a file.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 REMARK: If file has no version, OutputVar is BLANK.
 EX: FileGetVersion, fileVer, C:\Windows\Explorer.exe ; V=> 6.1.7601.23537
 
@@ -3358,10 +3383,10 @@ USE: Includes files inside of a compiled exe.
 SOURCE: Path to the file to include.
     Path must not contain double quotes, variable references, or wildcards.
 DEST: Destination to put source on file extraction
-    Unlike source, this path can use varaible references.
+    Unlike source, this path can use variable references.
 OVERWRITE: 1 = Overwrite. 0 = Do not overwrite.
 REMARK: Uncompiled files perform a simple copy. This makes testing much easier.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileInstall, icon.ico, % A_AppData "\MyProgFiles\", 1
 
 FileMove, Source, Dest, [Overwrite] 
@@ -3369,7 +3394,7 @@ USE: Move or rename file(s).
 SOURCE: The path to a file. Wildcards allowed.
 DEST: path to destination.
 OVERWRITE: 1 = Overwrite. 0 = Do not overwrite.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileMove, C:\Test.txt, C:\Test.ahk, 1 ; Rename test.txt to test.ahk
 
 FileMoveDir, Source, Dest, [Flag:=0] 
@@ -3381,7 +3406,7 @@ FLAG: One of the following single characters:
     1 = Overwrite existing files.
     2 = Same as 1 except prevents a known limitation. See the docs.
     R = Rename directory instead of moving it. 
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileMoveDir, D:\Scripts, D:\Backup, 1 ; Backup scripts dir
 
 FileRead, OutputVar, Filename 
@@ -3392,24 +3417,24 @@ FILENAME: Name of file that can include the following prefixed options:
     *t: Replaces CR+LF with LF. 
     *Pnnn: Set FileEncoding identifier where nnn = numeric code page identifier.
 REMARK: If file greater than 1 GB, ErrorLevel = 1 and OutputVar = BLANK
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileRead, txtVar, C:\Test.txt
 
 FileReadLine, OutputVar, Filename, LineNum 
 USE: Read a line of text from a file into a variable.
 REMARK: Used for small files. For large files, see: FileRead() or Loop-Files
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileReadLine, txtVar, C:\Test.txt, 2
 
 FileRecycle, FilePattern 
 USE: Sends a file or directory to the recycle bin, if possible.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileRecycle, C:\Test.txt
 
 FileRecycleEmpty, [DriveLetter] 
 USE: Empties the recycle bin of all files.
 DRIVELETTER: If specified, only recycles files from that drive letter.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileRecycleEmpty, C:
 
 FileRemoveDir, DirName, [Recurse:=0] 
@@ -3417,7 +3442,7 @@ USE: Deletes a folder.
 RECURSE: Choose to recursively remove files/folders from subdirectories
     0 = Remove directory if no files or subdirectories exist.
     1 = Recursively removes all files and directories, too.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileRemoveDir, D:\TestFolder, 1
 
 FileSelectFile, OutputVar, [Options:=0, Path, Prompt, Filter] 
@@ -3430,7 +3455,7 @@ OPTIONS: Choose one: S = Changes Open to Save    M = Select multiple files
 PATH: A directory, filename, or CLSID dialog starts at.
 PROMPT: Dialog window's title.
 FILTER: Filter file extensions. Format: Title(*.ext1; *.ext2; *.ext3; ...)
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 CHEAT: Cheat_CLSID_List
 EX: FileSelectFile, OutputVar, S27, D:\Scripts,, Text (*.txt; *.ahk)
 
@@ -3438,13 +3463,14 @@ FileSelectFolder, OutputVar, [Path, Options:=1, Prompt]
 USE: Displays an interface for the user to select a folder from Path.
 PATH: A directory or CLSID to start at. An * can be prefixed to the path.
     * indicates user can navigate upward toward root.
-    Without this, the user must choos Path or a directory in Path/
-OPTIONS: Add desired options together.
-     0 = All options diabled             +1 = Allowed to create new folder
+    Without this, the user must choose Path or a directory in Path.
+OPTIONS: Use sum of desired options
+     0 = All options disabled
+    +1 = Allowed to create new folder
     +2 = Enable edit bar for user to type/paste folder path 
-    +4 = Omit the BIF_NEWDIALOGSTYLE property.
+    +4 = Omit the BIF_NEWDIALOGSTYLE property
 PROMPT: Dialog prompt.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 CHEAT: Cheat_CLSID_List
 EX: FileSelectFolder, folderPath, c:\, 3, Pick a folder
 
@@ -3458,18 +3484,18 @@ ATTRIBUTES: Operators: +=Add    -=Remove    ^=Toggle
 PATH: Path to a file or folder. Wildcards are allowed.
 OPERATE: 0 = Only files    1 = Files and folders that match    2 = Only folders 
 RECURSE: 0 = No recursion    1 = Recurse into subdirectories
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileSetAttrib, +RC-O, [Path, Operate:=0, Recurse] 
 
 FileSetTime, [DTS, Path, TimeType, Operate, Recurse] 
-USE: Change the datetime stamp of one or more files|folders.
+USE: Change the date timestamp of one or more files|folders.
 PATH: Path to a file or folder. Wildcards are allowed.
 DTS: Date-timestamp. Format: YYYYMMDDHH24MISS
 TIMETYPE: Timestamp type to alter:
     M = Modification time    C = Creation time    A = Last access time
 OPERATE: 0 = Only files      1 = Files & folders that match    2 = Only folders 
 RECURSE: 0 = No recursion    1 = Recurse into subfolders
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: FileSetTime, 20181007045200, C:\Test.txt, C, 1, 0
 
 FormatTime, OutputVar, [DTS := A_Now, Format := BLANK] 
@@ -3488,7 +3514,7 @@ FORMAT: A string of characters, spacing, and any punctuation you want.
     YearMonth = MMMM, yyyy              
     YDay  = Day of year. 1-366          YDay0     = Day of year. 001-366
     YWeek = Year and week number        WDay  = Day of week. 1-7. 1=Sunday
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 CHEAT: There are too many options to list. See: Cheat_FormatTime
 EX: FormatTime, timeF, % A_Now, HH:mm dddd, MMMM dd, yyyy ; Same as A_Now
 
@@ -3511,7 +3537,7 @@ EX: GroupAdd, browserGroup, ahk_exe chrome.exe,, NoMatchSub
 GroupClose, GroupName, [Mode:=""] 
 USE: Closes next|all windows. Behavior based on mode.
 MODE: BLANK = Close active window. Activate oldest window in group.
-    A = All exisiting group members are closed.
+    A = All existing group members are closed.
     R = GroupDeactivate last used = Closes active window if not a group member 
         GroupActivate last used = Closes active window if it is a group member 
 EX: GroupClose, winGroup, A
@@ -3527,23 +3553,23 @@ USE: Used to create, destroy, format, and manipulate Graphical User Interfaces.
 SUBCOMMANDS:
     New = New GUI                   Destroy = Deletes GUI
     Show = Make GUI visible         Cancel|Hide = Make GUI Hidden
-    Add = Add a control to GUI      Submit = Save all control data to varaibles
+    Add = Add a control to GUI      Submit = Save all control data to variables
     Margin = Default padding size   Color = Sets background|control color
     Menu = Add|remove menu bar      Flash = Blink window|taskbar button
     Minimize|Maximize|Restore = GUI resizing options
     Default = Set default GUI name for current thread
     Font = Sets default font|color|size|style for future controls
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 
 Gui, [GuiID]New, [Options, Title] 
 USE: Create a new GUI and sets new GUI to thread default.
 EX: Gui, MyGUI:New, HWNDguiH
 OPTIONS: Use +|- to Add|Remove any of these options.
     AlwaysOnTop = Window always on top      Border = Thin-line border
-    Delimiter = Set GUI control delimeter   Disabled = Disable window
+    Delimiter = Set GUI control delimiter   Disabled = Disable window
     DPIScale = Scale GUI with DPI           HWNDvar = Store GUI HWND to var
     Label = Change GUI Label prefix         LastFound = Set GUI to LastFound        
-    MaximizeBox = Maximize button           MinimizeBox = Minimze button
+    MaximizeBox = Maximize button           MinimizeBox = Minimize button
     MaxSize = Maximum window size           MinSize = Minimum window size
     Owner = Set windows owner               OwnDialogs = Own popup dialogs
     Parent = Set parent of this window      Resize = Set resizability
@@ -3628,7 +3654,7 @@ OPTIONS: See Cheat_GUI_Options for general options.
     Lowercase = force lowercase
     Uppercase = FORCE UPPERCASE
     ChooseN = Item N starts selected
-    Sort = Auotmatically sorts list alphabetically. Also allows type-to-select
+    Sort = Automatically sorts list alphabetically. Also allows type-to-select
 LIST: A pipe separated list of items. Set default item with 2 pipes after it.
 EX: Gui, Add, DropDownList, x5 y5 w50 Sort, Bin|Oct|Dec||Hex|
 
@@ -3646,7 +3672,7 @@ OPTIONS: See Cheat_GUI_Options for general options.
     ChooseN = Item N starts selected
     Multi = Multiple selections
     ReadOnly = Non-interactive
-    Sort = Auotmatically sorts list alphabetically
+    Sort = Automatically sorts list alphabetically
     0x100 = Prevents row cutoff
 LIST: A pipe separated list of items. An item with 2 pipes = Default selection
 EX: Gui, Add, ListBox, x5 y5 w50 r5 vGuiLB1 Multi, Red||Green|Blue||Alpha
@@ -3660,7 +3686,7 @@ OPTIONS: See Cheat_GUI_Options for general options.
     Grid = Row|col lines              AltSubmit = Gets more ListView events
     Sort = Auto sort by first col     LV0x20 = Click first col to select row
     -WantF2 = Prevent F2 renaming     Checked = Add checkboxes to left of row
-    -ReadOnly = First col editable    NoSort = Disalbe sorting by header click
+    -ReadOnly = First col editable    NoSort = Disable sorting by header click
     Count = Initial number of rows    SortDesc = Auto sort descending by first col
     LV = Add or remove a ListView Extended Style
     Background = Set background color. Use Hex|Name
@@ -3700,11 +3726,11 @@ DEFAULT: Set a default hotkey. Accepts mod notation: !^+
 EX: Gui, MyGui:Add, Hotkey, x5 y5 w90 vGuiHK1, ^+A
 
 Gui, Add, DateTime, [Options, Format] 
-USE: A single line input box that accepts dates or time. Has a calendar dropdown.
+USE: A single line input box that accepts dates or time. Has a calendar drop-down.
 OPTIONS: See Cheat_GUI_Options for a list of general GUI options.
     Choose = Preselect a YYYYMMDDHH24MISS date
     Range = Set min/max date to YYYYMMDD-YYYYMMDD
-    Right = Set calendar dropdown to right side
+    Right = Set calendar drop-down to right side
     1 = Provide UpDown control    2 = Provide a no date/time checkbox
 FORMAT:
     BLANK = Locale short date     LongDate = Use locale long date
@@ -3728,8 +3754,8 @@ OPTIONS: See Cheat_GUI_Options for a list of general GUI options.
     Center = Blunt thumb                    ToolTip = Tooltip shows position
     ThickN = N thumb thickness in pixels    Vertical = Slider is vertical
     Left = Thumb points to opposite side    Invert = Switch min/max sides
-    NoTicks = No tickmarks                  PageN = Move N positions on PageUp|Dn
-    TickIntervalN = Set tickmark interval   LineN = Move N positions on arrow press
+    NoTicks = No tick marks                 PageN = Move N positions on PageUp|Dn
+    TickIntervalN = Set tick mark interval  LineN = Move N positions on arrow press
     RangeN1-N2 = Set range from N1 to N2
     Buddy1N|Buddy2N = Attach control N to left|right side of slider
 START: Starting position of slider. If omitted, defaults to number closest 0.
@@ -3754,7 +3780,7 @@ EX: Gui, Add, Button, x15 y35 w50 h20, OK
     Gui, Add, GroupBox, x5 y5 w70 h60 Wrap, Group`nBox
 
 Gui, Add, Tab3|Tab2|Tab, [Options, Text] 
-USE: Creats a page|tab. Each page can contain its own set of controls.
+USE: Creates a page|tab. Each page can contain its own set of controls.
 TAB: TAB=Original tab    TAB2=Fixed some TAB issues    TAB3=Fixed Tab2 issues
 OPTIONS: See Cheat_GUI_Options for a list of general GUI options.
     ChooseN = Preselect a tab N
@@ -3831,10 +3857,10 @@ SUBCOMMANDS:
     Delete = Not implemented yet    MoveDraw = Same as move. Forces repaint
     Choose = Sets the selection in a ListBox|DropDownList|ComboBox|Tab control
     ChooseString = Same as choose but selection to the defined string
-    Font = Chaneg control font, size, color, or style
+    Font = Change control font, size, color, or style
     Options = Add|remove options from a control
 REMARK: To operate on a specific GUI, prefix SubCommand with GUI's name.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 
 GuiControl, , ControlID, [Value] 
 USE: Puts new contents into the control.
@@ -3846,88 +3872,88 @@ VALUE: Depends on control type
     DateTime|MonthCal = Set date. Use YYYYMMDDHH24MISS format.
     UpDown|Slider|Progress = Set position
     Tab|DropDownList|ComboList|ListBox = New delimited list
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 
 GuiControl, Text, ControlID, [Value] 
 USE: Changes the text|caption of a control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGui:Text, guiBtn1, Close Button
 
 GuiControl, Move, ControlID, Options 
 USE: Move|resize a control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGui:Move, guiBtn1, x50 y10 
 
 GuiControl, MoveDraw, ControlID, [Options] 
 USE: Move|resize a control and repaint control area.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGui:MoveDraw, guiBtn1, x50 y10
 
 GuiControl, Focus, ControlID 
 USE: Sets keyboard focus to the control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGui:Focus, guiBtn1
 
 GuiControl, Disable, ControlID 
 USE: Disable|gray out a control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGui:Disable, guiLoadBtn
 
 GuiControl, Enable, ControlID 
 USE: Enable a control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGui:Enable, guiLoadBtn
 
 GuiControl, Hide, ControlID 
 USE: Hides a control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGui:Hide, guiBtn1
 
 GuiControl, Show, ControlID 
 USE: Shows a control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGui:Show, guiBtn1
 
 GuiControl, Choose, ControlID, N 
 USE: Set a ListBox|DropDownList|ComboBox|Tab control selection to Nth item.
 N: Number = select item. All = Select all items. 0 = Deselect current item
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGui:Choose, guiLB, All
 
 GuiControl, ChooseString, ControlID, String 
 USE: Set a ListBox|DropDownList|ComboBox|Tab control selection to matching String.
 STRING: Selection string to search for.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGui:ChooseString, guiTabs, Tab2
 
 GuiControl, Font, ControlID 
 USE: Updates control the current Font setting.
 REMARK: Set the desired font with 'Gui, Font' first.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: Gui, MyGUI:Font, s20 Bold, Consolas
     GuiControl, MyGUI:Font, gText
 
 GuiControl, Options, ControlID, Value 
 USE: Add|remove various options and styles to a control.
 OPTIONS: +|- an option to add|remove it.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControl, MyGUI:+gFire +Center +c00FF00
 
 GuiControlGet  
 GuiControlGet, OutputVar, [SubCommand, ControlID, Value] 
 USE: Get various information about a GUI control.
 SUBCOMMAND:
-    BLANK = Get control contents. Dependant on control type.
+    BLANK = Get control contents. dependent on control type.
     Pos = Get control size|position.
     Focus = Get control identifier (ClassNN) for focused control.
     FocusV = Get variable name of focused control.
     Enabled = Get control enable state.
-    Visible = Get control visiblity state.
+    Visible = Get control visibility state.
     HWND = Get handle of control.
     Name = Get variable name of control.
 
 GuiControlGet, OutputVar, , [ControlID, Text] 
-USE: Get the contents of the control. Usually text but dependant on type.
+USE: Get the contents of the control. Usually text but dependent on type.
 TYPE: Depends on control
     Picture = Get file name used at creation.
     Edit = Get contents of edit box.
@@ -3942,43 +3968,43 @@ EX: GuiControlGet, guiCheckState, , guiCB2
 
 GuiControlGet, OutputWHXY, Pos, [ControlID] 
 USE: Get the position|size of the control relative to client area.
-OUTPUT: Creates 4 varialbes for Width|Height|Xcoord|Ycoord
+OUTPUT: Creates 4 variables for Width|Height|XCoord|YCoord
     Output name is affixed with W|H|X|Y respectively.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControlGet, gEdit, Pos, guiEdit2
     MsgBox, W=%gEditW% `nH=%gEditH% `nX=%gEdit% `nY=%gEditY%
 
 GuiControlGet, OutputVar, Focus 
 USE: Get control identifier (ClassNN) for currently focused control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControlGet, focusCI, Focus
 
 GuiControlGet, OutputVar, FocusV 
 USE: Get variable name for currently focused control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControlGet, focusVar, FocusV
 
 GuiControlGet, OutputVar, Enabled, [ControlID] 
 USE: Get enabled state of control. 
 OUTPUTVAR: 0 = Disabled. 1 = Enabled.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControlGet, conEn, Enabled, submitBtn
 
 GuiControlGet, OutputVar, Visible, [ControlID] 
 USE: Get visibility state of control. 
 OUTPUTVAR: 0 = Hidden. 1 = Visible.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControlGet, conVis, Visible, submitBtn
 
-GuiControlGet, OutputVar, Hwnd, [ControlID] 
+GuiControlGet, OutputVar, HWND, [ControlID] 
 USE: Get handle of control.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
-EX: GuiControlGet, conHWND, Hwnd, submitBtn
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
+EX: GuiControlGet, conHWND, HWND, submitBtn
 
 GuiControlGet, OutputVar, Name, [ControlID] 
 USE: Get name of control variable.
 OUTPUTVAR: BLANK if no name.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure or window|control not exist.
+ErrorLevel+EXO: 0 = Success. 1 = Failure or window|control not exist.
 EX: GuiControlGet, conVarName, Name, submitBtn
 
 Hotkey 
@@ -3998,7 +4024,7 @@ OPTIONS:
     iN = N level for input          tN = N number of threads
     pN = Priority. N = 1...5        B|B0 = Buffer|Buffer disable
     UseErrorLevel = Skip warning dialogs and set ErrorLevel. See docs.
-ERRORLEVEL+EXO: Set if UseErrorLevel is used.
+ErrorLevel+EXO: Set if UseErrorLevel is used.
 EX: Hotkey, $+Backspace::Delete, On
 
 Hotkey, If, % [FunctionObject|(Expression)] 
@@ -4016,16 +4042,16 @@ IMGFILE: Path to image file.
 OPTIONS:
     *IconN = Nth image file icon number
     *N = Allowed color variation. 0 .. 255
-    *TransN = Trabsparent color. N = Hex|ColorName
+    *TransN = Transparent color. N = Hex|ColorName
     *wn = Width in N pixels
     *hn = Height in N pixels
-ERRORLEVEL+EXO: 0 = Image found. 1 = Not found. 2 = Error.
+ErrorLevel+EXO: 0 = Image found. 1 = Not found. 2 = Error.
 EX: ImageSearch, findX, findY, 0, 0, 300, 200, *32 C:\Icon.ico
 
 IniDelete, Filename, Section, [Key] 
 USE: Delete a value from a standard format .ini file.
-KEY: Key name to delete. If omitted, entire section is delted.
-ERRORLEVEL+EXO: 0 = Image found. 1 = Not found. 2 = Error.
+KEY: Key name to delete. If omitted, entire section is deleted.
+ErrorLevel+EXO: 0 = Image found. 1 = Not found. 2 = Error.
 EX: IniDelete, C:\ahksettings.ini, SaveData, LastGuiPos
 
 IniRead, OutputVar, Filename, [Section, Key, Default] 
@@ -4043,7 +4069,7 @@ VALUE: The Value to set if KeyName is present
 PAIRS: Any number of Key:Value Pairs if KeyName is omitted.
     Pairs must not contain any blank lines.
 REMARK: Longer text can be broken up using Continuation Sections.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: IniWrite, % "key1=val1`nkey2=val2`nkey3=val3", C:\Test.ini, CustomSection
 
 Input, [OutputVar, Options, EndKeys, MatchList] 
@@ -4057,10 +4083,10 @@ OPTIONS: Optional space separation is allowed.
     e = Use char code instead of key code for singular end characters
 ENDKEYS: List of keys that will end this input. Use Send key format. {Enter}
 MATCHLIST: Comma separated list of words. Input ends if a word is matched.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
     0 = If no params, prior input successfully terminated
     1 = If no params, no input in progress
-    Timeout = Input timed out            EndKey:Name = Name of endkey pressed
+    Timeout = Input timed out            EndKey:Name = Name of end key pressed
     Match = Matched item in MatchList    Max = Max length reached and no matches
     NewInput = Input interrupted by another Input
 EX: Input, SingleKey, I * V, {Enter}{Space}{Tab}, ball,dog,cat
@@ -4071,21 +4097,21 @@ TITLE: Window title                  PROMPT: Notify user of expected input
 HIDE: Use HIDE to mask user input    FONT: Not implemented yet
 DEFAULT: Default input field text    TIMEOUT: Time in seconds before closing
 W|H|X|Y: Width, height, x|y coords of input box
-ERRORLEVEL+EXO: 0 = OK pressed. 1 = Cancel pressed. 2 = Timeout. 
-REMARK: OutputVar is always set to the edit field, even if cancelled.
+ErrorLevel+EXO: 0 = OK pressed. 1 = Cancel pressed. 2 = Timeout. 
+REMARK: OutputVar is always set to the edit field, even if canceled.
 EX: InputBox, userName, Name, Enter your name:,, 300, 150,,,,, Name here
 
 KeyHistory 
-USE: Opens a window that shows info, recent keystrokes, mouseclicks, etc.
+USE: Opens a window that shows info, recent keystrokes, mouse clicks, etc.
 
 KeyWait, KeyName, [Options] 
 USE: Wait for a key|mouse|joy button to be pressed|released.
-KEYNAME: Any key from the keylist.
+KEYNAME: Any key from the key list.
 OPTIONS: List of options. Space separation allowed.
      D = Wait for key to be pressed down
      L = Check logical state instead of physical
     tN = Timeout in N seconds.
-ERRORLEVEL+EXO: 0 = Success. 1 = Timeout.
+ErrorLevel+EXO: 0 = Success. 1 = Timeout.
 EX: KeyWait, LButton, D T1
 
 ListHotkeys 
@@ -4112,7 +4138,7 @@ SUBCOMMANDS:
     Delete = Delete menu item           DeleteAll = Delete all custom items
     Standard = Insert standard menu items
     NoStandard = Remove standard menu items
-    UseErrorLevel = Skep warning/error dialogs
+    UseErrorLevel = Skip warning/error dialogs
     Click = Set tray icon clicks to activate default menu
     MainWindow = Enable main window access for compiled scripts
     NoMainWindow = Prevent main window access for compiled scripts
@@ -4150,14 +4176,14 @@ NEWNAME: If NewName is omitted, item becomes a line separator.
 
 Menu, MenuName, Check, MenuItem 
 MENUITEM: Name or position of a menu item.
-USE: Add a visible checkmark next to the menu item.
+USE: Add a visible check mark next to the menu item.
 
 Menu, MenuName, Uncheck, MenuItem 
-USE: Remove checkmark from specified menu item.
+USE: Remove check mark from specified menu item.
 MENUITEM: Name or position of a menu item.
 
 Menu, MenuName, ToggleCheck, MenuItem 
-USE: Toggle's the menu item's checkmark on or off.
+USE: Toggle's the menu item's check mark on or off.
 MENUITEM: Name or position of a menu item.
 
 Menu, MenuName, Enable, MenuItem 
@@ -4227,7 +4253,7 @@ USE: Prevent a compiled script's main window from being shown via tray icon.
 
 Menu, MenuName, UseErrorLevel, [Off] 
 USE: Skips warning dialogs and thread terminations on Menu error.
-ERRORLEVEL: 1 = Problem. 0 = Success.
+ErrorLevel: 1 = Problem. 0 = Success.
 
 MouseClick, [Button, X, Y, Count, Speed, State, Relative] 
 USE: Clicks or holds down a mouse button
@@ -4240,7 +4266,7 @@ REMARK: Click is generally more flexible and easier to use.
 EX: MouseClick, Left, 200, 100, 2, 3
 
 MouseClickDrag, Button, X1, Y1, X2, Y2, [Speed, Relative] 
-USE: Cick, drag, and release a mouse button.
+USE: Click, drag, or release a mouse button.
 BUTTON: Left|Right|Middle|X1|X2
 SPEED: Mouse movement speed. 0 (Fast) .. 100 (Slow).
 RELATIVE: If R is present, click is relative to mouse position.
@@ -4291,10 +4317,10 @@ EX: Pause, On
 PixelGetColor, OutputVar, X, Y, [Mode] 
 USE: Gets the BGR color of pixel at X|Y coordinate.
 MODE: Space separated
-    RGB = Get color inr RGB format
-    Alt = Altnerate, slower method to get color
+    RGB = Get color in RGB format
+    Alt = Alternate, slower method to get color
     Slow = Slower method that may work in some full-screen apps
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: PixelGetColor, col, 100, 200, RGB Alt
 
 PixelSearch, OutputX, OutputY, X1, Y1, X2, Y2, Color, [Variation, Mode] 
@@ -4304,14 +4330,14 @@ VARIATION: 0 .. 255. The +|- amount each color can be off by.
 MODE: Space separated options
     FAST = Faster searching method. Searches by row instead of by column.
     RGB = Use RGB instead of BGR for Color.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: PixelSearch, foundX, foundY, 0, 0, 90, 90, 0xccff00, 16, Fast RGB
 
 PostMessage, Msg, [wParam, lParam, Control, WinTitle, WinText, NotTitle, NotText] 
 USE: Sends a message to a window or control.
 MSG: Message number to send. See: Cheat_Window_Messages
 WPARAM|LPARAM: Used to send message parameters.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: PostMessage, 0x50, 0, 0x4090409,, A
 
 Process  
@@ -4324,39 +4350,39 @@ ID: A program's PID or EXE name.
     Wait = Wait for process to exist
     WaitClose = Wait for all matching processes to close
     List = Not yet implemented
-ERRORLEVEL: 0 = Error, timeout, or problem. Otherwise, set to PID.
+ErrorLevel: 0 = Error, timeout, or problem. Otherwise, set to PID.
 
 Process, Exist, [ID] 
 USE: Check whether the specified process is running.
 ID: A program's PID or EXE name.
-ERRORLEVEL: 0 = No matching process. Otherwise, set to matching process PID.
+ErrorLevel: 0 = No matching process. Otherwise, set to matching process PID.
 EX: Process, Exist, AutoHotkey.exe ; R=> 532e3a
 
 Process, Close, [ID] 
 USE: Force close the first matching process.
 ID: A program's PID or EXE name.
-ERRORLEVEL: 0 = No matching process or error. Otherwise, set to closed PID
+ErrorLevel: 0 = No matching process or error. Otherwise, set to closed PID
 EX: Process, Close, AutoHotkey.exe
 
 Process, Priority, [ID], Level 
 USE: Set priority level of the first matching process.
 ID: A program's PID or EXE name. BLANK = Sets script priority.
 LEVEL: Use whole word or first letter:
-    Low    BelowNormal    Normal    AboveNormal    High    Realtime
-ERRORLEVEL: 0 = No matching process or error. Otherwise, set to PID.
+    Low    BelowNormal    Normal    AboveNormal    High    RealTime
+ErrorLevel: 0 = No matching process or error. Otherwise, set to PID.
 EX: Process, Priority, , A
 
 Process, Wait, ID, [Seconds] 
 USE: Wait until the specified process is running.
 ID: A program's PID or EXE name.
 SECONDS: Seconds to wait before timing out. BLANK = Indefinitely.
-ERRORLEVEL: 0 = Error, timeout, or problem. Otherwise, set to PID.
+ErrorLevel: 0 = Error, timeout, or problem. Otherwise, set to PID.
 EX: Process, Wait, notepad.exe, 5
 
 Process, WaitClose, ID, [Seconds] 
 USE: Wait for all matching processes to close.
 SECONDS: Seconds to wait before timing out. BLANK = Indefinitely.
-ERRORLEVEL: 0 = Error, timeout, or problem. Otherwise, set to PID.
+ErrorLevel: 0 = Error, timeout, or problem. Otherwise, set to PID.
 EX: Process, WaitClose, chrome.exe, 5
 
 Progress, Param1, [SubText, MainText, WinTitle, FontName] 
@@ -4392,7 +4418,7 @@ KEYNAME: Registry key. Must start with a root key. Long or short allowed.
 VALUE: Value name. Use ahk_default to delete key (default).
     Omitting value will delete everything in KeyName.
 REMARK: Remote registry format: \\workstation01:HKLM
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: RegDelete, HKLM\Software\SomeApplication, TestValue
 
 RegRead, OutputVar, KeyName, [ValueName] 
@@ -4401,7 +4427,7 @@ KEYNAME: Registry key. Must start with a root key. Long or short allowed.
     HKCU = HKEY_CURRENT_USER    HKLM = HKEY_LOCAL_MACHINE    HKU = HKEY_USERS
     HKCR = HKEY_CLASSES_ROOT    HKCC = HKEY_CURRENT_CONFIG
 REMARK: Remote registry format: \\workstation01:HKLM
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: RegRead, defKey, HKLM\SomeSoftware\Key, ahk_default
 
 RegWrite, DataType, KeyName, [ValueName, Value] 
@@ -4414,7 +4440,7 @@ KEYNAME: Registry key. Must start with a root key. Long or short allowed.
     HKCR = HKEY_CLASSES_ROOT    HKCC = HKEY_CURRENT_CONFIG
 VALUENAME: Name of entry. If omitted, the (Default) key is used.
 REMARK: Remote registry format: \\workstation01:HKLM
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: RegWrite, REG_SZ, HKLM\SOFTWARE\Test, Name, Test Name
 
 Reload 
@@ -4423,10 +4449,10 @@ USE: Exit current script and start a new instance.
 Run, Target, [WorkingDir, Options, PID] 
 USE: Run an external program.
 TARGET: Name and path of file to run.
-OPTIONS: Max|Min|Hide = Start window Maximized|Minimzed|Hidden
+OPTIONS: Max|Min|Hide = Start window Maximized|Minimized|Hidden
     UseErrorLevel = Skip warning dialog on error & ErrorLevel = ERROR
-PID: The PID of the running program. BLANK = Undeterminable.
-ERRORLEVEL+EXO: UseErrorLevel option. 0 = Success. ERROR = Failure.
+PID: The PID of the running program. BLANK = Indeterminable.
+ErrorLevel+EXO: UseErrorLevel option. 0 = Success. ERROR = Failure.
 EX: Run, C:\Windows\notepad.exe, UseErrorLevel
 
 RunAs, [UserName, Password, Domain] 
@@ -4437,9 +4463,9 @@ EX: RunAs, Guest, Password123
 RunWait, Target, [WorkingDir, Options, PID] 
 USE: Run a program and wait until it finishes.
 TARGET: Name and path of file to run.
-OPTIONS: Max|Min|Hide = Start window Maximized|Minimzed|Hidden
+OPTIONS: Max|Min|Hide = Start window Maximized|Minimized|Hidden
     UseErrorLevel = Skip warning dialog on error & ErrorLevel = ERROR
-ERRORLEVEL+EXO: ERROR = Failure. Number = Exit code of finished program.
+ErrorLevel+EXO: ERROR = Failure. Number = Exit code of finished program.
 EX: RunWait, C:\Startup.bat,, Hide
 
 Send, [Options]Keys 
@@ -4489,15 +4515,15 @@ USE: Set interruption level of hotkeys and hotstrings.
 NUM: 0 .. 100
 
 SendMessage, Msg, [wParam, lParam, Control, WinTitle, WinText, NotTitle, NotText, Timeout] 
-USE: Sends a message to a window or control and waits for acknowledgement.
+USE: Sends a message to a window or control and waits for acknowledgment.
 MSG: Message number to send. See: Cheat_Window_Messages
 WPARAM|LPARAM: Parameters to send.
 TIMEOUT: Time to wait for message to be processed. In ms.
-ERRORLEVEL+EXO: Fail = Problem or command timed out. Otherwise set to numeric message.
+ErrorLevel+EXO: Fail = Problem or command timed out. Otherwise set to numeric message.
 EX: SendMessage, 0x50, 0, 0x4090409,, A
 
 SendMode, Mode 
-USE: Sets the Send command to a deifferent send method.
+USE: Sets the Send command to a different send method.
 REMARK: Initially set to SendEvent.
 MODE: Event = Uses SendEvent
       Input = Uses SendInput. Falls back on SendEvent.
@@ -4505,7 +4531,7 @@ MODE: Event = Uses SendEvent
       InputThenPlay = Uses SendInput. Falls back on SendPlay.
 
 SetBatchLines, Setting 
-USE: Determines how often a script intiates a 10ms sleep.
+USE: Determines how often a script initiates a 10ms sleep.
 SETTING: -1 = Never sleep
           N = Sleeps after N lines execute
         Nms = Sleep after N milliseconds have passed
@@ -4518,7 +4544,7 @@ STATE: On = Set CapsLock to on         AlwaysOn = Force CapsLock to stay on
 SetControlDelay, Delay 
 USE: Set delay after each control-modifying command.
 DELAY: -1 .. N. In ms. Default is 20.
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 
 SetDefaultMouseSpeed, Speed 
 USE: Sets the mouse speed for commands that move the mouse.
@@ -4531,20 +4557,20 @@ USE: Set's value to var.
 
 SetFormat, NumberType, Format [DEPRECATED!] 
 DEPRECATED: This command is not recommended for use in new scripts.
-REPLACEMENT: Use funtion: Format()
+REPLACEMENT: Use function: Format()
 USE: Sets format of integer|floating numbers generated by math operations.
 
 SetKeyDelay, [Delay, Duration, Play] 
 USE: Set the delay, in milliseconds, after each Send|ControlSend keystroke.
 DELAY: Time between each keystroke. -1 .. N. In ms.
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 DURATION: Time key is held down. -1 .. N. In ms.
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 PLAY: Use PLAY to apply these settings to SendPlay mode.
 
 SetMouseDelay, Delay, [Play] 
 USE: Set the delay after each mouse movement or click.
-DELAY: -1 = No delay    0  = Shortest delay    N = Dealy in ms
+DELAY: -1 = No delay    0  = Shortest delay    N = Delay in ms
 PLAY: Use PLAY to apply these settings to SendPlay mode.
 
 SetNumLockState, [State] 
@@ -4564,21 +4590,21 @@ STATE:
     Off = Set ScrollLock to off     AlwaysOff = Force ScrollLock to stay off
 
 SetStoreCapsLockMode, State 
-USE: Sets the default behavior for how Send controls capslock.
+USE: Sets the default behavior for how Send controls CapsLock.
 STATE: On = CapsLock is restored to former value if Send altered it.
       Off = CapsLock is never changed.
 
 SetTimer, [Label, State, Priority] 
 USE: Set a timer to run a subroutine|function once or repeatedly.
-LABEL: Label, funciton, or FuncObj. 
+LABEL: Label, function, or FuncObj. 
 STATE: Off = Disables a running timer
-       On = Reenables a disabled timer or start a new timer at 250 ms
+       On = Re-enables a disabled timer or start a new timer at 250 ms
        Delete = Disables and deletes existing timer
        N = Set timer to repeat every N ms
        -N = Set timer to run once in N ms
 EX: SetTimer, UpdateCheck, % 5 * 60 * 1000 ;Run function every 5 minutes
 
-SetTitleMatchMode, Mode|Speed
+SetTitleMatchMode, Mode|Speed 
 USE: Set the text matching behavior for titles in WinTitle.
 MODE:
     1 = Title must start with.
@@ -4593,12 +4619,12 @@ EX: SetTitleMatchMode,
 
 SetWinDelay, Delay 
 USE: Set the delay that occurs after commands that operate on windows.
-DELAY: Mumber. In ms. Default is 100.
-    -1 = No delay    0  = Shortest delay    N = Dealy in ms
+DELAY: Number. In ms. Default is 100.
+    -1 = No delay    0  = Shortest delay    N = Delay in ms
 
 SetWorkingDir, Dir 
 USE: Changes the script's current working directory to Dir.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: SetWorkingDir, D:\Scripts
 
 Shutdown 
@@ -4606,7 +4632,7 @@ USE: Shut down, restart, or logoff system.
 CODE: The sum of any of the following:
     0 = Logoff    1 = Shutdown      2 = Reboot
     4 = Force     8 = Power down
-EX: Shutdown, 5 ; Forces a shutodwn
+EX: Shutdown, 5 ; Forces a shutdown
 
 Sleep, Delay 
 USE: Wait a specified amount of time before continuing.
@@ -4643,13 +4669,13 @@ CONTROL: Default = VOLUME
     PAN     MONO    ONOFF     LOUDNESS     VOLUME|VOL   BASSBOOST
     BASS    MUTE    TREBLE    STEREOENH    QSOUNDPAN
 DEVICE: Device number. Default = 1
-ERRORLEVEL+EXO: 0 = Success. Failure will result in a string.
+ErrorLevel+EXO: 0 = Success. Failure will result in a string.
 EX: SoundGet, sysVol, MASTER, VOLUME, 2
 
 SoundGetWaveVolume, OutputVar, [Device] 
 USE: Get the wave output volume percentage for a sound device.
 DEVICE: Device number. Defaults to 1.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 EX: SoundGetWaveVolume, vol, 2
 
 SoundPlay, Filename, [Wait] 
@@ -4659,7 +4685,7 @@ FILENAME: Name of file to be played. For a standard system sound, use:
     *48 = Exclamation    *64 = Asterisk/info
 WAIT: Omit = Immediately go to next line
     1|WAIT = Wait for file to finish before going to next line
-ERRORLEVEL: 0 = Success. 1 = Failure.
+ErrorLevel: 0 = Success. 1 = Failure.
 EX: SoundPlay, C:\SoundFile.mp3, 1
 
 SoundSet, Value, [Component, Control, Device] 
@@ -4675,7 +4701,7 @@ CONTROL: Default = VOLUME
     PAN     MONO    ONOFF     LOUDNESS     VOLUME|VOL   BASSBOOST
     BASS    MUTE    TREBLE    STEREOENH    QSOUNDPAN
 DEVICE: Device number. Default = 1
-ERRORLEVEL+EXO: 0 = Success. Failure will result in a string.
+ErrorLevel+EXO: 0 = Success. Failure will result in a string.
 EX: SoundSet, +50, HEADPHONES, VOLUME, 1
 
 SoundSetWaveVolume, Value, [Device] 
@@ -4684,7 +4710,7 @@ VALUE: N = Set to N percent
       +N = Increase by N percent
       -N = Decrease by N percent
 DEVICE: Device number. Default = 1
-ERRORLEVEL: 0 = success. 1 = failure.
+ErrorLevel: 0 = success. 1 = failure.
 EX: SoundSetWaveVolume, 100, 2
 
 SplashImage, [Param1, Options, SubText, MainText, WinTitle, FontName] 
@@ -4716,14 +4742,14 @@ USE: Splits a file path or URL into name, directory, extension, and drive.
 OUTNAME: File name with ext             EXT: File's extension type
 NAMENOEXT: File name without ext        OUTDIR: Full directory
 DRIVE: Drive file resides in
-REMARK: Unneeded parth parts can be left blank.
+REMARK: Unneeded parts can be left blank.
 EX: SplitPath, % A_ScriptFullPath, name, dir, ext, nameX, drive
     MsgBox, % name "`n" dir "`n" ext "`n" nameX "`n" drive
 
 StatusBarGetText, OutputVar, [Part, WinTitle, WinText, NotTitle, NotText] 
 USE: Get text from a standard status bar control.
 PART: Status bar part to get text from.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure + OutputVar = BLANK.
+ErrorLevel+EXO: 0 = Success. 1 = Failure + OutputVar = BLANK.
 EX: StatusBarGetText, var, 1, A
 
 StatusBarWait, [Text, SEC, Part, WinTitle, WinText, Check, NotTitle, NotText] 
@@ -4732,7 +4758,7 @@ BARTEXT: Text to look for. Blank by default.
 SEC: Number of seconds to wait before timing out.
 PART: Bar section number to monitor.
 CHECK: How often the bar should be checked. In milliseconds.
-ERRORLEVEL+EXO: 0 = Match found    1 = Command timed out
+ErrorLevel+EXO: 0 = Match found    1 = Command timed out
     2 = Status bar not accessible.
 EX: StatusBarWait, Line: 1,, 1, a,, 100
     MsgBox, Found it!
@@ -4771,7 +4797,7 @@ USE: Retrieves characters from the middle of a string.
 StringReplace, OutputVar, Input, Search, [Replace, All] [DEPRECATED!] 
 DEPRECATED: This command is not recommended for use in new scripts.
 REPLACEMENT: Use the function: StrReplace()
-USE: Searches ofr Search with a new string.
+USE: Searches for Search with a new string.
 
 StringRight, OutputVar, Input, Count [DEPRECATED!] 
 DEPRECATED: This command is not recommended for use in new scripts.
@@ -4802,7 +4828,7 @@ Suspend, Mode
 USE: Disables or enables all or selected hotkeys and hotstrings.
 MODE: On  = Suspends all non-exempt hotkeys and hotstrings
       Off = Re-enable hotkeys and hotstrings
-      Toggle = Toggles suspen's current state
+      Toggle = Toggles suspends current state
       Permit = Marks current subroutine exempt from suspend
 REMARK: Hotkeys|Hotstrings that start with Suspend are exempt.
 
@@ -4857,16 +4883,16 @@ LEVEL: -2147483648 .. 2147483647
 REMARK: Consider using the Critical command as it can buffer events.
 
 Thread, Interrupt, [Duration, LineCount] 
-USE: Change uninterruputable status for new threads.
-DURATION: Time in milliseconds before interruptable.
-LINECOUNT: Amount of lines to execute before interruptable.
+USE: Change uninterpretable status for new threads.
+DURATION: Time in milliseconds before interruptible.
+LINECOUNT: Amount of lines to execute before interruptible.
 
 ToolTip, [Text, X, Y, ID:=1] 
 USE: Creates an always-on-top window anywhere on the screen.
 TEXT: Text to display    BLANK = Hide ToolTip
 X|Y: Coordinates to display ToolTip. If omitted, ToolTip stays near cursor.
 ID: 1-20. Identifies which tooltip to operate on.
-EX: ToolTip, MESSAGE,,,2 ; Sets second tooltip to MESSAGE
+EX: ToolTip, Hello World,,,2 ; Sets second tooltip to Hello World
 
 Transform, OutputVar, SubCommand, Value1, [Value2] 
 USE: Performs miscellaneous tasks such as ASCII/Unicode conversion.
@@ -4877,15 +4903,19 @@ SUBCOMMAND:
 
 Transform, OutputVar, Unicode, [String] 
 USE: Get or set Unicode text on clipboard.
+REMARK: This is for ANSI builds.
+EX: Transform, Clipboard, Unicode, % Str ; Convert Str to Unicode an save to clipboard
 
 Transform, OutputVar, Deref, String 
 USE: Expand variable references and escape sequences inside other variables.
+EX: Transform, 
 
 Transform, OutputVar, HTML, String, [Flags] 
 USE: Convert the ASCII characters in a String above 127 to their HTML names.
 FLAGS: Sum of the following values. 
     1 = Convert to named expressions. € converts to &euro;
     2 = Convert to numbered expressions. € converts to &#8364;
+EX: Transform, varHTML, HTML, varStr, 1 
 
 TrayTip, [Title, Text, Seconds, Options] 
 USE: Create a balloon message near the tray icon.
@@ -4905,7 +4935,8 @@ UrlDownloadToFile, URL, Filename
 USE: Download a file from the Internet.
 URL: Address to download from.
 FILENAME: Path to save file to.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
+EX: UrlDownloadToFile, www.reddit.com, c:\reddit.html 
 
 WinActivate, [WinTitle, WinText, NotTitle, NotText] 
 USE: Activate a specified window.
@@ -4930,7 +4961,7 @@ SUBCOMMAND:
     ProcessName = EXE name       Transparent = Transparency level
     IDLast = Bottom window ID    List = List of IDs for all matching windows
     ControlList = List of window controls
-    ControlListHwnd = List of window contorl handles
+    ControlListHWND = List of window control handles
 
 WinGet, OutputVar, ID, [WinTitle, WinText, NotTitle, NotText] 
 USE: Get the unique ID|HWND number of the first matching window.
@@ -4948,7 +4979,7 @@ WinGet, OutputVar, ProcessPath, [WinTitle, WinText, NotTitle, NotText]
 USE: Get the full path and name of the process|EXE that owns a window.
 
 WinGet, OutputVar, Count, [WinTitle, WinText, NotTitle, NotText] 
-USE: Get the total number of exising windows that match.
+USE: Get the total number of existing windows that match.
 
 WinGet, OutputVar, List, [WinTitle, WinText, NotTitle, NotText] 
 USE: Get the unique ID|HWND of all matching windows.
@@ -4965,7 +4996,7 @@ USE: Get the control name of all window controls.
 OUTPUTVAR: A linefeed delimited list of each control's ClassNN.
 REMARK: BLANK = No controls found
 
-WinGet, OutputVar, ControlListHwnd, [WinTitle, WinText, NotTitle, NotText] 
+WinGet, OutputVar, ControlListHWND, [WinTitle, WinText, NotTitle, NotText] 
 USE: Get the unique ID|HWND for each control in a window.
 OUTPUTVAR: A linefeed delimited list of each unique ID|HWND.
 REMARK: BLANK = No controls found
@@ -4979,11 +5010,11 @@ USE: Get a window's marked transparency color.
 OUTPUTVAR: 6 digit hex color    BLANK = Not found
 
 WinGet, OutputVar, Style, [WinTitle, WinText, NotTitle, NotText] 
-USE: Get widnow's 8 digit hexidecimal style number.
+USE: Get window's 8 digit hexadecimal style number.
 OUTPUTVAR: BLANK = No matching windows
 
 WinGet, OutputVar, ExStyle, [WinTitle, WinText, NotTitle, NotText] 
-USE: Get widnow's 8 digit hexidecimal extended style number.
+USE: Get window's 8 digit hexadecimal extended style number.
 OUTPUTVAR: BLANK = No matching windows
 
 WinGetActiveStats, Title, Width, Height, X, Y 
@@ -5002,7 +5033,7 @@ WINTITLE: To get desktop size, use: Program Manager
 
 WinGetText, OutputVar, [WinTitle, WinText, NotTitle, NotText] 
 USE: Get text from the specified window.
-ERRORLEVEL+EXO: 0 = Success. 1 = Failure.
+ErrorLevel+EXO: 0 = Success. 1 = Failure.
 
 WinGetTitle, OutputVar, [WinTitle, WinText, NotTitle, NotText] 
 USE: Get the title of the specified window.
@@ -5024,7 +5055,7 @@ MENU: Top-level menu item name. Ex: File
 MENU: Item|submenu item name. Ex: Recent
     Or item|submenu item position. Ex: 4&
 REMARK: Use 0& to access window's system menu.
-ERRORLEVEL: 0 = Success. 1 = Failure.
+ErrorLevel: 0 = Success. 1 = Failure.
 EX: WinMenuSelectItem, Untitled - Notepad, , File, Open
 
 WinMinimize, [WinTitle, WinText, NotTitle, NotText] 
@@ -5034,7 +5065,7 @@ WinMinimizeAll
 USE: Collapse all windows to task bar|SysTray.
 
 WinMinimizeAllUndo 
-USE: Restores all previously minimzed windows.
+USE: Restores all previously minimized windows.
 
 WinMove, WinTitle, [WinText], X, Y, [Width, Height, NotTitle, NotText] 
 WinMove, X, Y
@@ -5042,6 +5073,7 @@ USE: Changes the position|size of the specified window.
 REMARK: If X and Y are the only params, LastFoundWindow is used.
 X|Y: Position window X|Y pixels from the screen's upper left corner.
 WIDTH|HEIGHT: Set Width|Height of window in pixels.
+EX: WinMove, A,, 0, 0, % A_ScreenWidth/2, % A_ScreenHeight/2
 
 WinRestore, [WinTitle, WinText, NotTitle, NotText] 
 USE: Returns window to it's original position and size.
@@ -5056,7 +5088,7 @@ SUBCOMMAND:
     Style|ExStyle = Changes window's style|extended style.
     Region = Change the shape and amount of a window that is shown.
     Transparent = Set window transparency level.
-    TransColor = Set color that will be inisible inside target window.
+    TransColor = Set color that will be invisible inside target window.
 
 WinSet, AlwaysOnTop|Topmost, [State, WinTitle, WinText, NotTitle, NotText] 
 USE: Forces a window to stay on top of all other windows.
@@ -5083,7 +5115,7 @@ N: A hex style.
     +|- prefix will add|remove N from current style.
     ^ prefix will toggle N from current style.
     Not specifying a prefix will set style equal to N
-ERRORLEVEL: 0 = Success. 1 = Failure.
+ErrorLevel: 0 = Success. 1 = Failure.
 
 WinSet, ExStyle, N, [WinTitle, WinText, NotTitle, NotText] 
 USE: Change the extended style of a window.
@@ -5095,13 +5127,13 @@ N: A hex style.
 WinSet, Region, [Options, WinTitle, WinText, NotTitle, NotText] 
 USE: Change the shape of a window to be the specified rectangle, ellipse, or polygon.
 OPTIONS: Separate options with a space.
-    wN = Width     e = Ellipse              BLANK = Restor to original
+    wN = Width     e = Ellipse              BLANK = Restore to original
     hN = Height    X-Y = Coordinate pair
     rN1-N2 = Rectangle corners rounded using ellipses
         N1 = Ellipse width. N2 = Ellipse height. 
-    Polygon = Omit W and H. Us multipl X-Y pairs.
+    Polygon = Omit W and H. Use multiple X-Y pairs.
     Wind = Force polygon to us winding method.
-ERRORLEVEL: 0 = Success. 1 = Failure.
+ErrorLevel: 0 = Success. 1 = Failure.
 
 WinSet, Transparent, [N, WinTitle, WinText, NotTitle, NotText] 
 USE: Set the transparency of a window.
@@ -5109,7 +5141,7 @@ N: Transparency. 0 .. 255.    OFF = Disable transparency
 
 WinSet, TransColor, Color [Alpha], [WinTitle, WinText, NotTitle, NotText] 
 USE: Set transparency level for chosen Color.
-COLOR: RGB hex color or color name. Off = Disable transparnecy.
+COLOR: RGB hex color or color name. Off = Disable transparency.
 ALPHA: Set the alpha for a color. 0 .. 255.
 REMARK: There must be a space between Color and Alpha.
 CHEAT: See Cheat_HTML_Color_Names
@@ -5125,136 +5157,34 @@ USE: Unhide the specified window.
 WinWait, [WinTitle, WinText, Wait, NotTitle, NotText] 
 USE: Waits until the specified window exists.
 WAIT: BLANK = No wait    0 = 500ms    N+ = Number of seconds
-ERRORLEVEL: 0 = Success. 1 = Timed out.
+ErrorLevel: 0 = Success. 1 = Timed out.
 
 WinWaitActive, [WinTitle, WinText, Wait, NotTitle, NotText] 
 USE: Waits until the specified window is active.
 WAIT: BLANK = No wait    0 = 500ms    N+ = Number of seconds
-ERRORLEVEL: 0 = Success. 1 = Timed out.
+ErrorLevel: 0 = Success. 1 = Timed out.
 
 WinWaitClose, [WinTitle, WinText, Wait, NotTitle, NotText] 
 USE: Wait until the specified window does not exist.
 WAIT: BLANK = No wait    0 = 500ms    N+ = Number of seconds
-ERRORLEVEL: 0 = Success. 1 = Timed out.
+ErrorLevel: 0 = Success. 1 = Timed out.
 
 WinWaitNotActive, [WinTitle, WinText, Wait, NotTitle, NotText] 
 USE: Waits until the specified window is not active.
 WAIT: BLANK = No wait    0 = 500ms    N+ = Number of seconds
-ERRORLEVEL: 0 = Success. 1 = Timed out.
-
-
-
-### =============== OBJECT_METHODS ===============
-
-.Clone() 
-USE: Built-in method to create a shallow copy of an object.
-RETURN: Object. Shallow copy.
-
-.Count() 
-USE: Built-in method to get total number of key-value pairs in an object.
-Return: Number of key-value pairs.
-
-.Delete(Key) 
-.Delete(StartKey,EndKey) 
-USE: Built-in method to delete a key|range of keys from an object.
-KEY: Specific key to delete.
-STARTKEY|ENDKEY: Deletes key range (inclusive).
-RETURN: 1+ = Number of pairs removed. BLANK = None.
-
-.GetAddress(Key) 
-USE: Built-in method for getting address of field's string buffer.
-RETURN: Address number.
-
-.GetCapacity() 
-.GetCapacity(Key) 
-USE: Built-in method to get the capactiy or an object|field.
-RETURN: Object's max size or field's capacity in bytes.
-
-.HasKey(Key) 
-USE: Built-in method to check if key is present in object.
-RETURN: True = Key is present    False = Key does not exist
-
-.Insert(Pos, Value1, [Value2, ..., ValueN]) [DEPRECATED!] 
-.Insert(Value) [DEPRECATED!] 
-.Insert(StringOrObjectKey, Value) [DEPRECATED!] 
-DEPRECATED: Insert is not recommended for use in new scripts.
-REPLACEMENT: Use the method: .InsertAt()
-
-.InsertAt(Index, [Value1 , Value2, .. ValueN]) 
-USE: Built-in method to insert one or more values at array Index.
-INDEX: Position to insert values.
-
-.Length() 
-USE: Built-in method to get highest positive integer key.
-
-.MaxIndex() 
-USE: Built-in method to get highest integer key from a linear array.
-
-.MinIndex() 
-USE: Built-in method to get lowest integer key from a linear array.
-
-._NewEnum() 
-USE: Built-in method to enumerate an object's key-value pairs.
-REMARK: This method is usually not called directly
-
-.Pop() 
-USE: Built-in method to remove the highest integer element of an array.
-RETURN: Element removed. Otherwise return empty string.
-
-.Push(Value) 
-USE: Built-in method to add new element to "end" of array.
-RETURN:Index of last inserted value.
-
-.Remove(FirstKey, LastKey) [DEPRECATED!] 
-DEPRECATED: Remove is not recommended for use in new scripts.
-REPLACEMENT: Use the method: .RemoveAt()
-
-.RemoveAt(Index, [Length]) 
-USE: Built-in method to remove one or more items from an array.
-INDEX: The key to start removing items at.
-LENGTH: Number of items to remove.
-RETURN: If no Length, return value of removed Index.
-        If Length, return number of removed items.
-
-.SetCapacity(MaxItems)
-.SetCapacity(Key, ByteSize)
-USE: Built-in method to adjust capcity of an object or field.
-MAXITEMS: Set arrays maximum size.
-KEY: Any key.
-BYTESIZE: Size in bytes to make Key.
-RETURN: New capacity if successful. Empty string if failed.
-
-
-
-### =============== CLASS_METHODS ===============
-
-__Call() 
-USE: Built-in method called when a class method is call that doesn't exist.
-
-__Class() 
-USE: Built-in method that returns the name of the class.
-
-__Delete() 
-USE: Built-in method called when a class is destroyed.
-
-__Get() 
-USE: Built-in method called when a class key is accessed that doesn't exist.
-
-__New() 
-USE: Built-in method called when a class is created.
-
-__Set() 
-USE: Built-in method called when a class key is set that doesn't exist.
+ErrorLevel: 0 = Success. 1 = Timed out.
 
 
 
 ### =============== ESCAPE_SEQUENCES ===============
 
+## ======== General ========
+
 `n 
-USE: (LF) New Linefeed
+USE: Linefeed (LF)
 
 `r 
-USE: (CR) New Carriage Return
+USE: Carriage Return (CR)
 
 `b 
 USE: Backspace
@@ -5266,16 +5196,101 @@ USE: Tab
 USE: Vertical Tab
 
 `a 
-USE: (Bell) Alert
+USE: Alert (Bell)
 
 `f 
-USE: Formfeed
+USE: Form Feed
 
 
 
-### =============== KEYS_AND_BUTTONS_LIST ===============
+### =============== OBJECT_METHODS_AND_PROPERTIES ===============
 
-## General Keys
+## ======== AHK_OBJECT ========
+# ==== METHOD ====
+Clone
+Count
+Delete
+GetAddress
+GetCapacity
+HasKey
+InsertAt
+Length
+MaxIndex
+MinIndex
+_NewEnum
+Pop
+Push
+RemoveAt
+SetCapacity
+
+# ==== PROPERTY ====
+Base
+
+## ======== FILE_OBJECT ========
+# ==== METHOD ====
+
+Read
+Write
+ReadLine
+WriteLine
+RawRead
+RawWrite
+Seek
+Tell
+Close
+
+# ==== PROPERTY ====
+
+Pos
+Length
+AtEOF
+Encoding
+__Handle
+
+## ======== FUNC_OBJECT ========
+# ==== METHOD ====
+
+Call
+Bind
+IsByRef
+IsOptional
+
+# ==== PROPERTY ====
+
+PROPERTY
+Name
+IsBuiltIn
+IsVariadic
+MinParams
+MaxParams
+
+## ======== RegEx_MATCH_OBJECT ========
+# ==== PROPERTY ====
+
+Pos
+Len
+Value
+Name
+Count
+Mark
+
+## ======== CLASS ========
+# ==== METHOD ====
+
+__Call
+__Class
+__Delete
+__New
+
+# ==== PROPERTY ====
+
+__Set
+__Get
+
+
+### =============== KEYS_AND_BUTTONS ===============
+
+## ======== Keys_General ========
 Space
 Tab
 Enter
@@ -5285,7 +5300,7 @@ Esc
 Backspace
 BS
 
-## Navigation Keys
+## ======== Keys_Nav ========
 End
 Home
 PgDn
@@ -5299,7 +5314,7 @@ Down
 Left
 Right
 
-## Numpad Keys
+## ======== Keys_Numpad ========
 Numpad0
 Numpad1
 Numpad2
@@ -5327,12 +5342,12 @@ NumpadAdd
 NumpadSub
 NumpadEnter
 
-## Lock Keys
+## ======== Keys_Lock ========
 CapsLock
-Scrolllock
+ScrollLock
 NumLock
 
-## Function Keys
+## ======== Keys_Function ========
 F1
 F2
 F3
@@ -5358,7 +5373,7 @@ F22
 F23
 F24
 
-## Modifier Keys
+## ======== Keys_Modifier ========
 LWin
 RWin
 Control
@@ -5374,7 +5389,7 @@ Shift
 LShift
 RShift
 
-## Browser Keys
+## ======== Keys_Browser ========
 Browser_Back
 Browser_Forward
 Browser_Refresh
@@ -5383,12 +5398,12 @@ Browser_Search
 Browser_Favorites
 Browser_Home
 
-## Volume Keys
+## ======== Keys_Volume ========
 Volume_Mute
 Volume_Down
 Volume_Up
 
-## Other Keys
+## ======== Keys_Other ========
 AppsKey
 PrintScreen
 CtrlBreak
@@ -5399,32 +5414,32 @@ Sleep
 SC
 VK
 
-## Media Keys
+## ======== Keys_Media ========
 Media_Next
 Media_Prev
 Media_Stop
 Media_Play_Pause
 
-## Launch Keys
+## ======== Keys_Launch ========
 Launch_Mail
 Launch_Media
 Launch_App1
 Launch_App2
 
-## Mouse Buttons
+## ======== Buttons_Mouse ========
 LButton
 MButton
 RButton
 XButton1
 XButton2
 
-## Mouse Wheel
+## ======== Mouse_Wheel ========
 WheelDown
 WheelUp
 WheelLeft
 WheelRight
 
-## Joy Buttons
+## ======== Joy_Buttons ========
 Joy1
 Joy2
 Joy3
@@ -5458,7 +5473,7 @@ Joy30
 Joy31
 Joy32
 
-## Joy Pads Paddles and Sticks
+## ======== Joy_Other ========
 JoyX
 JoyY
 JoyZ
@@ -5473,49 +5488,9 @@ JoyPOV
 
 
 
-### =============== KEYWORDS ===============
+### =============== SUBCOMMANDS ===============
 
-## ======== AHK_OBJECTS ========
-
-## File Object
-Pos
-Length
-AtEOF
-Encoding
-__Handle
-Read
-Write
-ReadLine
-WriteLine
-RawRead
-RawWrite
-Seek
-Tell
-Close
-
-## Func Object
-Name
-IsBuiltIn
-IsVariadic
-MinParams
-MaxParams
-Call
-Bind
-IsByRef
-IsOptional
-
-## RegEx Match Object
-Pos
-Len
-Value
-Name
-Count
-Mark
-
-
-## ======== KEYWORD_SUBCOMMANDS ========
-
-## Control
+## ======== Control ========
 Check
 Uncheck
 Enable
@@ -5534,7 +5509,7 @@ Choose
 EditPaste
 ChooseString
 
-## ControlGet
+## ======== ControlGet ========
 List
 Checked
 Enabled
@@ -5549,15 +5524,15 @@ Line
 Selected
 Style
 ExStyle
-Hwnd
+HWND
 
-## Drive
+## ======== Drive ========
 Label
 Lock
 Unlock
 Eject
 
-## DriveGet
+## ======== DriveGet ========
 List
 Capacity
 FileSystem
@@ -5567,7 +5542,7 @@ Type
 Status
 StatusCD
 
-## GUI
+## ======== GUI ========
 New
 Add
 Show
@@ -5590,7 +5565,7 @@ Strike
 Underline
 Norm
 
-## GuiControl
+## ======== GuiControl ========
 Text
 Move
 MoveDraw
@@ -5605,7 +5580,7 @@ ChooseString
 Font
 Options
 
-## GuiControlGet
+## ======== GuiControlGet ========
 Pos
 Focus
 FocusV
@@ -5614,7 +5589,7 @@ Visible
 HWND
 Name
 
-## Menu
+## ======== Menu ========
 Tray
 Add
 Insert
@@ -5641,7 +5616,7 @@ MainWindow
 NoMainWindow
 UseErrorLevel
 
-## Process
+## ======== Process ========
 Exist
 Close
 List
@@ -5652,26 +5627,26 @@ AboveNormal
 BelowNormal
 High
 Low
-Realtime
+RealTime
 
-## SysGet
+## ======== SysGet ========
 MonitorCount
 MonitorPrimary
 Monitor
 MonitorWorkArea
 MonitorName
 
-## Thread
+## ======== Thread ========
 NoTimers
 Priority
 Interrupt
 
-## Transform
+## ======== Transform ========
 Unicode
 Deref
 HTML
 
-## WinGet
+## ======== WinGet ========
 ID
 IDLast
 PID
@@ -5681,13 +5656,13 @@ Count
 List
 MinMax
 ControlList
-ControlListHwnd
+ControlListHWND
 Transparent
 TransColor
 Style
 ExStyle
 
-## WinSet
+## ======== WinSet ========
 AlwaysOnTop
 Bottom
 Top
@@ -5700,18 +5675,136 @@ Region
 Transparent
 TransColor
 
-## ======== KEYWORD_OPTIONS ========
 
-## #Hotstring
+
+### =============== KEYWORDS_TYPES ===============
+
+## ======== Control Types ========
+Text
+Edit
+UpDown
+Picture
+Pic
+Button
+Checkbox
+Radio
+DropDownList
+DDL
+ComboBox
+ListBox
+ListView
+TreeView
+Link
+Hotkey
+DateTime
+MonthCal
+Slider
+Progress
+GroupBox
+Tab3
+Tab2
+Tab
+StatusBar
+ActiveX
+
+## ======== Data Types ========
+AStr
+Char
+Double
+Float
+Int
+Int64
+Ptr
+Short
+Str
+UChar
+UInt
+UPtr
+UShort
+WStr
+
+## ======== Encoding Types ========
+UTF-8
+UTF-8-RAW
+UTF-16
+UTF-16-RAW
+CP
+
+## ======== Variant Type Constants ========
+VT_ARRAY
+VT_BOOL
+VT_BSTR
+VT_BYREF
+VT_CY
+VT_DATE
+VT_DECIMAL
+VT_DISPATCH
+VT_EMPTY
+VT_ERROR
+VT_I1
+VT_I2
+VT_I4
+VT_I8
+VT_INT
+VT_NULL
+VT_R4
+VT_R8
+VT_RECORD
+VT_UI1
+VT_UI2
+VT_UI4
+VT_UI8
+VT_UINT
+VT_UNKNOWN
+VT_VARIANT
+
+## ======== Base HTML Colors ========
+Aqua
+Black
+Blue
+Fuchsia
+Gray
+Green
+Lime
+Maroon
+Navy
+Olive
+Purple
+Red
+Silver
+Teal
+White
+Yellow
+
+## ======== WinTitle Types ========
+ahk_class
+ahk_exe
+ahk_group
+ahk_id
+ahk_pid
+
+## ======== Command Line Parameters ========
+Force
+Restart
+ErrorStdOut
+Debug
+CP
+iLib
+
+
+
+### =============== KEYWORDS_OTHER ===============
+
+## ======== #Hotstring ========
 NoMouse
 EndChars
 
-## #SingleInstance
+## ======== #SingleInstance ========
 Force
 Ignore
 Off
 
-## #Warn
+## ======== #Warn ========
 UseUnsetLocal
 UseUnsetGlobal
 UseEnv
@@ -5723,32 +5816,32 @@ StdOut
 OutputDebug
 Off
 
-## ComObjValue()
+## ======== ComObjValue() ========
 Name
 IID
 Class
 CLSID
 
-## DllCall()
-CDecl 
+## ======== DllCall() ========
+CDecl
 
-## Exception()
+## ======== Exception() ========
 Message
 What
 Extra
 File
 Line
 
-## Hotstring()
+## ======== Hotstring() ========
 On
 Off
 Toggle
 
-## LoadPicture()
+## ======== LoadPicture() ========
 Icon
 GDI+
 
-## LV_Add()
+## ======== LV_Add() ========
 Check
 Col
 Focus
@@ -5756,15 +5849,15 @@ Icon
 Select
 Vis
 
-## LV_GetCount()
+## ======== LV_GetCount() ========
 Selected
 Column
 
-## LV_GetNext()
+## ======== LV_GetNext() ========
 Checked
 Focused
 
-## LV_Insert()
+## ======== LV_Insert() ========
 Check
 Col
 Focus
@@ -5772,7 +5865,7 @@ Icon
 Select
 Vis
 
-## LV_InsertCol()
+## ======== LV_InsertCol() ========
 Auto
 AutoHdr
 Icon
@@ -5792,7 +5885,7 @@ Sort
 SortDesc
 Uni
 
-## LV_ModifyCol()
+## ======== LV_ModifyCol() ========
 Center
 Text
 Uni
@@ -5812,11 +5905,11 @@ Float
 Logical
 CaseLocale
 
-## RegisterCallback()
-Fast 
+## ======== RegisterCallback() ========
+Fast
 CDecl
 
-## TV_Add()
+## ======== TV_Add() ========
 Bold
 First
 Icon
@@ -5827,19 +5920,19 @@ Sort
 Vis
 VisFirst
 
-## TV_Get()
+## ======== TV_Get() ========
 Expand
 Expanded
 Check
 Checked
 Bold
 
-## TV_GetNext()
+## ======== TV_GetNext() ========
 Full
 Check
 Checked
 
-## TV_Modify()
+## ======== TV_Modify() ========
 Bold
 Icon
 Check
@@ -5850,7 +5943,7 @@ Select
 Sort
 First
 
-## If
+## ======== If ========
 Between
 In
 Contains
@@ -5867,7 +5960,7 @@ AlNum
 Space
 Time
 
-## IfMsgBox
+## ======== IfMsgBox ========
 Yes
 No
 OK
@@ -5879,14 +5972,14 @@ Continue
 TryAgain
 Timeout
 
-## Loop
+## ======== Loop ========
 Files
 Parse
 Read
 Reg
 CSV
 
-## BlockInput
+## ======== BlockInput ========
 On
 Off
 Send
@@ -5896,7 +5989,7 @@ Default
 MouseMove
 MouseMoveOff
 
-## Click
+## ======== Click ========
 Left
 Right
 Middle
@@ -5915,7 +6008,7 @@ Up
 Relative
 Rel
 
-## ControlClick
+## ======== ControlClick ========
 Left
 Right
 Middle
@@ -5936,16 +6029,16 @@ Rel
 Pos
 NA
 
-## ControlGet
+## ======== ControlGet ========
 Selected
 Focused
 Col
 Count
 
-## ControlSend
+## ======== ControlSend ========
 ahk_parent
 
-## CoordMode
+## ======== CoordMode ========
 ToolTip
 Pixel
 Mouse
@@ -5956,13 +6049,13 @@ Relative
 Window
 Client
 
-## EnvSub
+## ======== EnvSub ========
 Days
 Hours
 Minutes
 Seconds
 
-## FormatTime
+## ======== FormatTime ========
 dd
 ddd
 dddd
@@ -5973,7 +6066,7 @@ yy
 yyyy
 gg
 
-## Gui
+## ======== GUI ========
 Center
 xCenter
 yCenter
@@ -6006,12 +6099,20 @@ Resize
 SysMenu
 Theme
 ToolWindow
+x+
+y+
 xp
+xp+
 yp
+yp+
 xm
+xm+
 ym
+ym+
 xs
+xs+
 ys
+ys+
 AltSubmit
 Disabled
 Hidden
@@ -6030,26 +6131,26 @@ DoubleClick
 ColClick
 
 
-## GuiControl-Checkbox
+## ======== GuiControl-Checkbox ========
 Check3
 Checked
 CheckedGray
 
-## GuiControl-DateTime
+## ======== GuiControl-DateTime ========
 LongDate
 Time
 Choose
 Range
 Right
 
-## GuiControl-DropDownList
+## ======== GuiControl-DropDownList ========
 DDL
 Choose
 Uppercase
 Lowercase
 Sort
 
-## GuiControl-Edit
+## ======== GuiControl-Edit ========
 Limit
 Lowercase
 Multi
@@ -6062,10 +6163,10 @@ WantReturn
 WantTab
 Wrap
 
-## GuiControl-Hotkey
+## ======== GuiControl-Hotkey ========
 Limit
 
-## GuiControl-ListBox
+## ======== GuiControl-ListBox ========
 Choose
 Multi
 ReadOnly
@@ -6078,7 +6179,7 @@ IconSmall
 List
 Report
 
-## GuiControl-ListView
+## ======== GuiControl-ListView ========
 AltSubmit
 Background
 Checked
@@ -6091,21 +6192,21 @@ NoSortHdr
 NoSort
 ReadOnly
 
-## GuiControl-MonthCal
+## ======== GuiControl-MonthCal ========
 Multi
 Range
 
-## GuiControl-Progress
+## ======== GuiControl-Progress ========
 Background
 Range
 Smooth
 Vertical
 
-## GuiControl-Radio
+## ======== GuiControl-Radio ========
 Group
 Checked
 
-## GuiControl-Slider
+## ======== GuiControl-Slider ========
 Buddy
 Center
 Invert
@@ -6119,7 +6220,7 @@ ThickInterval
 ToolTip
 Vertical
 
-## GuiControl-Tab
+## ======== GuiControl-Tab ========
 Choose
 Background
 Buttons
@@ -6128,7 +6229,7 @@ Right
 Bottom
 Wrap
 
-## GuiControl-TreeView
+## ======== GuiControl-TreeView ========
 AltSubmit
 Background
 Buttons
@@ -6139,13 +6240,13 @@ Lines
 ReadOnly
 WantF2
 
-## GuiControl-UpDown
+## ======== GuiControl-UpDown ========
 Horz
 Left
 Range
 Wrap
 
-## Hotkey
+## ======== Hotkey ========
 On
 Off
 Toggle
@@ -6156,17 +6257,17 @@ ShiftAltTab
 AltTabAndMenu
 AltTabMenuDismiss
 
-## ImageSearch
+## ======== ImageSearch ========
 Icon
 Trans
 
-## Menu
+## ======== Menu ========
 Radio
 Right
 Break
 BarBreak
 
-## MouseClick
+## ======== MouseClick ========
 Left
 Right
 Middle
@@ -6183,7 +6284,7 @@ WR
 Relative
 Rel
 
-## MouseClickDrag
+## ======== MouseClickDrag ========
 Left
 Right
 Middle
@@ -6198,16 +6299,16 @@ WL
 WheelRight
 WR
 
-## PixelGetColor
+## ======== PixelGetColor ========
 Alt
 Slow
 RGB
 
-## PixelSearch
+## ======== PixelSearch ========
 Fast
 RGB
 
-## Progress
+## ======== Progress ========
 Hide
 ZH
 ZW
@@ -6220,7 +6321,8 @@ WS
 CB
 CW
 
-## RegRead RegWrite
+## ======== RegRead ========
+## ======== RegWrite ========
 ahk_default
 REG_BINARY
 REG_DWORD
@@ -6238,21 +6340,21 @@ HKU
 HKEY_CURRENT_CONFIG
 HKCC
 
-## Run
+## ======== Run ========
 RunAs*
 Max
 Min
 Hide
 UseErrorLevel
 
-## RunWait
+## ======== RunWait ========
 RunAs*
 Max
 Min
 Hide
 UseErrorLevel
 
-## Send
+## ======== Send ========
 {Raw}
 {Text}
 {Blind}
@@ -6260,24 +6362,26 @@ DownR
 DownTemp
 
 
-## SendMode
+## ======== SendMode ========
 Event
 Input
 InputThenPlay
 Play
 
-## Set[Caps|Num|Scroll]LockState
+## ======== SetCapsLockState ========
+## ======== SetNumLockState ========
+## ======== SetScrollLockState ========
 On
 Off
 AlwaysOn
 AlwaysOnOff
 
-## SetTitleMatchMode
+## ======== SetTitleMatchMode ========
 RegEx
 Fast
 Slow
 
-## SoundGet
+## ======== SoundGet ========
 MASTER
 SPEAKERS
 DIGITAL
@@ -6305,7 +6409,7 @@ BASS
 TREBLE
 EQUALIZER
 
-## SoundSet
+## ======== SoundSet ========
 MASTER
 SPEAKERS
 DIGITAL
@@ -6333,7 +6437,7 @@ BASS
 TREBLE
 EQUALIZER
 
-## SplashImage
+## ======== SplashImage ========
 Hide
 ZH
 ZW
@@ -6346,137 +6450,21 @@ WS
 CB
 CW
 
-## StringCaseSense
+## ======== StringCaseSense ========
 On
 Off
 Locale
 
-## Suspend
+## ======== Suspend ========
 On
 Off
 ToggleCheck
 Permit
 
-## Continuation Section
+## ======== Continuation Section ========
 Join
 LTrim
 RTrim
 Comments
 Comment
 Com
-
-
-
-## ======== KEYWORDS_TYPES ========
-
-## Control Types
-Text
-Edit
-UpDown
-Picture
-Pic
-Button
-Checkbox
-Radio
-DropDownList
-DDL
-ComboBox
-ListBox
-ListView
-TreeView
-Link
-Hotkey
-DateTime
-MonthCal
-Slider
-Progress
-GroupBox
-Tab3
-Tab2
-Tab
-StatusBar
-ActiveX
-
-## Data Types
-AStr
-Char
-Double
-Float
-Int
-Int64
-Ptr
-Short
-Str
-UChar
-UInt
-UPtr
-UShort
-WStr
-
-## Encoding Types
-UTF-8
-UTF-8-RAW
-UTF-16
-UTF-16-RAW
-CP
-
-## Variant Type Constants
-VT_ARRAY
-VT_BOOL
-VT_BSTR
-VT_BYREF
-VT_CY
-VT_DATE
-VT_DECIMAL
-VT_DISPATCH
-VT_EMPTY
-VT_ERROR
-VT_I1
-VT_I2
-VT_I4
-VT_I8
-VT_INT
-VT_NULL
-VT_R4
-VT_R8
-VT_RECORD
-VT_UI1
-VT_UI2
-VT_UI4
-VT_UI8
-VT_UINT
-VT_UNKNOWN
-VT_VARIANT
-
-## Base HTML Colors
-Aqua
-Black
-Blue
-Fuchsia
-Gray
-Green
-Lime
-Maroon
-Navy
-Olive
-Purple
-Red
-Silver
-Teal
-White
-Yellow
-
-## WinTitle Types
-ahk_class
-ahk_exe
-ahk_group
-ahk_id
-ahk_pid
-
-## Command Line Parameters
-/Force
-/Restart
-/ErrorStdOut
-/Debug
-/CP
-/iLib
