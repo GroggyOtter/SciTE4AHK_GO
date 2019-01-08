@@ -1,14 +1,15 @@
-Overall Status:
-Fixed the error that was causing SciTE to get all messed up.
-SciTE runs normally and basic styles are working.
+Recently finished:
+Fixed all parsers in lexicon converter.
+Finished API and Keyword file builders.
 
 Currently working on:
-Converter to get Keywords built from lexicon
+API customization/omission of unwanted tags
+Create premade customizations
 
 Files/Folders                   |Status     |Notes
 --------------------------------+-----------+------------------------------------------------------------------------
 Master Lexicon                  |99.9@%     |Will never truly be 100% done :P
-Lexicon converter script        |80%        |Need to finish all GUI functions
+Lexicon converter script        |90%        |Need to finish all GUI functions
                                 |           |Need to verify it works as an #Include as well as a standalone
                                 |           |API Builder complete. Keyword builder almost complete.
                                 |           |
