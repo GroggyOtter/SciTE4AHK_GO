@@ -94,13 +94,12 @@ EX: #HotkeyModifierTimeout 50
 USE: Sets default options | end characters for all following hotstrings.
 NOMOUSE: Mouse clicks do not reset the hotstring recognizer.
 ENDCHARS: Characters in Str will activate end of hotstring.
-OPTIONS: Set the default options of future hotstrings. Space separated.
+OPTIONS: Space separated list of options.
     * = Fires on match      ? = Each keystroke starts a new hotkey check
     C = Case sensitive      B = Backspaces hotstring text before sending
     R = Use {Raw} Send      O = End character is not sent
-    T = Use {Text} Send     C1 = Hotstring does not conform to typed case
+    T = Use {Text} Send     Kn = N key delay|N key duration in ms for SE|SP
     Pn = Priority P1 to P5  SI|SP|SE = Send method Input | Play | Event
-    Kn = N key delay|N key duration in ms for SE|SP
     X = Inline hotstring will treat text after it as a command
     Z = Reset hotstring recognizer after a hotstring fires
     Add a 0 to the end of an option (except Kn|Pn|X) to disable it.
@@ -255,6 +254,7 @@ EX: #Warn All MsgBox
 #WinActivateForce 
 USE: Window activation uses a more forceful method.
 REMARK: Affects: WinActivate|WinActivateBottom|GroupActivate
+
 
 
 ### =============== BUILT_IN_VARIABLES ===============
@@ -1243,6 +1243,7 @@ REMARK: Most evaluations treat any value greater than 0 as true.
 EX: MsgBox, % "True:" True " False:" False ; V=> True:1 False:0
 
 
+
 ### =============== BUILT_IN_FUNCTIONS ===============
 
 Abs(Num) 
@@ -1565,9 +1566,8 @@ OPTIONS: Space separated list of options.
     * = Fires on match      ? = Each keystroke starts a new hotkey check
     C = Case sensitive      B = Backspaces hotstring text before sending
     R = Use {Raw} Send      O = End character is not sent
-    T = Use {Text} Send     C1 = Hotstring does not conform to typed case
+    T = Use {Text} Send     Kn = N key delay|N key duration in ms for SE|SP
     Pn = Priority P1 to P5  SI|SP|SE = Send method Input | Play | Event
-    Kn = N key delay|N key duration in ms for SE|SP
     X = Inline hotstring will treat text after it as a command
     Z = Reset hotstring recognizer after a hotstring fires
     Add a 0 to the end of an option (except Kn|Pn|X) to disable it.
@@ -1581,9 +1581,8 @@ OPTIONS: Space separated list of options.
     * = Fires on match      ? = Each keystroke starts a new hotkey check
     C = Case sensitive      B = Backspaces hotstring text before sending
     R = Use {Raw} Send      O = End character is not sent
-    T = Use {Text} Send     C1 = Hotstring does not conform to typed case
+    T = Use {Text} Send     Kn = N key delay|N key duration in ms for SE|SP
     Pn = Priority P1 to P5  SI|SP|SE = Send method Input | Play | Event
-    Kn = N key delay|N key duration in ms for SE|SP
     X = Inline hotstring will treat text after it as a command
     Z = Reset hotstring recognizer after a hotstring fires
     Add a 0 to the end of an option (except Kn|Pn|X) to disable it.
@@ -2194,6 +2193,7 @@ RETURN: 0 = Failure. 1+ = Matching window's Unique ID (HWND)
 EX: WinExist("ahk_exe.exe") ; R=> 054c2d5
 
 
+
 ### =============== CONTROL_FLOW ===============
 
 Break, [LoopLabel] 
@@ -2520,17 +2520,29 @@ EX: While (A_Index <= 5)
         MsgBox, % "Iteration #" A_Index
 
 
+
 ### =============== OPERATORS ===============
 
 ## ======== General ========
-
 , 
 USE: Multiple Expressions, Separate Fields/Params
 EX: x:=Mod(8,3), y:=2, z:=x+y ; Multiple expressions
 
+. 
+USE: Concatination, object access
+EX: x:="Hello," . " world!" ; R=> Hello, world!
+    X.Y ; Gets Y element from obj X
+
+ByRef 
+USE: Access variable by address
+EX: Func(ByRef x) ; Changes to var are permanent
+
+New 
+USE: New item|object
+EX: x := new Class ; Creates a new class object
+
 
 ## ======== Assignment ========
-
 := 
 USE: Assign to
 EX: x:=7 ; x => 7
@@ -2581,7 +2593,6 @@ EX: x:=4, x<<=1 ; x => 8
 
 
 ## ======== Math ========
-
 + 
 USE: Add
 EX: x:=2+3 ; x => 5
@@ -2607,20 +2618,18 @@ USE: Floor Divide
 EX: x:=5/2 ; x => 2
 
 ++ 
-USE: Increment Number by 1
+USE: Increment by 1
 EX: x:=8, ++x ; x => 9
 
 -- 
-USE: Decrement Number by 1
+USE: Decrement by 1
 EX: x:=8, --x ; x => 7
 
 
 ## ======== Bitwise ========
-
 & 
 USE: Bitwise AND, Address Ref, 
-EX: (1 & 1) ;=> 1 (True)
-    NumGet(&var,0,"Int") ; Address    
+EX: (1 & 1) ;=> True
 
 ^ 
 USE: Bitwise XOR
@@ -2643,19 +2652,7 @@ USE: Bit shift right
 EX: x:=4, x:=x>>1 ; x => 2
 
 
-## ======== Variable ========
-
-ByRef 
-USE: Access variable by address
-EX: Func(ByRef x) ; Changes to var are permanent
-
-New 
-USE: New item|object
-EX: x := new Class ; Creates a new class object
-
-
 ## ======== Comparison ========
-
 = 
 USE: Equal
 EX: if (7 = 7) ; True
@@ -2713,20 +2710,19 @@ USE: Logical NOT
 EX: if NOT (False) ; True
 
 ! 
-USE: Not
+USE: Logical NOT
 EX: y:=True, x:=!y ; x => False
 
 
 ## ======== Ternary ========
-
 ? 
 USE: Ternary if
 Ex: (10>1 ? True: False) ; Ternary
 
 : 
-USE: Ternary Else, Pair Separator
-Ex: (10>1 ? True : False) ; Ternary
-    {key : value}         ; Object Pair
+USE: Ternary Else, Key Pair Separator
+Ex: (10>1 ? True : False) ; Ternary. R => True
+    arr := {key:"data"}   ; Set data to arr.key
 
 
 
@@ -2751,6 +2747,7 @@ EX: Local Var := 0
 Static 
 USE: Permanent private function variable
 EX: Static Var := 0
+
 
 
 ### =============== COMMANDS ===============
@@ -4913,8 +4910,8 @@ EX: Transform,
 Transform, OutputVar, HTML, String, [Flags] 
 USE: Convert the ASCII characters in a String above 127 to their HTML names.
 FLAGS: Sum of the following values. 
-    1 = Convert to named expressions. € converts to &euro;
-    2 = Convert to numbered expressions. € converts to &#8364;
+    1 = Convert to named expressions. â‚¬ converts to &euro;
+    2 = Convert to numbered expressions. â‚¬ converts to &#8364;
 EX: Transform, varHTML, HTML, varStr, 1 
 
 TrayTip, [Title, Text, Seconds, Options] 
@@ -5179,7 +5176,6 @@ ErrorLevel: 0 = Success. 1 = Timed out.
 ### =============== ESCAPE_SEQUENCES ===============
 
 ## ======== General ========
-
 `n 
 USE: Linefeed (LF)
 
@@ -5228,7 +5224,6 @@ Base
 
 ## ======== FILE_OBJECT ========
 # ==== METHOD ====
-
 Read
 Write
 ReadLine
@@ -5240,7 +5235,6 @@ Tell
 Close
 
 # ==== PROPERTY ====
-
 Pos
 Length
 AtEOF
@@ -5249,14 +5243,12 @@ __Handle
 
 ## ======== FUNC_OBJECT ========
 # ==== METHOD ====
-
 Call
 Bind
 IsByRef
 IsOptional
 
 # ==== PROPERTY ====
-
 PROPERTY
 Name
 IsBuiltIn
@@ -5266,7 +5258,6 @@ MaxParams
 
 ## ======== RegEx_MATCH_OBJECT ========
 # ==== PROPERTY ====
-
 Pos
 Len
 Value
@@ -5276,16 +5267,15 @@ Mark
 
 ## ======== CLASS ========
 # ==== METHOD ====
-
 __Call
 __Class
 __Delete
 __New
 
 # ==== PROPERTY ====
-
 __Set
 __Get
+
 
 
 ### =============== KEYS_AND_BUTTONS ===============
@@ -5403,17 +5393,6 @@ Volume_Mute
 Volume_Down
 Volume_Up
 
-## ======== Keys_Other ========
-AppsKey
-PrintScreen
-CtrlBreak
-Pause
-Break
-Help
-Sleep
-SC
-VK
-
 ## ======== Keys_Media ========
 Media_Next
 Media_Prev
@@ -5425,6 +5404,17 @@ Launch_Mail
 Launch_Media
 Launch_App1
 Launch_App2
+
+## ======== Keys_Other ========
+AppsKey
+PrintScreen
+CtrlBreak
+Pause
+Break
+Help
+Sleep
+SC
+VK
 
 ## ======== Buttons_Mouse ========
 LButton
