@@ -1,27 +1,26 @@
 Recently finished:
-Fixed all parsers in lexicon converter.
-Finished API and Keyword file builders.
+Finished up the lexicon converter a while ago.
+It now creates a fully functional API as well as a formatted KeyWords file. Plus, GUI! Very cool.
 
 Currently working on:
-API customization/omission of unwanted tags
-Create premade customizations
+Rewriting SciTE4AHK source. This...has become a slight problem. I know very little about C++ and the entire core of SciTE is written in it.
+I'm currently trying to rework all the constants and checks this program uses to style everything.
+Strongly considering just updating SciTE4AHK and releasing that so people can actually USE it and then continue working on SciTE4AHK_GO.
+Will update this when I come up with something.
 
 Files/Folders                   |Status     |Notes
 --------------------------------+-----------+------------------------------------------------------------------------
 Master Lexicon                  |99.9@%     |Will never truly be 100% done :P
-Lexicon converter script        |90%        |Need to finish all GUI functions
-                                |           |Need to verify it works as an #Include as well as a standalone
-                                |           |API Builder complete. Keyword builder almost complete.
+Lexicon converter script        |100%       |Pretty much all done.
                                 |           |
-AHK.properties                  |65%        |Still have a lot of tweaks to make
-                                |           |Have yet to rewrite the calltip and autocomplete section
-                                |           |Need to finish the keywords file so I can finish the custom AHK styling
-                                |           |All base settings are done
+AHK.properties                  |85%        |Finished all base settings
+                                |           |Have yet to rewrite the calltip and autocomplete section (Dependant on
+                                |           |the aforementioned issues I'm having rewriting the C++ source)
                                 |           |
-AHK.keywords.properties         |75%        |Need to finish the orginzation
-AHK.api                         |100%       |Pretty much done (yay!)
+AHK.keywords.properties         |100%       |Done for now. Alterations will be post source rewrite.
+AHK.api                         |100%       |Done for now.
                                 |           |
-Master Cheat Sheet              |50%        |Still have quite a few sheets to add and a handful to finish
+Master Cheat Sheet              |50%        |Still have quite a few sheets to add and a handful to finish.
                                 |           |
 Installer                       |75%        |Still have some GUI work to do (and artwork)
                                 |           |Still need to finish parts of the installer
